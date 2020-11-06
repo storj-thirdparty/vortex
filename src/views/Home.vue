@@ -35,9 +35,9 @@
 		<tbody>
 			<tr v-for="file in files">
 				<td>{{file.Key}}</td>
-                <td>{{file.Size}}</td>
-                <td>{{file.LastModified.toLocaleString()}}</td>
-                <td><button class="btn btn-primary">Download</button></td>
+				<td>{{file.Size}}</td>
+				<td>{{file.LastModified.toLocaleString()}}</td>
+				<td><button v-on:click="downloadFile(file)" class="btn btn-primary">Download</button></td>
 			</tr>
 		</tbody>
 	</table>
@@ -50,12 +50,13 @@ import HelloWorld from '@/components/HelloWorld.vue'
 import s3Credentials from '../../.s3-credentials.js';
 
 const s3 = new AWS.S3(s3Credentials);
+const Bucket = 'caleb';
 
 export default {
 	name: 'Home',
-    data: () => ({
-        files: []
-    }),
+	data: () => ({
+		files: []
+	}),
 	methods: {
 		addFile(e) {
 			let [file] = e.dataTransfer.files;
@@ -72,24 +73,52 @@ export default {
 				else
 					console.log("Successfully uploaded data");
 
-                this.listFiles();
+				this.listFiles();
 			});
-
 		},
 
-        listFiles() {
-            s3.listObjects({
-                Bucket: 'caleb',
-            }, (err, list) => {
-                console.log(list.Contents);
-                this.files = list.Contents.sort((a, b) => a.Key < b.Key);
-            });
+		downloadFile(file) {
+			s3.getObject({
+				Bucket,
+				Key: file.Key
+			}, (err, data) => {
+				console.log(data);
+				const blob = new Blob([data.Body], {
+					type: data.ContentType
+				});
 
-        }
+				const downloadURL = function(data, fileName) {
+					var a;
+					a = document.createElement('a');
+					a.href = data;
+					a.download = fileName;
+					document.body.appendChild(a);
+					a.style = 'display: none';
+					a.click();
+					a.remove();
+				};
+
+				const url = window.URL.createObjectURL(blob);
+				downloadURL(url, file.Key);
+				setTimeout(function() {
+					return window.URL.revokeObjectURL(url);
+				}, 0);
+			})
+		},
+
+		listFiles() {
+			s3.listObjects({
+				Bucket: 'caleb',
+			}, (err, list) => {
+				console.log(list.Contents);
+				this.files = list.Contents.sort((a, b) => a.Key < b.Key);
+			});
+
+		}
 	},
-    created() {
-        this.listFiles();
-    },
+	created() {
+		this.listFiles();
+	},
 	components: {
 		HelloWorld
 	}
