@@ -10,17 +10,20 @@
 
 	margin-bottom: 25px;
 }
+
+.upload-text {
+	color: #888;
+}
+
+.table {
+	text-align: left;
+}
 </style>
 
 <template>
 <div class="home">
-	<div class="text-center mb-4">
-		<button class="btn btn-lg btn-primary btn-block" type="submit">Upload</button>
-	</div>
-
 	<div v-cloak @drop.prevent="addFile" @dragover.prevent class="upload-area">
-		Upload area
-
+		Drag and drop files here
 	</div>
 
 	<table class="table">
@@ -33,9 +36,19 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr v-for="file in filesUploading">
+				<td class="upload-text">{{file.Key}}</td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="spinner-border" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</td>
+			</tr>
 			<tr v-for="file in files">
 				<td>{{file.Key}}</td>
-				<td>{{file.Size}}</td>
+				<td>{{file.Size | prettyBytes}}</td>
 				<td>{{file.LastModified.toLocaleString()}}</td>
 				<td><button v-on:click="downloadFile(file)" class="btn btn-primary">Download</button></td>
 			</tr>
@@ -45,36 +58,83 @@
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import prettyBytes from 'pretty-bytes';
 import s3Credentials from '../../.s3-credentials.js';
 
 const s3 = new AWS.S3(s3Credentials);
 const Bucket = 'caleb';
 
+async function getNewKey(Key) {
+	try {
+		await s3.headObject({
+			Bucket,
+			Key
+		}).promise();
+	} catch(err) {
+		if(err.code !== "NotFound") {
+			throw new Error(err.code);
+		}
+
+		return Key;
+	}
+
+	const parts = Key.split('.');
+	const ext = parts.pop();
+	const base = parts.join('.');
+
+	for(let i = 1; ; i++) {
+		const newKey = `${base}(${i}).${ext}`;
+
+		try {
+			await s3.headObject({
+				Bucket,
+				Key: newKey
+			}).promise();
+		} catch(err) {
+			if(err.code !== "NotFound") {
+				throw new Error(err.code);
+			}
+
+			return newKey;
+		}
+	}
+
+}
+
 export default {
 	name: 'Home',
 	data: () => ({
-		files: []
+		files: [],
+		filesUploading: []
 	}),
 	methods: {
-		addFile(e) {
-			let [file] = e.dataTransfer.files;
+		async addFile(e) {
+			await Promise.all([...e.dataTransfer.files].map(async file => {
+				const Key = await getNewKey(file.name);
 
-			const params = {
-				Bucket: 'caleb',
-				Key: file.name,
-				Body: file
-			};
+				const params = {
+					Bucket,
+					Key,
+					Body: file
+				};
 
-			s3.putObject(params, (err, data) => {
-				if (err)
-					console.log(err)
-				else
-					console.log("Successfully uploaded data");
+				const tempFile = {
+					Key
+				};
 
-				this.listFiles();
-			});
+				this.filesUploading.push(tempFile);
+
+				s3.putObject(params, (err, data) => {
+					if (err)
+						console.log(err)
+					else
+						console.log("Successfully uploaded data");
+
+					this.listFiles(() => {
+						this.filesUploading.splice(this.filesUploading.indexOf(tempFile), 1);
+					});
+				});
+			}));
 		},
 
 		downloadFile(file) {
@@ -106,21 +166,24 @@ export default {
 			})
 		},
 
-		listFiles() {
+		listFiles(cb = () => {}) {
 			s3.listObjects({
 				Bucket: 'caleb',
 			}, (err, list) => {
-				console.log(list.Contents);
-				this.files = list.Contents.sort((a, b) => a.Key < b.Key);
+				this.files = list.Contents.sort((a, b) => {
+					return a.LastModified > b.LastModified ? -1 : 1;
+				});
+
+				cb();
 			});
 
 		}
 	},
+	filters: {
+		prettyBytes
+	},
 	created() {
 		this.listFiles();
-	},
-	components: {
-		HelloWorld
 	}
 }
 </script>
