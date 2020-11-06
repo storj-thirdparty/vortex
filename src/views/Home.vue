@@ -18,12 +18,29 @@
 .table {
 	text-align: left;
 }
+
+.bucket-actions {
+	text-align: right;
+	margin-bottom: 25px;
+}
 </style>
 
 <template>
 <div class="home">
 	<div v-cloak @drop.prevent="addFile" @dragover.prevent class="upload-area">
 		Drag and drop files here
+	</div>
+
+	<div class="bucket-actions">
+		<button v-on:click="directoryInput = ''" class="btn btn-warning">
+			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+				<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
+				<path fill-rule="evenodd"
+				 d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
+			</svg>
+
+			Make Directory
+		</button>
 	</div>
 
 	<table class="table">
@@ -36,8 +53,18 @@
 			</tr>
 		</thead>
 		<tbody>
+			<tr v-if="directoryInput !== null">
+				<td><input type="text" v-model="directoryInput" v-on:keydown.enter="createDirectory"></td>
+			</tr>
+
 			<tr v-for="file in filesUploading">
-				<td class="upload-text">{{file.Key}}</td>
+				<td class="upload-text">
+					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+						<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
+					</svg>
+					{{file.Key}}
+				</td>
 				<td></td>
 				<td></td>
 				<td>
@@ -46,8 +73,23 @@
 					</div>
 				</td>
 			</tr>
+
+
 			<tr v-for="file in files">
-				<td>{{file.Key}}</td>
+				<td>
+					<svg v-if="file._type === 'file'" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
+						<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
+					</svg>
+
+					<svg v-if="file._type === 'folder'" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+						<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
+						<path fill-rule="evenodd"
+						 d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
+					</svg>
+
+					{{file.Key}}
+				</td>
 				<td>{{file.Size | prettyBytes}}</td>
 				<td>{{file.LastModified.toLocaleString()}}</td>
 				<td><button v-on:click="downloadFile(file)" class="btn btn-primary">Download</button></td>
@@ -70,8 +112,8 @@ async function getNewKey(Key) {
 			Bucket,
 			Key
 		}).promise();
-	} catch(err) {
-		if(err.code !== "NotFound") {
+	} catch (err) {
+		if (err.code !== "NotFound") {
 			throw new Error(err.code);
 		}
 
@@ -82,7 +124,7 @@ async function getNewKey(Key) {
 	const ext = parts.pop();
 	const base = parts.join('.');
 
-	for(let i = 1; ; i++) {
+	for (let i = 1;; i++) {
 		const newKey = `${base}(${i}).${ext}`;
 
 		try {
@@ -90,8 +132,8 @@ async function getNewKey(Key) {
 				Bucket,
 				Key: newKey
 			}).promise();
-		} catch(err) {
-			if(err.code !== "NotFound") {
+		} catch (err) {
+			if (err.code !== "NotFound") {
 				throw new Error(err.code);
 			}
 
@@ -105,7 +147,8 @@ export default {
 	name: 'Home',
 	data: () => ({
 		files: [],
-		filesUploading: []
+		filesUploading: [],
+		directoryInput: null
 	}),
 	methods: {
 		async addFile(e) {
@@ -170,13 +213,40 @@ export default {
 			s3.listObjects({
 				Bucket: 'caleb',
 			}, (err, list) => {
-				this.files = list.Contents.sort((a, b) => {
-					return a.LastModified > b.LastModified ? -1 : 1;
-				});
+				const set = new Set();
+
+				this.files = list.Contents
+					.sort((a, b) => a.LastModified > b.LastModified ? -1 : 1)
+					.map(file => ({
+						...file,
+						...{
+							Key: file.Key.split('/')[0],
+							_type: file.Key.split('/').length === 1 ? 'file' : 'folder'
+						}
+					}))
+					.filter(({
+						Key
+					}) => {
+						if (set.has(Key)) {
+							return false;
+						} else {
+							set.add(Key);
+							return true;
+						}
+					});
 
 				cb();
 			});
+		},
 
+		async createDirectory() {
+			await s3.putObject({
+				Key: this.directoryInput + '/.vortex-folder',
+				Bucket
+			}).promise();
+
+			this.directoryInput = null;
+			await this.listFiles();
 		}
 	},
 	filters: {
