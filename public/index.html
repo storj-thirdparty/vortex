@@ -1,68 +1,67 @@
 <!DOCTYPE html>
-<!-- saved from url=(0059)https://getbootstrap.com/docs/4.0/examples/floating-labels/ -->
 <html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="FileZilla + Tardigrade = Get 1TB Free Decentralized Cloud Storage">
+    <link rel="icon" href="favicon.ico">
+    <link rel="stylesheet" href="bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
-<head>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title>FileZilla + Tardigrade</title>
 
-	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-	<meta name="description" content="">
-	<meta name="author" content="">
-	<link rel="icon" href="https://getbootstrap.com/docs/4.0/assets/img/favicons/favicon.ico">
+  	<script>
+  	window['_fs_debug'] = false;
+  	window['_fs_host'] = 'fullstory.com';
+  	window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
+  	window['_fs_org'] = 'Z0D7A';
+  	window['_fs_namespace'] = 'FS';
+  	(function(m,n,e,t,l,o,g,y){
+  	    if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
+  	    g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
+  	    o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
+  	    y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
+  	    g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
+  	    g.anonymize=function(){g.identify(!!0)};
+  	    g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
+  	    g.log = function(a,b){g("log",[a,b])};
+  	    g.consent=function(a){g("consent",!arguments.length||a)};
+  	    g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
+  	    g.clearUserCookie=function(){};
+  	    g.setVars=function(n, p){g(n, p);};
+  	    g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
+  	    if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
+  	    g._v="1.3.0";
+  	})(window,document,window['_fs_namespace'],'script','user');
+  	</script>
 
-	<title>Vortex</title>
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+    })(window,document,'script','dataLayer','GTM-53CNPV8');</script>
+    <!-- End Google Tag Manager -->
 
-	<link rel="canonical" href="https://getbootstrap.com/docs/4.0/examples/floating-labels/">
+    <link href="/js/app.js" rel="preload" as="script">
+    <link href="/js/chunk-vendors.js" rel="preload" as="script">
+  </head>
 
-	<!-- Bootstrap core CSS -->
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <body>
+     <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53CNPV8"
+    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+    <!-- End Google Tag Manager (noscript) -->
 
-	<!-- Custom styles for this template -->
-	<link href="./Floating labels example for Bootstrap_files/floating-labels.css" rel="stylesheet">
-	<script data-dapp-detection="">
-		(function() {
-			let e = !1;
+    <div id="app"></div>
 
-			function n() {
-				if (!e) {
-					const n = document.createElement("meta");
-					n.name = "dapp-detected", document.head.appendChild(n), e = !0
-				}
-			}
-			if (window.hasOwnProperty("ethereum")) {
-				if (window.__disableDappDetectionInsertion = !0, void 0 === window.ethereum) return;
-				n()
-			} else {
-				var t = window.ethereum;
-				Object.defineProperty(window, "ethereum", {
-					configurable: !0,
-					set: function(e) {
-						window.__disableDappDetectionInsertion || n(), t = e
-					},
-					get: function() {
-						return window.__disableDappDetectionInsertion || n(), t
-					}
-				})
-			}
-		})();
-	</script>
-</head>
+    <script type="text/javascript" src="/js/chunk-vendors.js"></script>
+    <script type="text/javascript" src="/js/app.js"></script>
 
-<body>
-	<form class="form-signin">
-		<div class="text-center mb-4">
-			<img class="mb-8" src="storj-logo.svg" alt="" width="250">
-			<h1 class="h3 mb-3 font-weight-normal">Vortex</h1>
-			<p>Upload and download via Stargate.</p>
-		</div>
+    <!-- jQuery and JS bundle w/ Popper.js -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
 
-
-		<div id="app"></div>
-
-		<p class="mt-5 mb-3 text-muted text-center">© 2020</p>
-	</form>
-
-	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.786.0.min.js"></script>
-</body>
+   </body>
 
 </html>
