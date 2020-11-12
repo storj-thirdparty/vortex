@@ -106,7 +106,8 @@
 export default {
 	props: [
 		'apiKey',
-		'satelliteAddress'
+		'satelliteAddress',
+		'accessGrant'
 	],
 	methods: {
 		copySatelliteAddress() {

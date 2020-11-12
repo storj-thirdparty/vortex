@@ -216,7 +216,7 @@ input {
 </div>
 
 <div v-else>
-	<Keys v-bind:apiKey="apiKey" v-bind:satelliteAddress="satelliteAddress"></Keys>
+	<Keys v-bind:apiKey="apiKey" v-bind:satelliteAddress="satelliteAddress" v-bind:accessGrant="accessGrant"></Keys>
 </div>
 </template>
 
@@ -233,7 +233,8 @@ export default {
 		email: '',
 		password: '',
 		apiKey: null,
-		satelliteAddress: null
+		satelliteAddress: null,
+		accessGrant: null
 	}),
 	computed: {
 		validEmail() {
@@ -264,7 +265,7 @@ export default {
 				"asia-east-1.tardigrade.io": "121RTSDpyNZVcEU84Ticf2L1ntiuUimbWgfATz21tuvgk3vzoA6@asia-east-1.tardigrade.io:7777"
 			}
 
-			const obj = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "Filezilla");
+			this.accessGrant = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
 
 			console.log(obj);
 		}
