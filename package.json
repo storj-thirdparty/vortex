@@ -8,7 +8,8 @@
 		"build": "vue-cli-service build",
 		"lint": "vue-cli-service lint",
 		"dev": "vue-cli-service build --watch",
-		"dev-start": "(rm -rf rethinkdb_data && rethinkdb >> /dev/null) & vue-cli-service build --watch & (node scripts/fake-data.js && node index.js)"
+		"dev-start": "(rm -rf rethinkdb_data && rethinkdb >> /dev/null) & vue-cli-service build --watch & (node scripts/fake-data.js && node index.js)",
+		"prepublish": "./scripts/get-wasm.sh"
 	},
 	"dependencies": {
 		"@koa/router": "^9.4.0",

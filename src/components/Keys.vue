@@ -56,24 +56,20 @@
 
 	<div class="container">
 		<div class="row">
-			<div class="col-sm-12 col-md-5 py-5 text-center">
+			<!--<div class="col-sm-12 col-md-5 py-5 text-center">
 				<div class="video embed-responsive embed-responsive-16by9 mt-4 mb-5">
 					<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UgJw-_7mOpI" frameborder="0" allowfullscreen></iframe>
 				</div>
 				<h5>Watch the Quickstart Video</h5>
 				<p>See how easy it is to start using your 1 TB of free cloud storage space on Tardigrade.</p>
 				<a href="https://documentation.tardigrade.io/how-tos/set-up-filezilla-for-decentralized-file-transfer" target="_blank">Or Visit the Docs</a>
-			</div>
+			</div>-->
 
-			<div class="col-sm-12 col-md-6 offset-md-1 mb-4">
+			<div class="col-sm-12">
 				<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
 					<h5 class="mb-2">Welcome, You've Earned 1 TB Free!</h5>
 					<p>We'll send you an email to confirm your account soon.</p>
-					<div class="alert alert-warning" role="alert">
-						<strong>Save Your API Key Information</strong>
-					  <p class="mb-0">You'll need to use the Satellite name and API key below to access your Tardigrade account.</p>
-					</div>
 
 					<div class="row mb-3">
 						<div class="col text-left">
@@ -88,6 +84,14 @@
 							<label class="label" for="api-key">API Key</label>
 							<input type="text" id="api-key" class="form-control fs-exclude" placeholder="API Key" autocomplete="off" v-model="apiKey" disabled>
 							<button v-on:click="copyApiKey" class="copy">Copy</button>
+						</div>
+					</div>
+
+					<div class="row mb-3">
+						<div class="col text-left">
+							<label class="label" for="api-key">Access Grant</label>
+							<input type="text" id="access-grant" class="form-control fs-exclude" placeholder="" autocomplete="off" v-model="accessGrant" disabled>
+							<button v-on:click="copyAccessGrant" class="copy">Copy</button>
 						</div>
 					</div>
 

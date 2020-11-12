@@ -458,10 +458,10 @@
 							<ul class="navbar-nav ml-auto">
 								<li class="nav-item mr-3 active">
 									<a class="nav-link login-link" href="https://tardigrade.io/login">
-										<p class="navlink">Sign In <span class="sr-only">(current)</span></p>
+										<!--<p class="navlink">Sign In <span class="sr-only">(current)</span></p>-->
 									</a>
 								</li>
-								<li class="nav-item active"><a href="https://tardigrade.io/signup" class="btn my-2 my-sm-0 nav-join">Get Started</a></li>
+								<li class="nav-item active"><a href="https://tardigrade.io/signup" class="btn my-2 my-sm-0 nav-join">Login</a></li>
 								<li class="nav-item active login-link-mobile">
 									<a class="nav-link" href="https://tardigrade.io/login">
 										<p class="navlink">Sign In <span class="sr-only">(current)</span></p>
