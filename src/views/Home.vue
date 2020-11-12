@@ -113,14 +113,18 @@
 					<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
 						<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
-							<h5 class="mb-4">Try Tardigrade</h5>
+							<h5 class="mb-4">Try Storj</h5>
 
 							<label for="emailAddress">Email Address</label>
 							<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
-							<button v-on:click="signUp" class="btn btn-primary button signup-btn">Try Tardigrade</button>
+							<label for="password">Password</label>
+							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
-							<GetFileZilla></GetFileZilla>
+
+							<button v-on:click="signUp" class="btn btn-primary button signup-btn">Try Storj</button>
+
+							<!--<GetFileZilla></GetFileZilla>-->
 
 						</div>
 					</div>
@@ -135,9 +139,9 @@
 							<div class="video embed-responsive embed-responsive-16by9 mb-5">
 								<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
 							</div>
-							<h2>How Tardigrade Works</h2>
-							<p>Tardigrade splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn't being stored in a vulnerable data center, it's being securely stored all over the world.</p>
-							<a href="https://link.tardigradeshare.io/15CYbbCAnFyMjXZdZs8sVJ8JbGdCKjdaMCjhNKF937pUMikZnXCBDu6SeemVbQ1opJW257otj7SXFaM7DSEGf9Fm6LjtSPQycMXskWbsbWyNY6q6vetvhRY8TsBLKxuB5778sNfVHvnstGHRUB26cKNpZsnRjCXfzqyDLCB2Rd2euu3qf4d3sNFHKwrym9Ubf8ctbAUsQyruK7TJhFHVBGgQLfVDXnoHZo7CcGXDE1gxL27ac2u8YN1tj4vAGvTVy5e2V9mArg7wrJ3q25g9WwerDjScgQFwvPTABBjwyckH8dmH6cTyhqfgsf8UMj9gAc8ygJHbrroZkx3PpxeEvLVHpGvoWSQbyR7SDqdp1UYQ5gCG1T4nPoRrxjMHDCwgScEAAoBb7TJu5pmznEk6KEXb98oriJ1NU3Gh7oykbeQCKHMnwNd2e8W1NcMbFJN8TrWtpzDXafQSWDPEykJot3o3526VWYBDXdCao3C31V99mMf2tEcaWFDnhjv9a97Ck2UKZ8EB8vwPq4tW/homepage/TardigradeExplainerVideo.m4v" class="btn btn-primary button mt-4 px-5">See Tardigrade in Action</a>
+							<h2>How Storj Works</h2>
+							<p>Storj splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn't being stored in a vulnerable data center, it's being securely stored all over the world.</p>
+							<a href="https://link.tardigradeshare.io/15CYbbCAnFyMjXZdZs8sVJ8JbGdCKjdaMCjhNKF937pUMikZnXCBDu6SeemVbQ1opJW257otj7SXFaM7DSEGf9Fm6LjtSPQycMXskWbsbWyNY6q6vetvhRY8TsBLKxuB5778sNfVHvnstGHRUB26cKNpZsnRjCXfzqyDLCB2Rd2euu3qf4d3sNFHKwrym9Ubf8ctbAUsQyruK7TJhFHVBGgQLfVDXnoHZo7CcGXDE1gxL27ac2u8YN1tj4vAGvTVy5e2V9mArg7wrJ3q25g9WwerDjScgQFwvPTABBjwyckH8dmH6cTyhqfgsf8UMj9gAc8ygJHbrroZkx3PpxeEvLVHpGvoWSQbyR7SDqdp1UYQ5gCG1T4nPoRrxjMHDCwgScEAAoBb7TJu5pmznEk6KEXb98oriJ1NU3Gh7oykbeQCKHMnwNd2e8W1NcMbFJN8TrWtpzDXafQSWDPEykJot3o3526VWYBDXdCao3C31V99mMf2tEcaWFDnhjv9a97Ck2UKZ8EB8vwPq4tW/homepage/StorjExplainerVideo.m4v" class="btn btn-primary button mt-4 px-5">See Storj in Action</a>
 						</div>
 
 						<div class="col-sm-12 col-md-6 offset-md-1">
@@ -147,7 +151,7 @@
 								</div>
 								<div class="col-11 px-4">
 									<h5>100% Secure</h5>
-									<p>Store your data with confidence, knowing Tardigrade uses end-to-end encryption and decentralization to offer unparalled security.</p>
+									<p>Store your data with confidence, knowing Storj uses end-to-end encryption and decentralization to offer unparalled security.</p>
 								</div>
 							</div>
 
@@ -157,7 +161,7 @@
 								</div>
 								<div class="col-11 px-4">
 									<h5>Remarkably Durable</h5>
-									<p>Don't worry about downtime and outages. Files on Tardigrade are split into pieces and distributed on a global network, which is why we've never lost a file.</p>
+									<p>Don't worry about downtime and outages. Files on Storj are split into pieces and distributed on a global network, which is why we've never lost a file.</p>
 								</div>
 							</div>
 
@@ -167,7 +171,7 @@
 								</div>
 								<div class="col-11 px-4">
 									<h5>Predictable Pricing</h5>
-									<p>Tardigrade is a fraction of the cost of other storage solutions, and out pricing is predictable so you don't run into surprises when looking at your bill.</p>
+									<p>Storj is a fraction of the cost of other storage solutions, and out pricing is predictable so you don't run into surprises when looking at your bill.</p>
 								</div>
 							</div>
 
@@ -177,7 +181,7 @@
 								</div>
 								<div class="col-11 px-4">
 									<h5>Globally Distributed</h5>
-									<p>Most storage services run on data centers. Tardigrade never puts your file in one place, so downtime and breaches are a thing of the past.</p>
+									<p>Most storage services run on data centers. Storj never puts your file in one place, so downtime and breaches are a thing of the past.</p>
 								</div>
 							</div>
 						</div>

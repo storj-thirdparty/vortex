@@ -27,7 +27,7 @@
 			</div>
 		</div>
 
-		<h2 class="hero-title">Get 1 TB Free When You Try Tardigrade With Filezilla</h2>
+		<h2 class="hero-title">Get 1 TB Free When You Try Storj</h2>
 
 		<p class="description my-4">Tardigrade is safer, faster, decentralized object storage at a fraction of the cost. Get 1 TB free when you join Tardigrade, and start uploading data with FileZilla in just a few easy steps.</p>
 	</div>
