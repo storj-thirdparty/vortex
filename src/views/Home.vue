@@ -27,81 +27,15 @@
 
 <template>
 <div class="home">
-	<div v-cloak @drop.prevent="addFile" @dragover.prevent class="upload-area">
-		Drag and drop files here
-	</div>
-
-	<div class="bucket-actions">
-		<button v-on:click="directoryInput = ''" class="btn btn-warning">
-			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-				<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
-				<path fill-rule="evenodd"
-				 d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
-			</svg>
-
-			Make Directory
-		</button>
-	</div>
-
-	<table class="table">
-		<thead>
-			<tr>
-				<th scope="col">File</th>
-				<th scope="col">Size</th>
-				<th scope="col">Upload Date</th>
-				<th scope="col">Actions</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr v-if="directoryInput !== null">
-				<td><input type="text" v-model="directoryInput" v-on:keydown.enter="createDirectory"></td>
-			</tr>
-
-			<tr v-for="file in filesUploading">
-				<td class="upload-text">
-					<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-						<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-					</svg>
-					{{file.Key}}
-				</td>
-				<td></td>
-				<td></td>
-				<td>
-					<div class="spinner-border" role="status">
-						<span class="sr-only">Loading...</span>
-					</div>
-				</td>
-			</tr>
-
-
-			<tr v-for="file in files">
-				<td>
-					<svg v-if="file._type === 'file'" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-file-earmark" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z" />
-						<path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z" />
-					</svg>
-
-					<svg v-if="file._type === 'folder'" width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-						<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
-						<path fill-rule="evenodd"
-						 d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
-					</svg>
-
-					{{file.Key}}
-				</td>
-				<td>{{file.Size | prettyBytes}}</td>
-				<td>{{file.LastModified.toLocaleString()}}</td>
-				<td><button v-on:click="downloadFile(file)" class="btn btn-primary">Download</button></td>
-			</tr>
-		</tbody>
-	</table>
+	<file-browser></file-browser>
 </div>
 </template>
 
 <script>
 import prettyBytes from 'pretty-bytes';
 import s3Credentials from '../../.s3-credentials.js';
+
+import FileBrowser from '../components/file-browser.vue';
 
 const s3 = new AWS.S3(s3Credentials);
 const Bucket = 'caleb';
@@ -215,7 +149,7 @@ export default {
 			}, (err, list) => {
 				const set = new Set();
 
-				this.files = list.Contents
+				const files = list.Contents
 					.sort((a, b) => a.LastModified > b.LastModified ? -1 : 1)
 					.map(file => ({
 						...file,
@@ -234,6 +168,10 @@ export default {
 							return true;
 						}
 					});
+
+				for (const file of files) {
+					this.fbFiles[file.Key] = file;
+				}
 
 				cb();
 			});
@@ -254,6 +192,9 @@ export default {
 	},
 	created() {
 		this.listFiles();
+	},
+	components: {
+		FileBrowser
 	}
 }
 </script>
