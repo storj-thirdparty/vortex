@@ -9,59 +9,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
 
     <title>FileZilla + Tardigrade</title>
-
-  	<script>
-  	window['_fs_debug'] = false;
-  	window['_fs_host'] = 'fullstory.com';
-  	window['_fs_script'] = 'edge.fullstory.com/s/fs.js';
-  	window['_fs_org'] = 'Z0D7A';
-  	window['_fs_namespace'] = 'FS';
-  	(function(m,n,e,t,l,o,g,y){
-  	    if (e in m) {if(m.console && m.console.log) { m.console.log('FullStory namespace conflict. Please set window["_fs_namespace"].');} return;}
-  	    g=m[e]=function(a,b,s){g.q?g.q.push([a,b,s]):g._api(a,b,s);};g.q=[];
-  	    o=n.createElement(t);o.async=1;o.crossOrigin='anonymous';o.src='https://'+_fs_script;
-  	    y=n.getElementsByTagName(t)[0];y.parentNode.insertBefore(o,y);
-  	    g.identify=function(i,v,s){g(l,{uid:i},s);if(v)g(l,v,s)};g.setUserVars=function(v,s){g(l,v,s)};g.event=function(i,v,s){g('event',{n:i,p:v},s)};
-  	    g.anonymize=function(){g.identify(!!0)};
-  	    g.shutdown=function(){g("rec",!1)};g.restart=function(){g("rec",!0)};
-  	    g.log = function(a,b){g("log",[a,b])};
-  	    g.consent=function(a){g("consent",!arguments.length||a)};
-  	    g.identifyAccount=function(i,v){o='account';v=v||{};v.acctId=i;g(o,v)};
-  	    g.clearUserCookie=function(){};
-  	    g.setVars=function(n, p){g(n, p);};
-  	    g._w={};y='XMLHttpRequest';g._w[y]=m[y];y='fetch';g._w[y]=m[y];
-  	    if(m[y])m[y]=function(){return g._w[y].apply(this,arguments)};
-  	    g._v="1.3.0";
-  	})(window,document,window['_fs_namespace'],'script','user');
-  	</script>
-
-    <!-- Google Tag Manager -->
-    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
-    new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
-    j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
-    'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
-    })(window,document,'script','dataLayer','GTM-53CNPV8');</script>
-    <!-- End Google Tag Manager -->
-
-    <link href="/js/app.js" rel="preload" as="script">
-    <link href="/js/chunk-vendors.js" rel="preload" as="script">
   </head>
 
   <body>
-     <!-- Google Tag Manager (noscript) -->
-    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-53CNPV8"
-    height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
-    <!-- End Google Tag Manager (noscript) -->
-
     <div id="app"></div>
 
-    <script type="text/javascript" src="/js/chunk-vendors.js"></script>
-    <script type="text/javascript" src="/js/app.js"></script>
-
-    <!-- jQuery and JS bundle w/ Popper.js -->
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ho+j7jyWK8fNQe+A12Hb8AhRq26LrZ/JpcUGGOn+Y7RsweNrtN/tE3MoK7ZeZDyx" crossorigin="anonymous"></script>
-
+	<script src="https://sdk.amazonaws.com/js/aws-sdk-2.786.0.min.js"></script>
    </body>
 
 </html>

@@ -122,101 +122,111 @@ input {
 </style>
 
 <template>
-<div v-if="!apiKey">
+<div>
+	<div v-if="!apiKey">
 
-	<div class="container">
-		<div class="row">
-			<div class="col-sm-12 col-md-6 col-lg-5 py-5 mt-0 mt-lg-5">
-				<Hero></Hero>
-			</div>
-
-			<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
-				<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
-
-					<h5 class="mb-4">Try Storj</h5>
-
-					<label for="emailAddress">Email Address</label>
-					<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
-
-					<label for="password">Password</label>
-					<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
-
-
-					<button v-on:click="signUp" class="btn btn-primary button signup-btn">Try Storj</button>
-
-					<!--<GetFileZilla></GetFileZilla>-->
-
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<div class="how">
 		<div class="container">
-			<div class="row py-5">
-
-				<div class="col-sm-12 col-md-5 pb-5">
-					<div class="video embed-responsive embed-responsive-16by9 mb-5">
-						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
-					</div>
-					<h2>How Storj Works</h2>
-					<p>Storj splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn't being stored in a vulnerable data center, it's being securely stored all
-						over the world.</p>
-					<a
-					 href="https://link.tardigradeshare.io/15CYbbCAnFyMjXZdZs8sVJ8JbGdCKjdaMCjhNKF937pUMikZnXCBDu6SeemVbQ1opJW257otj7SXFaM7DSEGf9Fm6LjtSPQycMXskWbsbWyNY6q6vetvhRY8TsBLKxuB5778sNfVHvnstGHRUB26cKNpZsnRjCXfzqyDLCB2Rd2euu3qf4d3sNFHKwrym9Ubf8ctbAUsQyruK7TJhFHVBGgQLfVDXnoHZo7CcGXDE1gxL27ac2u8YN1tj4vAGvTVy5e2V9mArg7wrJ3q25g9WwerDjScgQFwvPTABBjwyckH8dmH6cTyhqfgsf8UMj9gAc8ygJHbrroZkx3PpxeEvLVHpGvoWSQbyR7SDqdp1UYQ5gCG1T4nPoRrxjMHDCwgScEAAoBb7TJu5pmznEk6KEXb98oriJ1NU3Gh7oykbeQCKHMnwNd2e8W1NcMbFJN8TrWtpzDXafQSWDPEykJot3o3526VWYBDXdCao3C31V99mMf2tEcaWFDnhjv9a97Ck2UKZ8EB8vwPq4tW/homepage/StorjExplainerVideo.m4v"
-					 class="btn btn-primary button mt-4 px-5">See Storj in Action</a>
+			<div class="row">
+				<div class="col-sm-12 col-md-6 col-lg-5 py-5 mt-0 mt-lg-5">
+					<Hero></Hero>
 				</div>
 
-				<div class="col-sm-12 col-md-6 offset-md-1">
-					<div class="row mb-5">
-						<div class="col-1">
-							<img src="@/assets/tar-ico-secure.svg" alt="100% Secure" height="32" width="32">
-						</div>
-						<div class="col-11 px-4">
-							<h5>100% Secure</h5>
-							<p>Store your data with confidence, knowing Storj uses end-to-end encryption and decentralization to offer unparalled security.</p>
-						</div>
-					</div>
+				<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
+					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
-					<div class="row mb-5">
-						<div class="col-1">
-							<img src="@/assets/tar-ico-durable.svg" alt="Remarkably Durable" height="32" width="32">
-						</div>
-						<div class="col-11 px-4">
-							<h5>Remarkably Durable</h5>
-							<p>Don't worry about downtime and outages. Files on Storj are split into pieces and distributed on a global network, which is why we've never lost a file.</p>
-						</div>
-					</div>
+						<h5 class="mb-4">Try Storj</h5>
 
-					<div class="row mb-5">
-						<div class="col-1">
-							<img src="@/assets/tar-ico-money.svg" alt="Predictable Pricing" height="32" width="32">
-						</div>
-						<div class="col-11 px-4">
-							<h5>Predictable Pricing</h5>
-							<p>Storj is a fraction of the cost of other storage solutions, and out pricing is predictable so you don't run into surprises when looking at your bill.</p>
-						</div>
-					</div>
+						<label for="emailAddress">Email Address</label>
+						<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
-					<div class="row mb-5">
-						<div class="col-1">
-							<img src="@/assets/tar-ico-global.svg" alt="Globally Distributed" height="32" width="32">
-						</div>
-						<div class="col-11 px-4">
-							<h5>Globally Distributed</h5>
-							<p>Most storage services run on data centers. Storj never puts your file in one place, so downtime and breaches are a thing of the past.</p>
-						</div>
+						<label for="password">Password</label>
+						<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+
+
+						<button v-on:click="signUp" class="btn btn-primary button signup-btn">Try Storj</button>
+
+						<!--<GetFileZilla></GetFileZilla>-->
+
 					</div>
 				</div>
+			</div>
+		</div>
 
+		<div class="how">
+			<div class="container">
+				<div class="row py-5">
+
+					<div class="col-sm-12 col-md-5 pb-5">
+						<div class="video embed-responsive embed-responsive-16by9 mb-5">
+							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
+						</div>
+						<h2>How Storj Works</h2>
+						<p>Storj splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn't being stored in a vulnerable data center, it's being securely stored all
+							over the world.</p>
+						<a
+						 href="https://link.tardigradeshare.io/15CYbbCAnFyMjXZdZs8sVJ8JbGdCKjdaMCjhNKF937pUMikZnXCBDu6SeemVbQ1opJW257otj7SXFaM7DSEGf9Fm6LjtSPQycMXskWbsbWyNY6q6vetvhRY8TsBLKxuB5778sNfVHvnstGHRUB26cKNpZsnRjCXfzqyDLCB2Rd2euu3qf4d3sNFHKwrym9Ubf8ctbAUsQyruK7TJhFHVBGgQLfVDXnoHZo7CcGXDE1gxL27ac2u8YN1tj4vAGvTVy5e2V9mArg7wrJ3q25g9WwerDjScgQFwvPTABBjwyckH8dmH6cTyhqfgsf8UMj9gAc8ygJHbrroZkx3PpxeEvLVHpGvoWSQbyR7SDqdp1UYQ5gCG1T4nPoRrxjMHDCwgScEAAoBb7TJu5pmznEk6KEXb98oriJ1NU3Gh7oykbeQCKHMnwNd2e8W1NcMbFJN8TrWtpzDXafQSWDPEykJot3o3526VWYBDXdCao3C31V99mMf2tEcaWFDnhjv9a97Ck2UKZ8EB8vwPq4tW/homepage/StorjExplainerVideo.m4v"
+						 class="btn btn-primary button mt-4 px-5">See Storj in Action</a>
+					</div>
+
+					<div class="col-sm-12 col-md-6 offset-md-1">
+						<div class="row mb-5">
+							<div class="col-1">
+								<img src="@/assets/tar-ico-secure.svg" alt="100% Secure" height="32" width="32">
+							</div>
+							<div class="col-11 px-4">
+								<h5>100% Secure</h5>
+								<p>Store your data with confidence, knowing Storj uses end-to-end encryption and decentralization to offer unparalled security.</p>
+							</div>
+						</div>
+
+						<div class="row mb-5">
+							<div class="col-1">
+								<img src="@/assets/tar-ico-durable.svg" alt="Remarkably Durable" height="32" width="32">
+							</div>
+							<div class="col-11 px-4">
+								<h5>Remarkably Durable</h5>
+								<p>Don't worry about downtime and outages. Files on Storj are split into pieces and distributed on a global network, which is why we've never lost a file.</p>
+							</div>
+						</div>
+
+						<div class="row mb-5">
+							<div class="col-1">
+								<img src="@/assets/tar-ico-money.svg" alt="Predictable Pricing" height="32" width="32">
+							</div>
+							<div class="col-11 px-4">
+								<h5>Predictable Pricing</h5>
+								<p>Storj is a fraction of the cost of other storage solutions, and out pricing is predictable so you don't run into surprises when looking at your bill.</p>
+							</div>
+						</div>
+
+						<div class="row mb-5">
+							<div class="col-1">
+								<img src="@/assets/tar-ico-global.svg" alt="Globally Distributed" height="32" width="32">
+							</div>
+							<div class="col-11 px-4">
+								<h5>Globally Distributed</h5>
+								<p>Most storage services run on data centers. Storj never puts your file in one place, so downtime and breaches are a thing of the past.</p>
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+	</div>
+
+	<div v-else>
+		<Keys v-bind:apiKey="apiKey" v-bind:satelliteAddress="satelliteAddress" v-bind:accessGrant="accessGrant"></Keys>
+
+		<div class="container">
+			<div class="row">
+				<div class="col-sm-12">
+					<file-browser v-bind="{ files, path }" v-on:uploadFile="uploadFile"></file-browser>
+				</div>
 			</div>
 		</div>
 	</div>
-
-</div>
-
-<div v-else>
-	<Keys v-bind:apiKey="apiKey" v-bind:satelliteAddress="satelliteAddress" v-bind:accessGrant="accessGrant"></Keys>
 </div>
 </template>
 
@@ -226,6 +236,42 @@ import wasm from '../wasm.js';
 
 import Hero from '../components/Hero.vue';
 import Keys from '../components/Keys.vue';
+import FileBrowser from '../components/FileBrowser.vue';
+
+let s3;
+
+const Bucket = 'web';
+
+async function getNewKey(Key) {
+	try {
+		await s3.headObject({
+			Bucket,
+			Key
+		}).promise();
+	} catch (err) {
+		if (err.code !== "NotFound") {
+			throw new Error(err.code);
+		}
+		return Key;
+	}
+	const parts = Key.split('.');
+	const ext = parts.pop();
+	const base = parts.join('.');
+	for (let i = 1;; i++) {
+		const newKey = `${base}(${i}).${ext}`;
+		try {
+			await s3.headObject({
+				Bucket,
+				Key: newKey
+			}).promise();
+		} catch (err) {
+			if (err.code !== "NotFound") {
+				throw new Error(err.code);
+			}
+			return newKey;
+		}
+	}
+}
 
 export default {
 	name: 'Home',
@@ -234,7 +280,10 @@ export default {
 		password: '',
 		apiKey: null,
 		satelliteAddress: null,
-		accessGrant: null
+		accessGrant: null,
+
+		path: '/dffd',
+		files: []
 	}),
 	computed: {
 		validEmail() {
@@ -267,12 +316,73 @@ export default {
 
 			this.accessGrant = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
 
-			console.log(obj);
-		}
+			s3 = new AWS.S3({
+				accessKeyId: this.accessGrant,
+				secretAccessKey: 'dsfsf',
+				endpoint: "https://ngb1-hz.stargate.staging.tardigradeshare.io",
+				s3ForcePathStyle: true, // needed with minio?
+				signatureVersion: 'v4'
+			});
+
+			this.path = 'test';
+
+			try {
+				await s3.createBucket({
+					Bucket
+				}).promise();
+			} catch (err) {
+				console.log('bucket already exists', err);
+			}
+
+
+
+			//await this.listFiles();
+
+
+		},
+
+		async listFiles() {
+			const _files = await s3.listObjects({
+				Bucket
+			}).promise();
+
+			_files.Contents.sort((a, b) => {
+				return a.LastModified > b.LastModified ? -1 : 1;
+			});
+
+			this.files = [..._files.Contents];
+		},
+
+		async uploadFile(e) {
+			console.log(e);
+
+			await Promise.all([...e.dataTransfer.files].map(async file => {
+				const Key = await getNewKey(file.name);
+				const params = {
+					Bucket,
+					Key,
+					Body: file
+				};
+				const tempFile = {
+					Key
+				};
+				//this.filesUploading.push(tempFile);
+				s3.putObject(params, (err, data) => {
+					if (err)
+						console.log(err)
+					else
+						console.log("Successfully uploaded data");
+					this.listFiles(() => {
+					//	this.filesUploading.splice(this.filesUploading.indexOf(tempFile), 1);
+					});
+				});
+			}));
+		},
 	},
 	components: {
 		Hero,
-		Keys
+		Keys,
+		FileBrowser
 	}
 }
 </script>
