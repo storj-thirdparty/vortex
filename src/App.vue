@@ -474,7 +474,7 @@
 			</div>
 		</div>
 
-		<router-view></router-view>
+		<home></home>
 
 		<footer>
 			<div class="footer container">
@@ -558,3 +558,13 @@
 
 	</div>
 </template>
+
+<script>
+import Home from '../views/Home.vue';
+
+export default {
+	components: {
+		Home
+	}
+}
+</script>
