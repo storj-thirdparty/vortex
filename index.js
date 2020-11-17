@@ -6,6 +6,10 @@ const r = require('rethinkdb');
 
 (async () => {
 
+	r.connect({
+		host: 'rethink'
+	});
+
 	const app = new Koa();
 	const router = new Router();
 
