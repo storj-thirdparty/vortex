@@ -5,5 +5,7 @@ services:
     build: .
     ports:
       - "80:3000"
+    links:
+            - "rethink:rethink"
   rethink:
     image: rethinkdb:latest
