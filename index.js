@@ -3,8 +3,13 @@ const Koa = require('koa');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
 const r = require('rethinkdb');
+const Redis = require('ioredis');
 
 (async () => {
+
+	const redis = new Redis({
+		host: 'redis'
+	});
 
 	r.connect({
 		host: 'rethink'
