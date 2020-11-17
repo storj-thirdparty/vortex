@@ -1,5 +1,9 @@
 version: "3.8"
 
+volumes:
+  rethink-data:
+
+
 services:
   vortex:
     build: .
@@ -10,5 +14,7 @@ services:
       - "redis:redis"
   rethink:
     image: rethinkdb:latest
+    volumes:
+        - rethink-data:/data
   redis:
     image: redis:latest
