@@ -83,7 +83,7 @@
 						<div class="col text-left">
 							<label class="label" for="api-key">API Key</label>
 							<input type="text" id="api-key" class="form-control fs-exclude" placeholder="API Key" autocomplete="off" v-model="apiKey" disabled>
-							<button v-on:click="copyApiKey" class="copy">Copy</button>
+							<button v-on:click="" class="copy">Copy</button>
 						</div>
 					</div>
 
@@ -91,7 +91,7 @@
 						<div class="col text-left">
 							<label class="label" for="api-key">Access Grant</label>
 							<input type="text" id="access-grant" class="form-control fs-exclude" placeholder="" autocomplete="off" v-model="accessGrant" disabled>
-							<button v-on:click="copyAccessGrant" class="copy">Copy</button>
+							<button v-on:click="" class="copy">Copy</button>
 						</div>
 					</div>
 

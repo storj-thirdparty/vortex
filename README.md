@@ -1,2 +1,1 @@
-# wormhole
-Project Wormhole
+# vortex

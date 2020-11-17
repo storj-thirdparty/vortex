@@ -314,17 +314,20 @@ export default {
 				"asia-east-1.tardigrade.io": "121RTSDpyNZVcEU84Ticf2L1ntiuUimbWgfATz21tuvgk3vzoA6@asia-east-1.tardigrade.io:7777"
 			}
 
-			this.accessGrant = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
+			console.log('wasm.generateAccessGrant', satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
+
+			//this.accessGrant = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
+			this.accessGrant = '14zZEdH4uEZwjbd4fKNHZffoWy5AW8jrFkJF9Sxd5PHH9EtjxEGjX99Zf6u4EGAaCacfHnqyXjJuvBDgATSziN9i4yr6LszLgJcTK5mz5hjuzviBBap4KinhWYphLb58ZDAApMwtRKnW5wtMP6Hw6G4bbXezZSSRdYVvPDBs2GeeNScTSsFFYErHMSwfFWZYuE7WyHWTfo8sogwxtmwL7EEZmKQZt6Tv1kFRfE7zPq7s1QNBN4rwBvzZGf1RcmcjToUDNioXNhyXGa1mGG';
+
+			/* auth service */
 
 			s3 = new AWS.S3({
-				accessKeyId: this.accessGrant,
-				secretAccessKey: 'dsfsf',
+				accessKeyId: "4ZyUxY91uNaHhsznSoc9tSkiz4NDnrN69yz9NThV3P1WwgW735",
+				secretAccessKey: '5abErMdaZ7wWZufARciWsVjFxiTu6dux2dC1Sqvs4TUMfcNNCc',
 				endpoint: "https://ngb1-hz.stargate.staging.tardigradeshare.io",
 				s3ForcePathStyle: true, // needed with minio?
 				signatureVersion: 'v4'
 			});
-
-			this.path = 'test';
 
 			try {
 				await s3.createBucket({
@@ -335,10 +338,7 @@ export default {
 			}
 
 
-
-			//await this.listFiles();
-
-
+			this.path = 'test2';
 		},
 
 		async listFiles() {
