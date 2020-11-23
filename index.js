@@ -2,17 +2,35 @@ const fs = require('fs');
 const Koa = require('koa');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
-const r = require('rethinkdb');
+const Thinky = require('thinky');
 const Redis = require('ioredis');
+
+const thinky = Thinky({
+	host: 'rethink'
+});
+
+const type = thinky.type;
+
+const User = thinky.createModel('User', {
+	email: String,
+	password: String,
+	createTime: type.date(),
+	lastLoginTime: type.date(),
+	activated: type.boolean()
+});
+
+const user = new User({
+    email: 'monty@storj.io',
+	password: 'sdfsd',
+	createTime: Date.now(),
+	lastLoginTime: Date.now(),
+	activated: false
+});
 
 (async () => {
 
 	const redis = new Redis({
 		host: 'redis'
-	});
-
-	r.connect({
-		host: 'rethink'
 	});
 
 	const app = new Koa();
