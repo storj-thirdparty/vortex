@@ -2,19 +2,29 @@
 .card {
 	min-height: 500px;
 }
+.table-heading {
+    color: #768394;
+    border-top: 0;
+    border-bottom: 1px solid #dee2e6;
+		padding-left: 0;
+}
+.path {
+	font-size: 18px;
+	font-weight: 700;
+}
 </style>
 
 <template>
 	<div class="card border-0 p-4 p-lg-5 mb-5 mt-4"  @drop.prevent="$emit('uploadFile', $event)" @dragover.prevent>
-		<h1>{{path}}</h1>
+		<p class="path mb-4">{{path}}</p>
 
 		<table class="table">
 			<thead>
 				<tr>
-					<th scope="col">File</th>
-					<th scope="col">Size</th>
-					<th scope="col">Upload Date</th>
-					<th scope="col">Actions</th>
+					<th class="table-heading" scope="col">File</th>
+					<th class="table-heading" scope="col">Size</th>
+					<th class="table-heading" scope="col">Upload Date</th>
+					<th class="table-heading" scope="col">Actions</th>
 				</tr>
 			</thead>
 			<tbody>
