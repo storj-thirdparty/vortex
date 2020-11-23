@@ -1,13 +1,14 @@
-/* HERO VUE  */
-
-h2 {
+body {
+  font-family: 'Inter', sans-serif;
+}
+h1, h2, h3, h4, h5, h6 {
+  font-family: Poppins;
   font-weight: bold;
 }
-@media (max-width: 575.98px) {
-  h2 {
-    font-size: 1.5rem;
-  }
-}
+
+
+/* HERO VUE  */
+
 .filezilla-logo {
   width: 72px;
 }
