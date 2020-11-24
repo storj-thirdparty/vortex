@@ -116,3 +116,4 @@ dist
 .pnp.*
 
 storj
+config.json

@@ -2,41 +2,64 @@ const fs = require('fs');
 const Koa = require('koa');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
-const Thinky = require('thinky');
+<<<<<<< HEAD
+=======
+const r = require('rethinkdb');
+>>>>>>> parent of 42c50309 (optimise Dockerfile + thinky)
 const Redis = require('ioredis');
+const mongoose = require('mongoose');
 
-const thinky = Thinky({
-	host: 'rethink'
-});
+<<<<<<< HEAD
 
-const type = thinky.type;
+const ApiError = require('./lib/ApiError.js');
+const signUp = require('./lib/signUp.js');
+const login = require('./lib/login.js');
 
-const User = thinky.createModel('User', {
-	email: String,
-	password: String,
-	createTime: type.date(),
-	lastLoginTime: type.date(),
-	activated: type.boolean()
-});
+mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
-const user = new User({
-    email: 'monty@storj.io',
-	password: 'sdfsd',
-	createTime: Date.now(),
-	lastLoginTime: Date.now(),
-	activated: false
-});
-
+=======
+>>>>>>> parent of 42c50309 (optimise Dockerfile + thinky)
 (async () => {
-
 	const redis = new Redis({
 		host: 'redis'
+	});
+
+	r.connect({
+		host: 'rethink'
 	});
 
 	const app = new Koa();
 	const router = new Router();
 
 	app.use(require('koa-static')('dist'));
+
+	app.use(async (ctx, next) => {
+		try {
+			await next();
+		} catch(error) {
+			if(error instanceof ApiError) {
+				ctx.body = {
+					error: error.message
+				};
+			} else {
+				throw error;
+			}
+		}
+	});
+
+	router.post('/api/signup', async ctx => {
+		const {email, password} = ctx.request.body;
+
+		await signUp(email, password);
+
+		ctx.body = await login(email, password);
+	});
+
+	router.post('/api/login', async ctx => {
+		const {email, password} = ctx.request.body;
+
+		ctx.body = await login(email, password);
+	});
 
 	app
 		.use(bodyParser())

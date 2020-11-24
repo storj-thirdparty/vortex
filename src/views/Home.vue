@@ -131,24 +131,42 @@ input {
 				<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
 					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
-						<h5 class="mb-4">Get Started</h5>
-
-						<label for="emailAddress">Email Address</label>
-						<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
-
-						<label for="password">Password</label>
-						<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
-
-						<div class="custom-control custom-checkbox mb-3">
-						  <input type="checkbox" class="custom-control-input" id="termsCheck">
-						  <label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
+						<div v-if="error.length > 0" class="alert alert-danger" role="alert">
+							{{error}}
 						</div>
 
-						<button v-on:click="signUp" class="btn btn-primary button signup-btn">Try Storj</button>
+						<div v-if="login === false">
+							<h5 class="mb-4">Get Started</h5>
 
-						<p>Already Signed Up? <a href="https://tardigrade.io/login/">Log In</a></p>
+							<label for="emailAddress">Email Address</label>
+							<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
-						<!--<GetFileZilla></GetFileZilla>-->
+							<label for="password">Password</label>
+							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+
+							<div class="custom-control custom-checkbox mb-3">
+							  <input v-model="termsAndConditions" type="checkbox" class="custom-control-input" id="termsCheck">
+							  <label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
+							</div>
+
+							<button v-on:click="signUp" v-bind:disabled="!loginActivated" class="btn btn-primary button signup-btn btn-block">Try Storj</button>
+
+							<p>Already Signed Up? <a v-on:click="login = true" href="#">Log In</a></p>
+						</div>
+
+						<div v-if="login === true">
+							<h5 class="mb-4">Login</h5>
+
+							<label for="emailAddress">Email Address</label>
+							<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
+
+							<label for="password">Password</label>
+							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+
+							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Try Storj</button>
+
+							<p>Don't have an account? <a v-on:click="login = false" href="#">Sign Up</a></p>
+						</div>
 
 					</div>
 				</div>
@@ -242,142 +260,47 @@ let s3;
 
 const Bucket = 'web';
 
-async function getNewKey(Key) {
-	try {
-		await s3.headObject({
-			Bucket,
-			Key
-		}).promise();
-	} catch (err) {
-		if (err.code !== "NotFound") {
-			throw new Error(err.code);
-		}
-		return Key;
-	}
-	const parts = Key.split('.');
-	const ext = parts.pop();
-	const base = parts.join('.');
-	for (let i = 1;; i++) {
-		const newKey = `${base}(${i}).${ext}`;
-		try {
-			await s3.headObject({
-				Bucket,
-				Key: newKey
-			}).promise();
-		} catch (err) {
-			if (err.code !== "NotFound") {
-				throw new Error(err.code);
-			}
-			return newKey;
-		}
-	}
-}
 
 export default {
 	name: 'Home',
 	data: () => ({
+		apiKey: '',
 		email: '',
 		password: '',
-		apiKey: null,
-		satelliteAddress: null,
-		accessGrant: null,
+		termsAndConditions: false,
+		error: '',
 
-		path: '/dffd',
-		files: []
+		login: false
 	}),
 	computed: {
-		validEmail() {
+		loginActivated() {
 			const re = /\S+@\S+\.\S+/;
-			return re.test(this.email);
+
+			return this.termsAndConditions === true && this.password.length > 0 && re.test(this.email);
 		}
 	},
 	methods: {
 		async signUp() {
-			/*
-			const { data } = await axios.post('/api/sign-up', {
+			const {data} = await axios.post('/api/signup', {
 				email: this.email,
-				satelliteAddress: satellite
+				password: this.password
 			});
-			*/
 
-			const data = {
-				"apiKey": "13YqfF5cCFzVGxvRXZsBrz8vdV1MaZJoVzB3LuMZarkK3XKA4XJM6LbhUqpZvZREy8zxgTJQajhkKzbtivHrEFgFjTYNV5QrfcqMX7D",
-				"satelliteAddress": "europe-west-1.tardigrade.io"
-			};
-
-			this.apiKey = data.apiKey;
-			this.satelliteAddress = data.satelliteAddress;
-
-			const satellites = {
-				"us-central-1.tardigrade.io": "12EayRS2V1kEsWESU9QMRseFhdxYxKicsiFmxrsLZHeLUtdps3S@us-central-1.tardigrade.io:7777",
-				"europe-west-1.tardigrade.io": "12L9ZFwhzVpuEKMUNUqkaTLGzwY9G24tbiigLiXpmZWKwmcNDDs@europe-west-1.tardigrade.io:7777",
-				"asia-east-1.tardigrade.io": "121RTSDpyNZVcEU84Ticf2L1ntiuUimbWgfATz21tuvgk3vzoA6@asia-east-1.tardigrade.io:7777"
+			if(data.error) {
+				this.error = data.error;
 			}
+		},
 
-			console.log('wasm.generateAccessGrant', satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
-
-			//this.accessGrant = await wasm.generateAccessGrant(satellites[this.satelliteAddress], this.apiKey, this.password, "5a6a9d76-f92b-4dfb-8830-ef1d6afae0df");
-			this.accessGrant = '14zZEdH4uEZwjbd4fKNHZffoWy5AW8jrFkJF9Sxd5PHH9EtjxEGjX99Zf6u4EGAaCacfHnqyXjJuvBDgATSziN9i4yr6LszLgJcTK5mz5hjuzviBBap4KinhWYphLb58ZDAApMwtRKnW5wtMP6Hw6G4bbXezZSSRdYVvPDBs2GeeNScTSsFFYErHMSwfFWZYuE7WyHWTfo8sogwxtmwL7EEZmKQZt6Tv1kFRfE7zPq7s1QNBN4rwBvzZGf1RcmcjToUDNioXNhyXGa1mGG';
-
-			/* auth service */
-
-			s3 = new AWS.S3({
-				accessKeyId: "4ZyUxY91uNaHhsznSoc9tSkiz4NDnrN69yz9NThV3P1WwgW735",
-				secretAccessKey: '5abErMdaZ7wWZufARciWsVjFxiTu6dux2dC1Sqvs4TUMfcNNCc',
-				endpoint: "https://ngb1-hz.stargate.staging.tardigradeshare.io",
-				s3ForcePathStyle: true, // needed with minio?
-				signatureVersion: 'v4'
+		async login() {
+			const {data} = await axios.post('/api/login', {
+				email: this.email,
+				password: this.password
 			});
 
-			try {
-				await s3.createBucket({
-					Bucket
-				}).promise();
-			} catch (err) {
-				console.log('bucket already exists', err);
+			if(data.error) {
+				this.error = data.error;
 			}
-
-
-			this.path = 'test2';
-		},
-
-		async listFiles() {
-			const _files = await s3.listObjects({
-				Bucket
-			}).promise();
-
-			_files.Contents.sort((a, b) => {
-				return a.LastModified > b.LastModified ? -1 : 1;
-			});
-
-			this.files = [..._files.Contents];
-		},
-
-		async uploadFile(e) {
-			console.log(e);
-
-			await Promise.all([...e.dataTransfer.files].map(async file => {
-				const Key = await getNewKey(file.name);
-				const params = {
-					Bucket,
-					Key,
-					Body: file
-				};
-				const tempFile = {
-					Key
-				};
-				//this.filesUploading.push(tempFile);
-				s3.putObject(params, (err, data) => {
-					if (err)
-						console.log(err)
-					else
-						console.log("Successfully uploaded data");
-					this.listFiles(() => {
-					//	this.filesUploading.splice(this.filesUploading.indexOf(tempFile), 1);
-					});
-				});
-			}));
-		},
+		}
 	},
 	components: {
 		Hero,

@@ -14,7 +14,9 @@
 	"dependencies": {
 		"@koa/router": "^9.4.0",
 		"@vue/cli": "^4.5.8",
+		"aws-sdk": "^2.798.0",
 		"axios": "^0.20.0",
+		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",
 		"csv": "^5.3.2",
 		"csv-parse": "^4.12.0",
@@ -24,10 +26,11 @@
 		"koa-bodyparser": "^4.3.0",
 		"koa-static": "^5.0.0",
 		"levelup": "^4.4.0",
+		"minio": "^7.0.16",
+		"mongoose": "^5.10.15",
 		"npm": "^6.14.8",
 		"postmark": "^2.6.0",
 		"rethinkdb": "^2.4.2",
-		"thinky": "^2.3.9",
 		"vue": "^2.6.11",
 		"vue-router": "^3.2.0"
 	},

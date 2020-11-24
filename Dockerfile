@@ -1,19 +1,20 @@
 FROM node:15-alpine
 
-EXPOSE 3000
-
-CMD [ "node", "index.js" ]
-
 WORKDIR /usr/src/app
 
 COPY package*.json ./
 
 RUN npm install
 
-COPY src ./src
-COPY public ./public
+COPY . .
 
-RUN npm run build
+RUN NODE_ENV=dev npm run build --dev
 
-COPY lib .
+<<<<<<< HEAD
+COPY lib ./lib
 COPY index.js .
+=======
+EXPOSE 3000
+
+CMD [ "node", "index.js" ]
+>>>>>>> parent of 42c50309 (optimise Dockerfile + thinky)

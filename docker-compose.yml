@@ -1,7 +1,7 @@
 version: "3.8"
 
 volumes:
-  rethink-data:
+  mongo-data:
 
 
 services:
@@ -10,11 +10,11 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     links:
-      - "rethink:rethink"
+      - "mongo:mongo"
       - "redis:redis"
-  rethink:
-    image: rethinkdb:latest
+  mongo:
+    image: mongo:latest
     volumes:
-        - rethink-data:/data
+      - mongo-data:/etc/mongo
   redis:
     image: redis:latest
