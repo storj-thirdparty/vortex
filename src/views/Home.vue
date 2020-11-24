@@ -213,7 +213,7 @@ input {
 							</div>
 							<div class="col-11 px-4">
 								<h5 class="mb-3">Predictable Pricing</h5>
-								<p>Storj is a fraction of the cost of other storage solutions, and out pricing is predictable so you don't run into surprises when looking at your bill.</p>
+								<p>Storj is a fraction of the cost of other storage solutions, and pricing is predictable so you don't run into surprises when looking at your bill.</p>
 							</div>
 						</div>
 
