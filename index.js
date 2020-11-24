@@ -2,14 +2,8 @@ const fs = require('fs');
 const Koa = require('koa');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
-<<<<<<< HEAD
-=======
-const r = require('rethinkdb');
->>>>>>> parent of 42c50309 (optimise Dockerfile + thinky)
 const Redis = require('ioredis');
 const mongoose = require('mongoose');
-
-<<<<<<< HEAD
 
 const ApiError = require('./lib/ApiError.js');
 const signUp = require('./lib/signUp.js');
@@ -17,8 +11,6 @@ const login = require('./lib/login.js');
 
 mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
-=======
->>>>>>> parent of 42c50309 (optimise Dockerfile + thinky)
 (async () => {
 	const redis = new Redis({
 		host: 'redis'
