@@ -16,10 +16,6 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 		host: 'redis'
 	});
 
-	r.connect({
-		host: 'rethink'
-	});
-
 	const app = new Koa();
 	const router = new Router();
 
