@@ -16,5 +16,11 @@ services:
     image: mongo:latest
     volumes:
       - mongo-data:/etc/mongo
+  mongoku:
+    image: huggingface/mongoku:latest
+    ports:
+      - "127.0.0.1:3100:3100"
+    environment:
+      - MONGOKU_DEFAULT_HOST=mongodb://mongo:27017
   redis:
     image: redis:latest
