@@ -148,6 +148,10 @@ input {
 							{{error}}
 						</div>
 
+						<div v-if="message.length > 0" class="alert alert-success" role="alert">
+							{{message}}
+						</div>
+
 						<div v-if="login === false">
 							<h5 class="mb-4">Get Started</h5>
 
@@ -179,7 +183,7 @@ input {
 							<label for="password">Password</label>
 							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
-							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Login</button>
+							<button v-on:click="loginHandler" class="btn btn-primary button signup-btn btn-block">Login</button>
 
 							<p>Don't have an account? <a v-on:click="login = false" href="#">Sign Up</a></p>
 						</div>
@@ -285,6 +289,7 @@ export default {
 		password: '',
 		termsAndConditions: false,
 		error: '',
+		message: '',
 
 		login: false
 	}),
@@ -301,20 +306,28 @@ export default {
 				termsAndConditions: this.termsAndConditions
 			});
 
-			if(data.error) {
-				this.error = data.error;
-			}
+			await this.handleResponse(data);
 		},
 
-		async login() {
+		async loginHandler() {
 			const {data} = await axios.post('/api/login', {
 				email: this.email,
 				password: this.password
 			});
 
+			await this.handleResponse(data);
+		},
+
+		async handleResponse(data) {
 			if(data.error) {
 				this.error = data.error;
+				this.message = '';
+
+				return;
 			}
+
+			this.error = '';
+			this.message = `Welcome, ${data.email}.`;
 		}
 	},
 	components: {
