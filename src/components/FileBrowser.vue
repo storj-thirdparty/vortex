@@ -15,10 +15,10 @@
 </style>
 
 <template>
-	<div class="card border-0 p-4 p-lg-5 mb-5 mt-4"  @drop.prevent="$emit('uploadFile', $event)" @dragover.prevent>
+	<div class="card border-0 p-4 p-lg-5 mb-5 mt-4"  @drop.prevent="upload" @dragover.prevent>
 		<p class="path mb-4">{{path}}</p>
 
-		<table class="table">
+		<table>
 			<thead>
 				<tr>
 					<th class="table-heading" scope="col">File</th>
@@ -28,7 +28,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<!--<tr v-for="file in filesUploading">
+				<tr v-for="file in filesUploading">
 					<td class="upload-text">{{file.Key}}</td>
 					<td></td>
 					<td></td>
@@ -37,13 +37,13 @@
 							<span class="sr-only">Loading...</span>
 						</div>
 					</td>
-				</tr>-->
+				</tr>
 
 				<tr v-for="file in files">
 					<td>{{file.Key}}</td>
 					<td>{{file.Size | prettyBytes}}</td>
 					<td>{{file.LastModified.toLocaleString()}}</td>
-					<td><button v-on:click="downloadFile(file)" class="btn btn-primary">Download</button></td>
+					<td><button v-on:click="download(file)" class="btn btn-primary">Download</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -51,10 +51,86 @@
 </template>
 
 <script>
+const prettyBytes = require('pretty-bytes');
+
 export default {
 	props: [
-		'path',
-		'files'
-	]
+		'stargateCredentials',
+		'stargateEndpoint',
+		'bucket'
+	],
+	data: () => ({
+		s3: null,
+
+		path: '/',
+		filesUploading: [],
+		files: []
+	}),
+	async created() {
+		const s3Config = {
+			accessKeyId: this.stargateCredentials.accessKey,
+			secretAccessKey: this.stargateCredentials.secretKey,
+			endpoint: this.stargateEndpoint,
+			s3ForcePathStyle: true,
+			signatureVersion: 'v4'
+		};
+
+		console.log(s3Config);
+
+		this.s3 = new AWS.S3(s3Config);
+
+		await this.list();
+	},
+	methods: {
+		async upload(e) {
+			let [file] = e.dataTransfer.files;
+
+			const params = {
+				Bucket: this.bucket,
+				Key: file.name,
+				Body: file
+			};
+
+			this.filesUploading.push(params);
+
+			await this.s3.putObject(params).promise();
+			await this.list();
+
+			this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
+		},
+
+		async download(file) {
+			const url = this.s3.getSignedUrl('getObject', {
+				Bucket: this.bucket,
+				Key: file.Key
+			});
+
+			const downloadURL = function(data, fileName) {
+				var a;
+				a = document.createElement('a');
+				a.href = data;
+				a.download = fileName;
+				document.body.appendChild(a);
+				a.style = 'display: none';
+				a.click();
+				a.remove();
+			};
+
+			downloadURL(url);
+		},
+
+		async list() {
+			const { Contents } = await this.s3.listObjects({
+				Bucket: this.bucket
+			}).promise();
+
+			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
+
+			this.files = Contents;
+		}
+	},
+	filters: {
+		prettyBytes
+	}
 }
 </script>

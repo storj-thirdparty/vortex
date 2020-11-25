@@ -129,11 +129,63 @@ input {
 	padding: 40px 0;
 	margin-top: 40px;
 }
+
+.keys .title {
+	font-weight: bold;
+	font-size: 29px;
+	line-height: 43px;
+	text-align: center;
+	color: #252525;
+}
+
+.keys .label {
+	font-weight: bold;
+	font-size: 16px;
+	color: #354049;
+}
+
+.keys .copy {
+	background: #FFFFFF;
+	border: 1px solid #0068DC;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: center;
+	color: #0068DC;
+	cursor: pointer;
+	position: absolute;
+	bottom: 8px;
+	right: 26px;
+	padding: 4px 14px;
+	line-height: 1.6;
+	transition: all 100ms ease-in-out;
+}
+.keys .copy:hover {
+	background: #0068DC;
+	color: #fff;
+}
+.keys a {
+	font-weight: bold;
+}
+.keys input {
+	height: 48px;
+	font-size: 16px;
+	padding: 10px 15px;
+	border: 1px solid #adb4be;
+	color: #474e59;
+	border-radius: 6px;
+	cursor: text;
+}
+.keys .alert-warning {
+color: #000;
+background-color: #fff9f6;
+border-color: #f9a482;
+}
 </style>
 
 <template>
 <div>
-	<div v-if="!apiKey">
+	<div v-if="!stargateCredentials">
 
 		<div class="container">
 			<div class="row">
@@ -255,15 +307,76 @@ input {
 	</div>
 
 	<div v-else>
-		<Keys v-bind:apiKey="apiKey" v-bind:satelliteAddress="satelliteAddress" v-bind:accessGrant="accessGrant"></Keys>
 
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<file-browser v-bind="{ files, path }" v-on:uploadFile="uploadFile"></file-browser>
+					<file-browser
+						v-bind:stargateEndpoint="stargateEndpoint"
+						v-bind:stargateCredentials="stargateCredentials"
+						v-bind:bucket="bucket"
+					></file-browser>
 				</div>
 			</div>
 		</div>
+
+		<div class="container keys">
+			<div class="row">
+				<!--<div class="col-sm-12 col-md-5 py-5 text-center">
+					<div class="video embed-responsive embed-responsive-16by9 mt-4 mb-5">
+						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UgJw-_7mOpI" frameborder="0" allowfullscreen></iframe>
+					</div>
+					<h5>Watch the Quickstart Video</h5>
+					<p>See how easy it is to start using your 1 TB of free cloud storage space on Tardigrade.</p>
+					<a href="https://documentation.tardigrade.io/how-tos/set-up-filezilla-for-decentralized-file-transfer" target="_blank">Or Visit the Docs</a>
+				</div>-->
+
+				<div class="col-sm-12">
+					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
+
+						<h5 class="mb-2">Welcome, You've Earned 1 TB Free!</h5>
+						<p>We'll send you an email to confirm your account soon.</p>
+
+						<div class="row mb-3">
+							<div class="col text-left">
+								<label class="label" for="stargate-endpoint">Stargate Endpoint</label>
+								<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="stargateEndpoint" disabled>
+								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col text-left">
+								<label class="label" for="access-key">Access Key</label>
+								<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="stargateCredentials.accessKey" disabled>
+								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col text-left">
+								<label class="label" for="secret-key">Secret Key</label>
+								<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="stargateCredentials.secretKey" disabled>
+								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
+							</div>
+						</div>
+
+						<div class="row mb-3">
+							<div class="col text-left">
+								<label class="label" for="bucket">Bucket</label>
+								<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="bucket" disabled>
+								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
+							</div>
+						</div>
+
+
+
+
+					</div>
+				</div>
+			</div>
+		</div>
+
 	</div>
 </div>
 </template>
@@ -273,7 +386,6 @@ import axios from 'axios';
 import wasm from '../wasm.js';
 
 import Hero from '../components/Hero.vue';
-import Keys from '../components/Keys.vue';
 import FileBrowser from '../components/FileBrowser.vue';
 
 let s3;
@@ -290,6 +402,10 @@ export default {
 		termsAndConditions: false,
 		error: '',
 		message: '',
+
+		stargateCredentials: null,
+		stargateEndpoint: null,
+		bucket: null,
 
 		login: false
 	}),
@@ -323,11 +439,15 @@ export default {
 
 			this.error = '';
 			this.message = `Welcome, ${data.email}.`;
+
+			this.bucket = data.bucket;
+			this.stargateCredentials = data.stargateCredentials;
+			this.stargateEndpoint = data.stargateEndpoint;
+			this.bucket = data.bucket;
 		}
 	},
 	components: {
 		Hero,
-		Keys,
 		FileBrowser
 	}
 }
