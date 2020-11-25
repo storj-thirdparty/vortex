@@ -1,4 +1,4 @@
-FROM node:15-alpine
+FROM node:15-buster
 
 WORKDIR /usr/src/app
 
@@ -8,7 +8,7 @@ RUN npm install
 
 COPY . .
 
-RUN NODE_ENV=dev npm run build --dev
+RUN npm run build
 
 COPY lib ./lib
 COPY index.js .
