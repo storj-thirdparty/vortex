@@ -293,11 +293,6 @@ export default {
 
 		login: false
 	}),
-	computed: {
-		loginActivated() {
-			return this.password.length > 0 && this.email.length > 0;
-		}
-	},
 	methods: {
 		async signUp() {
 			const {data} = await axios.post('/api/signup', {
