@@ -156,17 +156,17 @@ input {
 							<h5 class="mb-4">Get Started</h5>
 
 							<label for="emailAddress">Email Address</label>
-							<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
+							<input v-model="email" required type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
 							<label for="password">Password</label>
-							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+							<input v-model="password" required type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
 							<div class="custom-control custom-checkbox mb-3">
-							  <input v-model="termsAndConditions" type="checkbox" class="custom-control-input" id="termsCheck">
+							  <input v-model="termsAndConditions" required type="checkbox" class="custom-control-input" id="termsCheck">
 							  <label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
 							</div>
 
-							<button v-on:click="signUp" v-bind:disabled="!loginActivated" class="btn btn-primary button btn-block">Try Storj</button>
+							<button v-on:click="signUp" class="btn btn-primary button btn-block">Try Storj</button>
 
 							<hr>
 
