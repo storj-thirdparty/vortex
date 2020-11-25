@@ -80,7 +80,20 @@ input {
 
 .button {
 	padding: 14px 0;
-	background: #0068DC;
+	background-color: #0068DC;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 19px;
+	text-align: center;
+	text-decoration: none;
+	color: #FFFFFF;
+	margin-bottom: 16px;
+	transition: all 100ms ease-in-out;
+}
+
+.button-no-bg {
+	padding: 14px 0;
 	border-radius: 6px;
 	font-weight: bold;
 	font-size: 16px;
@@ -149,9 +162,12 @@ input {
 							  <label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
 							</div>
 
-							<button v-on:click="signUp" v-bind:disabled="!loginActivated" class="btn btn-primary button signup-btn btn-block">Try Storj</button>
+							<button v-on:click="signUp" v-bind:disabled="!loginActivated" class="btn btn-primary button btn-block">Try Storj</button>
 
-							<p>Already Signed Up? <a v-on:click="login = true" href="#">Log In</a></p>
+							<hr>
+
+
+							<button v-on:click="login = true"  class="button-no-bg btn btn-success btn-block">Login to Storj</button>
 						</div>
 
 						<div v-if="login === true">
@@ -163,7 +179,7 @@ input {
 							<label for="password">Password</label>
 							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
-							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Try Storj</button>
+							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Login</button>
 
 							<p>Don't have an account? <a v-on:click="login = false" href="#">Sign Up</a></p>
 						</div>
@@ -274,16 +290,15 @@ export default {
 	}),
 	computed: {
 		loginActivated() {
-			const re = /\S+@\S+\.\S+/;
-
-			return this.termsAndConditions === true && this.password.length > 0 && re.test(this.email);
+			return this.password.length > 0 && this.email.length > 0;
 		}
 	},
 	methods: {
 		async signUp() {
 			const {data} = await axios.post('/api/signup', {
 				email: this.email,
-				password: this.password
+				password: this.password,
+				termsAndConditions: this.termsAndConditions
 			});
 
 			if(data.error) {

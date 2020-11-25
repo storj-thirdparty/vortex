@@ -36,11 +36,11 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 	});
 
 	router.post('/api/signup', async ctx => {
-		const {email, password} = ctx.request.body;
+		const {email, password, termsAndConditions} = ctx.request.body;
 
 		await signUp(email, password);
 
-		ctx.body = await login(email, password);
+		ctx.body = await login(email, password, termsAndConditions);
 	});
 
 	router.post('/api/login', async ctx => {
