@@ -311,6 +311,14 @@ border-color: #f9a482;
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
+					<div v-if="activated === false" class="alert alert-warning" role="alert">
+						Please activate your email.
+					</div>
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-sm-12">
 					<file-browser
 						v-bind:stargateEndpoint="stargateEndpoint"
 						v-bind:stargateCredentials="stargateCredentials"
@@ -406,6 +414,7 @@ export default {
 		stargateCredentials: null,
 		stargateEndpoint: null,
 		bucket: null,
+		activated: null,
 
 		login: false
 	}),
@@ -443,7 +452,7 @@ export default {
 			this.bucket = data.bucket;
 			this.stargateCredentials = data.stargateCredentials;
 			this.stargateEndpoint = data.stargateEndpoint;
-			this.bucket = data.bucket;
+			this.activated = data.activated;
 		}
 	},
 	components: {
