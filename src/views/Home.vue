@@ -460,15 +460,20 @@ export default {
 		FileBrowser
 	},
 	async created() {
+
 		const urlParams = new URLSearchParams(window.location.search);
 
 		const activation = urlParams.get('activation');
 
-		await axios.post('/api/activate', {
-			token: activation
-		})
+		if(activation) {
+			await axios.post('/api/activate', {
+				token: activation
+			});
+		}
 
-		console.log({ activation });
+		const {data} = await axios.post('/api/passive-login');
+
+		await this.handleResponse(data);
 	}
 }
 </script>

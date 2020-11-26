@@ -9,6 +9,9 @@ const ApiError = require('./lib/ApiError.js');
 const signUp = require('./lib/signUp.js');
 const login = require('./lib/login.js');
 const activateEmail = require('./lib/activateEmail.js');
+const session = require('./lib/session');
+const config = require('./config.json');
+const User = require('./lib/User.js');
 
 mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
@@ -21,6 +24,8 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 	const router = new Router();
 
 	app.use(require('koa-static')('dist'));
+
+
 
 	app.use(async (ctx, next) => {
 		try {
@@ -36,6 +41,18 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 		}
 	});
 
+	router.use(async (ctx, next) => {
+		if(typeof ctx.cookies.get('session') !== 'string') {
+			ctx.cookies.set('session', await session.create());
+		}
+
+		ctx.session = await session.get(ctx.cookies.get('session'));
+
+		await next();
+
+		await session.set(ctx.cookies.get('session'), ctx.session);
+	});
+
 	router.post('/api/signup', async ctx => {
 		const {email, password, termsAndConditions} = ctx.request.body;
 
@@ -47,15 +64,37 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 	router.post('/api/login', async ctx => {
 		const {email, password} = ctx.request.body;
 
-		ctx.body = await login(email, password);
+		const user = await login(email, password);
+
+		ctx.session.userId = user.id;
+
+		ctx.body = {
+			email: user.email,
+			stargateCredentials: user.stargateCredentials || {},
+			bucket: user.id.toString(),
+			stargateEndpoint: config.stargateEndpoint,
+			activated: user.activated
+		};
+
+		console.log(this.session);
 	});
 
-	router.post('/api/activate', async ctx => {
-		const {token} = ctx.request.body;
+	router.post('/api/passive-login', async ctx => {
+		const user = await User.findOne({
+			_id: ctx.session.userId
+		});
 
-		await activateEmail(token);
+		if(user === null) {
+			throw new ApiError("Session invalid.");
+		}
 
-		ctx.body = "";
+		ctx.body = {
+			email: user.email,
+			stargateCredentials: user.stargateCredentials || {},
+			bucket: user.id.toString(),
+			stargateEndpoint: config.stargateEndpoint,
+			activated: user.activated
+		};
 	});
 
 	app
