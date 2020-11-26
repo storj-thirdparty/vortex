@@ -449,6 +449,17 @@ export default {
 	components: {
 		Hero,
 		FileBrowser
+	},
+	async created() {
+		const urlParams = new URLSearchParams(window.location.search);
+
+		const activation = urlParams.get('activation');
+
+		await axios.post('/api/activate', {
+			token: activation
+		})
+
+		console.log({ activation });
 	}
 }
 </script>

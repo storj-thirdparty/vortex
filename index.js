@@ -8,6 +8,7 @@ const mongoose = require('mongoose');
 const ApiError = require('./lib/ApiError.js');
 const signUp = require('./lib/signUp.js');
 const login = require('./lib/login.js');
+const activateEmail = require('./lib/activateEmail.js');
 
 mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
@@ -47,6 +48,14 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 		const {email, password} = ctx.request.body;
 
 		ctx.body = await login(email, password);
+	});
+
+	router.post('/api/activate', async ctx => {
+		const {token} = ctx.request.body;
+
+		await activateEmail(token);
+
+		ctx.body = "";
 	});
 
 	app
