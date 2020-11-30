@@ -46,7 +46,7 @@ module.exports = async function(ctx, next) {
 		throw new ApiError('Email already exists.');
 	}
 
-	const bucket = 'user' + newUser.id.toString();
+	const bucket = newUser.id.toString() + '-' + newUser.createTime.getTime()
 
 	const bucketParameters = {
 		Bucket: bucket

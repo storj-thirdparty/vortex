@@ -15,8 +15,11 @@ module.exports = async ctx => {
 
 	ctx.body = {
 		email: user.email,
-		stargateCredentials: user.stargateCredentials || {},
-		bucket: user.id.toString(),
+		stargateCredentials: {
+			accessKey: user.stargateAccessKey,
+			secretKey: user.stargateSecretKey
+		},
+		bucket: 'user' + user.id.toString() + '-' + user.createTime.getTime(),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated
 	};

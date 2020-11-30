@@ -36,7 +36,7 @@ module.exports = async function(ctx) {
 			accessKey: user.stargateAccessKey,
 			secretKey: user.stargateSecretKey
 		},
-		bucket: 'user' + user.id.toString(),
+		bucket: user.id.toString() + '-' + user.createTime.getTime(),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated
 	};
