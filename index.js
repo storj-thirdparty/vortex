@@ -95,6 +95,10 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 		};
 	});
 
+	router.get('/api/admin/users', async ctx => {
+		ctx.body = await User.find({});
+	});
+
 	app
 		.use(bodyParser())
 		.use(router.routes())
