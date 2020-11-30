@@ -1,7 +1,7 @@
 version: "3.8"
 
 volumes:
-  mongo-data:
+  postgres-data:
 
 
 services:
@@ -10,20 +10,17 @@ services:
     ports:
       - "127.0.0.1:3000:3000"
     links:
-      - "mongo:mongo"
+      - "postgres:postgres"
       - "redis:redis"
     command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
     volumes:
       - ./:/usr/src/app
-  mongo:
-    image: mongo:latest
+  postgres:
+    image: postgres:latest
     volumes:
-      - mongo-data:/etc/mongo
-  mongoku:
-    image: huggingface/mongoku:latest
-    ports:
-      - "127.0.0.1:3100:3100"
+      - postgres-data:/var/lib/postgresql/data
     environment:
-      - MONGOKU_DEFAULT_HOST=mongodb://mongo:27017
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=vortex
   redis:
     image: redis:latest

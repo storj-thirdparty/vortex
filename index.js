@@ -3,17 +3,14 @@ const Koa = require('koa');
 const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
 const Redis = require('ioredis');
-const mongoose = require('mongoose');
-
 const ApiError = require('./lib/ApiError.js');
 const signUp = require('./lib/signUp.js');
 const login = require('./lib/login.js');
 const activateEmail = require('./lib/activateEmail.js');
 const session = require('./lib/session');
+const sequelize = require('./lib/sequelize.js');
 const config = require('./config.json');
-const User = require('./lib/User.js');
 
-mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
 (async () => {
 	const redis = new Redis({
@@ -68,7 +65,10 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
 		ctx.body = {
 			email: user.email,
-			stargateCredentials: user.stargateCredentials || {},
+			stargateCredentials: {
+				accessKey: user.stargateAccessKey,
+				secretKey: user.stargateSecretKey
+			},
 			bucket: user.id.toString(),
 			stargateEndpoint: config.stargateEndpoint,
 			activated: user.activated
@@ -76,6 +76,8 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
 		console.log(this.session);
 	});
+
+	/*
 
 	router.post('/api/passive-login', async ctx => {
 		const user = await User.findOne({
@@ -98,11 +100,14 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 	router.get('/api/admin/users', async ctx => {
 		ctx.body = await User.find({});
 	});
+	*/
 
 	app
 		.use(bodyParser())
 		.use(router.routes())
 		.use(router.allowedMethods());
+
+	await sequelize.sync();
 
 	app.listen(3000);
 
