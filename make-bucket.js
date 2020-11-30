@@ -10,13 +10,11 @@ const s3Config = {
 };
 
 (async () => {
-
 	console.log(s3Config);
 
 	const s3 = new AWS.S3(s3Config);
 
 	await s3.createBucket({
-		Bucket: "test2"
+		Bucket: 'test2'
 	}).promise();
-
 })();

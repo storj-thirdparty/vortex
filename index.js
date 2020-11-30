@@ -25,13 +25,11 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
 	app.use(require('koa-static')('dist'));
 
-
-
 	app.use(async (ctx, next) => {
 		try {
 			await next();
-		} catch(error) {
-			if(error instanceof ApiError) {
+		} catch (error) {
+			if (error instanceof ApiError) {
 				ctx.body = {
 					error: error.message
 				};
@@ -42,7 +40,7 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 	});
 
 	router.use(async (ctx, next) => {
-		if(typeof ctx.cookies.get('session') !== 'string') {
+		if (typeof ctx.cookies.get('session') !== 'string') {
 			ctx.cookies.set('session', await session.create());
 		}
 
@@ -84,8 +82,8 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 			_id: ctx.session.userId
 		});
 
-		if(user === null) {
-			throw new ApiError("Session invalid.");
+		if (user === null) {
+			throw new ApiError('Session invalid.');
 		}
 
 		ctx.body = {
@@ -104,6 +102,5 @@ mongoose.connect('mongodb://mongo:27017/vortex', {useNewUrlParser: true});
 
 	app.listen(3000);
 
-	console.log("Vortex has started :)");
-
+	console.log('Vortex has started :)');
 })();

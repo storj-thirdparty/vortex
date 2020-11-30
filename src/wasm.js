@@ -5,8 +5,8 @@ let id = 0;
 
 async function runMethod(method, args) {
 	return new Promise((resolve, reject) => {
-		callbacks[id] = ({ value, error }) => {
-			if(error) {
+		callbacks[id] = ({value, error}) => {
+			if (error) {
 				reject(new Error(error));
 			} else {
 				resolve(value);
