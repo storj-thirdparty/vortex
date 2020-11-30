@@ -1,9 +1,11 @@
 const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
-const ApiError = require('./ApiError.js');
+const ApiError = require('../lib/ApiError.js');
 const config = require('../config.json');
 
-module.exports = async function signUp(email, password) {
+module.exports = async function(ctx) {
+	const {email, password} = ctx.request.body;
+
 	if (typeof email !== 'string' || email.length === 0) {
 		throw new ApiError('Please enter an email.');
 	}
@@ -26,5 +28,16 @@ module.exports = async function signUp(email, password) {
 
 	await user.save();
 
-	return user;
+	ctx.session.userId = user.id;
+
+	ctx.body = {
+		email: user.email,
+		stargateCredentials: {
+			accessKey: user.stargateAccessKey,
+			secretKey: user.stargateSecretKey
+		},
+		bucket: 'user' + user.id.toString(),
+		stargateEndpoint: config.stargateEndpoint,
+		activated: user.activated
+	};
 };

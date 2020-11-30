@@ -1,13 +1,15 @@
 const bcrypt = require('bcrypt');
 const postmark = require('postmark');
 const User = require('../models/User.js');
-const ApiError = require('./ApiError.js');
-const masterAccount = require('./masterAccount.js');
-const generateAccess = require('./generateAccess.js');
-const getStargateCredentials = require('./getStargateCredentials.js');
-const sendActivationEmail = require('./sendActivationEmail.js');
+const ApiError = require('../lib/ApiError.js');
+const masterAccount = require('../lib/masterAccount.js');
+const generateAccess = require('../lib/generateAccess.js');
+const getStargateCredentials = require('../lib/getStargateCredentials.js');
+const sendActivationEmail = require('../lib/sendActivationEmail.js');
 
-module.exports = async function signUp(email, password, termsAndConditions) {
+module.exports = async function(ctx, next) {
+	const {email, password, termsAndConditions} = ctx.request.body;
+
 	const re = /\S+@\S+\.\S+/;
 
 	if (!re.test(email)) {
@@ -35,8 +37,7 @@ module.exports = async function signUp(email, password, termsAndConditions) {
 		password: await bcrypt.hash(password, 10),
 		createTime: Date.now(),
 		lastLoginTime: Date.now(),
-		activated: false,
-		stargateCredentials: null
+		activated: false
 	});
 
 	try {
@@ -72,4 +73,6 @@ module.exports = async function signUp(email, password, termsAndConditions) {
 	await sendActivationEmail(newUser);
 
 	await newUser.save();
+
+	await next();
 };
