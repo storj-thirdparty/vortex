@@ -69,7 +69,7 @@ const config = require('./config.json');
 				accessKey: user.stargateAccessKey,
 				secretKey: user.stargateSecretKey
 			},
-			bucket: user.id.toString(),
+			bucket: 'user' + newUser.id.toString(),
 			stargateEndpoint: config.stargateEndpoint,
 			activated: user.activated
 		};
