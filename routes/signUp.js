@@ -6,6 +6,7 @@ const masterAccount = require('../lib/masterAccount.js');
 const generateAccess = require('../lib/generateAccess.js');
 const getStargateCredentials = require('../lib/getStargateCredentials.js');
 const sendActivationEmail = require('../lib/sendActivationEmail.js');
+const getBucketName = require('../lib/getBucketName.js');
 
 module.exports = async function(ctx, next) {
 	const {email, password, termsAndConditions} = ctx.request.body;
@@ -46,7 +47,7 @@ module.exports = async function(ctx, next) {
 		throw new ApiError('Email already exists.');
 	}
 
-	const bucket = newUser.id.toString() + '-' + newUser.createTime.getTime()
+	const bucket = getBucketName(newUser);
 
 	const bucketParameters = {
 		Bucket: bucket

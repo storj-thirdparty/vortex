@@ -43,7 +43,11 @@ const adminUsers = require('./routes/admin-users.js');
 			ctx.cookies.set('session', await session.create());
 		}
 
-		ctx.session = await session.get(ctx.cookies.get('session'));
+		try {
+			ctx.session = await session.get(ctx.cookies.get('session'));
+		} catch(err) {
+			ctx.cookies.set('session', await session.create());
+		}
 
 		await next();
 
@@ -53,6 +57,11 @@ const adminUsers = require('./routes/admin-users.js');
 	router.post('/api/signup', signUp, login);
 	router.post('/api/login', login);
 	router.post('/api/passive-login', passiveLogin);
+
+	router.post('/api/logout', async (ctx) => {
+		delete ctx.session.userId;
+		ctx.body = '';
+	});
 
 	router.post('/api/admin/users', adminUsers);
 

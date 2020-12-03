@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
 const ApiError = require('../lib/ApiError.js');
 const config = require('../config.json');
+const getBucketName = require('../lib/getBucketName.js');
 
 module.exports = async function(ctx) {
 	const {email, password} = ctx.request.body;
@@ -32,11 +33,9 @@ module.exports = async function(ctx) {
 
 	ctx.body = {
 		email: user.email,
-		stargateCredentials: {
-			accessKey: user.stargateAccessKey,
-			secretKey: user.stargateSecretKey
-		},
-		bucket: user.id.toString() + '-' + user.createTime.getTime(),
+		stargateAccessKey: user.stargateAccessKey,
+		stargateSecretKey: user.stargateSecretKey,
+		stargateBucket: getBucketName(user),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated
 	};

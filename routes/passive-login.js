@@ -1,8 +1,13 @@
 const User = require('../models/User.js');
 const ApiError = require('../lib/ApiError.js');
 const config = require('../config.json');
+const getBucketName = require('../lib/getBucketName.js');
 
 module.exports = async ctx => {
+	if(typeof ctx.session.userId === 'undefined') {
+		throw new ApiError("No login with session.");
+	}
+
 	const user = await User.findOne({
 		where: {
 			id: ctx.session.userId
@@ -15,11 +20,9 @@ module.exports = async ctx => {
 
 	ctx.body = {
 		email: user.email,
-		stargateCredentials: {
-			accessKey: user.stargateAccessKey,
-			secretKey: user.stargateSecretKey
-		},
-		bucket: 'user' + user.id.toString() + '-' + user.createTime.getTime(),
+		stargateAccessKey: user.stargateAccessKey,
+		stargateSecretKey: user.stargateSecretKey,
+		stargateBucket: getBucketName(user),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated
 	};

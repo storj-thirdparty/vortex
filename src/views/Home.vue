@@ -160,13 +160,16 @@ input {
 	line-height: 1.6;
 	transition: all 100ms ease-in-out;
 }
+
 .keys .copy:hover {
 	background: #0068DC;
 	color: #fff;
 }
+
 .keys a {
 	font-weight: bold;
 }
+
 .keys input {
 	height: 48px;
 	font-size: 16px;
@@ -176,16 +179,17 @@ input {
 	border-radius: 6px;
 	cursor: text;
 }
+
 .keys .alert-warning {
-color: #000;
-background-color: #fff9f6;
-border-color: #f9a482;
+	color: #000;
+	background-color: #fff9f6;
+	border-color: #f9a482;
 }
 </style>
 
 <template>
 <div>
-	<div v-if="!stargateCredentials">
+	<div v-if="this.$store.state.stargateAccessKey === null">
 
 		<div class="container">
 			<div class="row">
@@ -196,15 +200,11 @@ border-color: #f9a482;
 				<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
 					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
-						<div v-if="error.length > 0" class="alert alert-danger" role="alert">
+						<div v-if="error" class="alert alert-danger" role="alert">
 							{{error}}
 						</div>
 
-						<div v-if="message.length > 0" class="alert alert-success" role="alert">
-							{{message}}
-						</div>
-
-						<div v-if="login === false">
+						<div v-if="showLogin === false">
 							<h5 class="mb-4">Get Started</h5>
 
 							<label for="emailAddress">Email Address</label>
@@ -214,8 +214,8 @@ border-color: #f9a482;
 							<input v-model="password" required type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
 							<div class="custom-control custom-checkbox mb-3">
-							  <input v-model="termsAndConditions" required type="checkbox" class="custom-control-input" id="termsCheck">
-							  <label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
+								<input v-model="termsAndConditions" required type="checkbox" class="custom-control-input" id="termsCheck">
+								<label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
 							</div>
 
 							<button v-on:click="signUp" class="btn btn-primary button btn-block">Try Storj</button>
@@ -223,10 +223,10 @@ border-color: #f9a482;
 							<hr>
 
 
-							<button v-on:click="login = true"  class="button-no-bg btn btn-success btn-block">Login to Storj</button>
+							<button v-on:click="showLogin = true" class="button-no-bg btn btn-success btn-block">Login to Storj</button>
 						</div>
 
-						<div v-if="login === true">
+						<div v-if="showLogin === true">
 							<h5 class="mb-4">Login</h5>
 
 							<label for="emailAddress">Email Address</label>
@@ -235,9 +235,9 @@ border-color: #f9a482;
 							<label for="password">Password</label>
 							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
-							<button v-on:click="loginHandler" class="btn btn-primary button signup-btn btn-block">Login</button>
+							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Login</button>
 
-							<p>Don't have an account? <a v-on:click="login = false" href="#">Sign Up</a></p>
+							<p>Don't have an account? <a v-on:click="showLogin = false" href="#">Sign Up</a></p>
 						</div>
 
 					</div>
@@ -311,7 +311,7 @@ border-color: #f9a482;
 		<div class="container">
 			<div class="row">
 				<div class="col-sm-12">
-					<div v-if="activated === false" class="alert alert-warning" role="alert">
+					<div v-if="this.$store.state.activated === false" class="alert alert-warning" role="alert">
 						Please activate your email.
 					</div>
 				</div>
@@ -319,11 +319,7 @@ border-color: #f9a482;
 
 			<div class="row">
 				<div class="col-sm-12">
-					<file-browser
-						v-bind:stargateEndpoint="stargateEndpoint"
-						v-bind:stargateCredentials="stargateCredentials"
-						v-bind:bucket="bucket"
-					></file-browser>
+					<file-browser></file-browser>
 				</div>
 			</div>
 		</div>
@@ -348,7 +344,7 @@ border-color: #f9a482;
 						<div class="row mb-3">
 							<div class="col text-left">
 								<label class="label" for="stargate-endpoint">Stargate Endpoint</label>
-								<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="stargateEndpoint" disabled>
+								<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
 								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
 							</div>
 						</div>
@@ -356,7 +352,7 @@ border-color: #f9a482;
 						<div class="row mb-3">
 							<div class="col text-left">
 								<label class="label" for="access-key">Access Key</label>
-								<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="stargateCredentials.accessKey" disabled>
+								<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
 								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
 							</div>
 						</div>
@@ -364,7 +360,7 @@ border-color: #f9a482;
 						<div class="row mb-3">
 							<div class="col text-left">
 								<label class="label" for="secret-key">Secret Key</label>
-								<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="stargateCredentials.secretKey" disabled>
+								<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
 								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
 							</div>
 						</div>
@@ -372,7 +368,7 @@ border-color: #f9a482;
 						<div class="row mb-3">
 							<div class="col text-left">
 								<label class="label" for="bucket">Bucket</label>
-								<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="bucket" disabled>
+								<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
 								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
 							</div>
 						</div>
@@ -408,51 +404,35 @@ export default {
 		email: '',
 		password: '',
 		termsAndConditions: false,
-		error: '',
+
 		message: '',
-
-		stargateCredentials: null,
-		stargateEndpoint: null,
-		bucket: null,
-		activated: null,
-
-		login: false
+		showLogin: false
 	}),
 	methods: {
 		async signUp() {
-			const {data} = await axios.post('/api/signup', {
+			this.$store.dispatch('signUp', {
 				email: this.email,
 				password: this.password,
 				termsAndConditions: this.termsAndConditions
-			});
-
-			await this.handleResponse(data);
+			})
 		},
 
-		async loginHandler() {
-			const {data} = await axios.post('/api/login', {
+		async login() {
+			this.$store.dispatch('login', {
 				email: this.email,
 				password: this.password
 			});
-
-			await this.handleResponse(data);
+		}
+	},
+	computed: {
+		stargateCredentials() {
+			return this.$store.state.stargateAccessKey ? {
+				accessKey: this.$store.state.stargateAccessKey,
+				secretKey: this.$store.state.stargateSecretKey
+			} : null;
 		},
-
-		async handleResponse(data) {
-			if(data.error) {
-				this.error = data.error;
-				this.message = '';
-
-				return;
-			}
-
-			this.error = '';
-			this.message = `Welcome, ${data.email}.`;
-
-			this.bucket = data.bucket;
-			this.stargateCredentials = data.stargateCredentials;
-			this.stargateEndpoint = data.stargateEndpoint;
-			this.activated = data.activated;
+		error() {
+			return this.$store.state.userError;
 		}
 	},
 	components: {
@@ -460,7 +440,6 @@ export default {
 		FileBrowser
 	},
 	async created() {
-
 		const urlParams = new URLSearchParams(window.location.search);
 
 		const activation = urlParams.get('activation');
@@ -471,9 +450,9 @@ export default {
 			});
 		}
 
-		const {data} = await axios.post('/api/passive-login');
+		console.log('passive login')
 
-		await this.handleResponse(data);
+		await this.$store.dispatch('passiveLogin');
 	}
 }
 </script>

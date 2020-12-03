@@ -12,13 +12,14 @@
 	font-size: 18px;
 	font-weight: 700;
 }
+
 </style>
 
 <template>
 	<div class="card border-0 p-4 p-lg-5 mb-5 mt-4"  @drop.prevent="upload" @dragover.prevent>
 		<p class="path mb-4">{{path}}</p>
 
-		<table>
+		<table class="table">
 			<thead>
 				<tr>
 					<th class="table-heading" scope="col">File</th>
@@ -28,7 +29,7 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="file in filesUploading">
+				<tr v-for="file in filesUploading" scope="row">
 					<td class="upload-text">{{file.Key}}</td>
 					<td></td>
 					<td></td>
@@ -39,11 +40,11 @@
 					</td>
 				</tr>
 
-				<tr v-for="file in files">
+				<tr v-for="file in files" scope="row">
 					<td>{{file.Key}}</td>
 					<td>{{file.Size | prettyBytes}}</td>
 					<td>{{file.LastModified.toLocaleString()}}</td>
-					<td><button v-on:click="download(file)" class="btn btn-primary">Download</button></td>
+					<td><button v-on:click="download(file)" class="btn btn-sm btn-outline-primary">Download</button></td>
 				</tr>
 			</tbody>
 		</table>
@@ -54,23 +55,17 @@
 const prettyBytes = require('pretty-bytes');
 
 export default {
-	props: [
-		'stargateCredentials',
-		'stargateEndpoint',
-		'bucket'
-	],
 	data: () => ({
 		s3: null,
-
 		path: '/',
 		filesUploading: [],
 		files: []
 	}),
 	async created() {
 		const s3Config = {
-			accessKeyId: this.stargateCredentials.accessKey,
-			secretAccessKey: this.stargateCredentials.secretKey,
-			endpoint: this.stargateEndpoint,
+			accessKeyId: this.$store.state.stargateAccessKey,
+			secretAccessKey: this.$store.state.stargateSecretKey,
+			endpoint: this.$store.state.stargateEndpoint,
 			s3ForcePathStyle: true,
 			signatureVersion: 'v4'
 		};
@@ -83,25 +78,28 @@ export default {
 	},
 	methods: {
 		async upload(e) {
-			let [file] = e.dataTransfer.files;
+			let files = e.dataTransfer.files;
 
-			const params = {
-				Bucket: this.bucket,
-				Key: file.name,
-				Body: file
-			};
+			await [...files].map(async file => {
+				const params = {
+					Bucket: this.$store.state.stargateBucket,
+					Key: file.name,
+					Body: file
+				};
 
-			this.filesUploading.push(params);
+				this.filesUploading.push(params);
 
-			await this.s3.putObject(params).promise();
-			await this.list();
+				await this.s3.putObject(params).promise();
+				await this.list();
 
-			this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
+				this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
+			})
+
 		},
 
 		async download(file) {
 			const url = this.s3.getSignedUrl('getObject', {
-				Bucket: this.bucket,
+				Bucket: this.$store.state.stargateBucket,
 				Key: file.Key
 			});
 
@@ -121,7 +119,7 @@ export default {
 
 		async list() {
 			const { Contents } = await this.s3.listObjects({
-				Bucket: this.bucket
+				Bucket: this.$store.state.stargateBucket
 			}).promise();
 
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);

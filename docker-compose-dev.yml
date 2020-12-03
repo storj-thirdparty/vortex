@@ -12,6 +12,7 @@ services:
     links:
       - "postgres:postgres"
       - "redis:redis"
+      - "gateway:gateway"
     command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
     volumes:
       - ./:/usr/src/app
@@ -24,3 +25,12 @@ services:
         - POSTGRES_DB=vortex
   redis:
     image: redis:latest
+  gateway:
+    image: storjlabs/gateway
+    command: [ "run" ]
+    volumes:
+      - type: bind
+        source: ./.gateway
+        target: /root/.local/share/storj/gateway/
+    ports:
+        - "127.0.0.1:7777:7777"

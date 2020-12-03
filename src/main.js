@@ -1,12 +1,16 @@
 import Vue from 'vue';
 import Router from 'vue-router';
+import Vuex from 'vuex';
+import axios from 'axios';
+
 import App from './App.vue';
 import Home from './views/Home.vue';
 import Admin from './views/Admin.vue';
 
-Vue.config.productionTip = false;
-
 Vue.use(Router);
+Vue.use(Vuex);
+
+Vue.config.productionTip = false;
 
 const routes = [{
 	path: '/',
@@ -23,9 +27,113 @@ const router = new Router({
 	routes // Short for `routes: routes`
 });
 
+const store = new Vuex.Store({
+	state: {
+		userError: null,
+		email: null,
+		stargateAccessKey: null,
+		stargateSecretKey: null,
+		stargateBucket: null,
+		stargateEndpoint: null,
+		activated: null
+	},
+	mutations: {
+		setUserError(state, error) {
+			state.userError = error
+		},
+
+		setUser(state, {
+			email,
+			stargateAccessKey,
+			stargateSecretKey,
+			stargateBucket,
+			stargateEndpoint,
+			activated
+		}) {
+			state.email = email;
+			state.stargateAccessKey = stargateAccessKey;
+			state.stargateSecretKey = stargateSecretKey;
+			state.stargateBucket = stargateBucket;
+			state.stargateEndpoint = stargateEndpoint,
+			state.activated = activated;
+
+			state.userError = null;
+		}
+	},
+	actions: {
+		async signUp({
+			commit
+		}, {
+			email,
+			password,
+			termsAndConditions
+		}) {
+			const {
+				data
+			} = await axios.post('/api/signup', {
+				email,
+				password,
+				termsAndConditions
+			});
+
+			if (data.error) {
+				commit('setUserError', data.error);
+			} else {
+				commit('setUser', data);
+			}
+		},
+
+		async login({
+			commit
+		}, {
+			email,
+			password
+		}) {
+			const {
+				data
+			} = await axios.post('/api/login', {
+				email,
+				password
+			});
+
+			if (data.error) {
+				commit('setUserError', data.error);
+			} else {
+				commit('setUser', data);
+			}
+		},
+
+		async passiveLogin({commit}) {
+			const {
+				data
+			} = await axios.post('/api/passive-login');
+
+			console.log(data);
+
+			if (!data.error) {
+				commit('setUser', data);
+			}
+		},
+
+		async logout({commit}) {
+			await axios.post('/api/logout');
+
+			commit('setUser', {
+				email: null,
+				stargateAccessKey: null,
+				stargateSecretKey: null,
+				stargateBucket: null,
+				stargateEndpoint: null,
+				activated: null
+			});
+		}
+	}
+});
+
 new Vue({
 	render(h) {
 		return h(App);
 	},
-	router
+	router,
+	store
 }).$mount('#app');
