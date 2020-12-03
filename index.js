@@ -57,7 +57,7 @@ const adminUsers = require('./routes/admin-users.js');
 	router.post('/api/signup', signUp, login);
 	router.post('/api/login', login);
 	router.post('/api/passive-login', passiveLogin);
-	router.post('/api/activate-email', activateEmail);
+	router.post('/api/activate', activateEmail);
 
 	router.post('/api/logout', async (ctx) => {
 		delete ctx.session.userId;
