@@ -309,6 +309,7 @@ input {
 	<div v-else>
 
 		<div class="container">
+			<!--
 			<div class="row">
 				<div class="col-sm-12">
 					<div v-if="this.$store.state.activated === false" class="alert alert-warning" role="alert">
@@ -316,6 +317,7 @@ input {
 					</div>
 				</div>
 			</div>
+		-->
 
 			<div class="row">
 				<div class="col-sm-12">
