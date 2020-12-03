@@ -13,6 +13,7 @@ const signUp = require('./routes/signUp.js');
 const passiveLogin = require('./routes/passive-login.js');
 const activateEmail = require('./routes/activate-email.js');
 const adminUsers = require('./routes/admin-users.js');
+const usage = require('./routes/usage.js');
 
 const eventsUpload = require('./routes/events-upload.js');
 const eventsDownload = require('./routes/events-download.js');
@@ -61,6 +62,7 @@ const eventsDownload = require('./routes/events-download.js');
 	router.post('/api/login', login);
 	router.post('/api/passive-login', passiveLogin);
 	router.post('/api/activate', activateEmail);
+	router.post('/api/usage', usage);
 
 	router.post('/api/logout', async (ctx) => {
 		delete ctx.session.userId;

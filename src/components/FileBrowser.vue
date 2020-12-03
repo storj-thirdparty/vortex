@@ -2,53 +2,85 @@
 .card {
 	min-height: 500px;
 }
+
 .table-heading {
-    color: #768394;
-    border-top: 0;
-    border-bottom: 1px solid #dee2e6;
-		padding-left: 0;
+	color: #768394;
+	border-top: 0;
+	border-bottom: 1px solid #dee2e6;
+	padding-left: 0;
 }
+
 .path {
 	font-size: 18px;
 	font-weight: 700;
 }
 
+.bars {
+	margin-bottom: 2rem;
+}
 </style>
 
 <template>
-	<div class="card border-0 p-4 p-lg-5 mb-5 mt-4"  @drop.prevent="upload" @dragover.prevent>
-		<p class="path mb-4">{{path}}</p>
+<div class="card border-0 p-4 p-lg-5 mb-5 mt-4" @drop.prevent="upload" @dragover.prevent>
 
-		<table class="table">
-			<thead>
-				<tr>
-					<th class="table-heading" scope="col">File</th>
-					<th class="table-heading" scope="col">Size</th>
-					<th class="table-heading" scope="col">Upload Date</th>
-					<th class="table-heading" scope="col">Actions</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr v-for="file in filesUploading" scope="row">
-					<td class="upload-text">{{file.Key}}</td>
-					<td></td>
-					<td></td>
-					<td>
-						<div class="spinner-border" role="status">
-							<span class="sr-only">Loading...</span>
-						</div>
-					</td>
-				</tr>
+	<div class="row bars">
+		<div class="col-sm-4">
+			<p>Space Used</p>
 
-				<tr v-for="file in files" scope="row">
-					<td>{{file.Key}}</td>
-					<td>{{file.Size | prettyBytes}}</td>
-					<td>{{file.LastModified.toLocaleString()}}</td>
-					<td><button v-on:click="download(file)" class="btn btn-sm btn-outline-primary">Download</button></td>
-				</tr>
-			</tbody>
-		</table>
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" v-bind:style="`width: ${bytesUploadedPercent}%;`">{{usage.bytesUploaded | prettyBytes}}</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<p>Files Used</p>
+
+			<div class="progress">
+				<div class="progress-bar" role="progressbar" v-bind:style="`width: ${filesUploadedPercent}%;`">{{usage.filesUploaded}}</div>
+			</div>
+		</div>
+
+		<div class="col-sm-4">
+			<p>Bandwidth</p>
+
+			<div class="progress">
+				<div class="progress-bar" role="progressbar"v-bind:style="`width: ${bytesDownloadedPercent}%;`">{{usage.bytesDownloaded | prettyBytes}}</div>
+			</div>
+		</div>
 	</div>
+
+	<!--<p class="path mb-4">{{path}}</p>-->
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th class="table-heading" scope="col">File</th>
+				<th class="table-heading" scope="col">Size</th>
+				<th class="table-heading" scope="col">Upload Date</th>
+				<th class="table-heading" scope="col">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr v-for="file in filesUploading" scope="row">
+				<td class="upload-text">{{file.Key}}</td>
+				<td></td>
+				<td></td>
+				<td>
+					<div class="spinner-border" role="status">
+						<span class="sr-only">Loading...</span>
+					</div>
+				</td>
+			</tr>
+
+			<tr v-for="file in files" scope="row">
+				<td>{{file.Key}}</td>
+				<td>{{file.Size | prettyBytes}}</td>
+				<td>{{file.LastModified.toLocaleString()}}</td>
+				<td><button v-on:click="download(file)" class="btn btn-sm btn-outline-primary">Download</button></td>
+			</tr>
+		</tbody>
+	</table>
+</div>
 </template>
 
 <script>
@@ -60,7 +92,8 @@ export default {
 		s3: null,
 		path: '/',
 		filesUploading: [],
-		files: []
+		files: [],
+		usage: null
 	}),
 	async created() {
 		const s3Config = {
@@ -76,6 +109,7 @@ export default {
 		this.s3 = new AWS.S3(s3Config);
 
 		await this.list();
+		await this.updateUsage();
 	},
 	methods: {
 		async upload(e) {
@@ -101,6 +135,8 @@ export default {
 					bytes: file.size,
 					files: 1
 				});
+
+				await this.updateUsage();
 			})
 
 		},
@@ -128,16 +164,39 @@ export default {
 				bytes: file.Size,
 				files: 1
 			});
+
+			await this.updateUsage();
 		},
 
 		async list() {
-			const { Contents } = await this.s3.listObjects({
+			const {
+				Contents
+			} = await this.s3.listObjects({
 				Bucket: this.$store.state.stargateBucket
 			}).promise();
 
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
 
 			this.files = Contents;
+		},
+
+		async updateUsage() {
+			const {data} = await axios.post('/api/usage');
+
+			this.usage = data;
+		}
+	},
+	computed: {
+		bytesUploadedPercent() {
+			return this.usage !== null ? (this.usage.bytesUploaded / this.usage.bytesUploadedQuota * 100).toFixed(2) : 0;
+		},
+
+		filesUploadedPercent() {
+			return this.usage !== null ? (this.usage.filesUploaded / this.usage.filesUploadedQuota * 100).toFixed(2) : 0;
+		},
+
+		bytesDownloadedPercent() {
+			return this.usage !== null ? (this.usage.bytesDownloaded / this.usage.bytesDownloadedQuota * 100).toFixed(2) : 0;
 		}
 	},
 	filters: {
