@@ -218,9 +218,10 @@ input {
 								<tr>
 									<th>ID</th>
 									<th>Email</th>
-									<th>Activated</th>
 									<th>createTime</th>
 									<th>lastLoginTime</th>
+									<th>uploaded</th>
+									<th>downloaded</th>
 								</tr>
 							</thead>
 
@@ -229,8 +230,7 @@ input {
 									<td>
 										<p style="font-size: 12px;">{{user.id}}</p>
 									</td>
-									<td>{{user.email}}</td>
-									<td>
+									<td>{{user.email}}
 
 										<svg v-if="user.activated === true" width="1em" height="1em" viewBox="0 0 16 16" class="text-success bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 											<path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
@@ -244,6 +244,8 @@ input {
 									</td>
 									<td>{{user.createTime | toNiceDate}}</td>
 									<td>{{user.lastLoginTime | toNiceDate}}</td>
+									<td>{{user.filesUploaded}} files, {{user.bytesUploaded | prettyBytes}}</td>
+									<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
 								</tr>
 							</tbody>
 						</table>
@@ -276,6 +278,7 @@ input {
 import axios from 'axios';
 import wasm from '../wasm.js';
 import moment from 'moment';
+import prettyBytes from 'pretty-bytes';
 
 import Hero from '../components/Hero.vue';
 import FileBrowser from '../components/FileBrowser.vue';
@@ -295,7 +298,8 @@ export default {
 	filters: {
 		toNiceDate(d) {
 			return moment(d).format('L HH:MM');
-		}
+		},
+		prettyBytes
 	},
 	methods: {
 		async getUsers() {

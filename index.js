@@ -14,6 +14,9 @@ const passiveLogin = require('./routes/passive-login.js');
 const activateEmail = require('./routes/activate-email.js');
 const adminUsers = require('./routes/admin-users.js');
 
+const eventsUpload = require('./routes/events-upload.js');
+const eventsDownload = require('./routes/events-download.js');
+
 (async () => {
 	const redis = new Redis({
 		host: 'redis'
@@ -65,6 +68,9 @@ const adminUsers = require('./routes/admin-users.js');
 	});
 
 	router.post('/api/admin/users', adminUsers);
+
+	router.post('/api/events/upload', eventsUpload);
+	router.post('/api/events/download', eventsDownload);
 
 	app
 		.use(bodyParser())

@@ -52,6 +52,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 const prettyBytes = require('pretty-bytes');
 
 export default {
@@ -93,6 +94,13 @@ export default {
 				await this.list();
 
 				this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
+
+				console.log('events');
+
+				await axios.post('/api/events/upload', {
+					bytes: file.size,
+					files: 1
+				});
 			})
 
 		},
@@ -115,6 +123,11 @@ export default {
 			};
 
 			downloadURL(url);
+
+			await axios.post('/api/events/download', {
+				bytes: file.Size,
+				files: 1
+			});
 		},
 
 		async list() {
