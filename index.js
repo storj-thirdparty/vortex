@@ -4,7 +4,6 @@ const Router = require('@koa/router');
 const bodyParser = require('koa-bodyparser');
 const Redis = require('ioredis');
 const ApiError = require('./lib/ApiError.js');
-const activateEmail = require('./lib/activateEmail.js');
 const session = require('./lib/session');
 const sequelize = require('./lib/sequelize.js');
 const config = require('./config.json');
@@ -12,6 +11,7 @@ const config = require('./config.json');
 const login = require('./routes/login.js');
 const signUp = require('./routes/signUp.js');
 const passiveLogin = require('./routes/passive-login.js');
+const activateEmail = require('./routes/activate-email.js');
 const adminUsers = require('./routes/admin-users.js');
 
 (async () => {
@@ -57,6 +57,7 @@ const adminUsers = require('./routes/admin-users.js');
 	router.post('/api/signup', signUp, login);
 	router.post('/api/login', login);
 	router.post('/api/passive-login', passiveLogin);
+	router.post('/api/activate-email', activateEmail);
 
 	router.post('/api/logout', async (ctx) => {
 		delete ctx.session.userId;

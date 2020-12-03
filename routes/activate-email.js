@@ -1,7 +1,7 @@
 const User = require('../models/User.js');
 const config = require('../config.json');
-const redis = require('./redis.js');
-const ApiError = require('./ApiError.js');
+const redis = require('../lib/redis.js');
+const ApiError = require('../lib/ApiError.js');
 
 module.exports = async function (token) {
 	const id = await redis.get(`activation:${token}`);

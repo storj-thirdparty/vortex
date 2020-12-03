@@ -450,8 +450,6 @@ export default {
 			});
 		}
 
-		console.log('passive login')
-
 		await this.$store.dispatch('passiveLogin');
 	}
 }
