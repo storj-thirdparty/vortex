@@ -515,11 +515,6 @@ footer {
 									<p class="navlink">Forum</p>
 								</a>
 							</li>
-							<li class="nav-item mr-3">
-								<a class="nav-link" href="https://support.storj.io/hc/en-us">
-									<p class="navlink">Support</p>
-								</a>
-							</li>
 
 							<li v-if="this.$store.state.stargateAccessKey" class="nav-item active">
 								<button v-on:click="$store.dispatch('logout')" class="btn my-2 my-sm-0 nav-join">Logout</button>

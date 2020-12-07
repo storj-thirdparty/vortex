@@ -198,7 +198,7 @@ input {
 				</div>
 
 				<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
-					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
+					<div class="card border-0 p-4 p-lg-5 mb-5">
 
 						<div v-if="error" class="alert alert-danger" role="alert">
 							{{error}}
@@ -340,12 +340,12 @@ input {
 				<div class="col-sm-12">
 					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
 
-						<h5 class="mb-2">Welcome, You've Earned 1 TB Free!</h5>
-						<p>We'll send you an email to confirm your account soon.</p>
+						<h5 class="mb-2">Use Storj in your favourite applications</h5>
+						<p>You can view and manage your files above or access them with the credentials below.</p>
 
 						<div class="row mb-3">
 							<div class="col text-left">
-								<label class="label" for="stargate-endpoint">Stargate Endpoint</label>
+								<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
 								<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
 								<!--<button v-on:click="copySatelliteAddress" class="copy">Copy</button>-->
 							</div>
