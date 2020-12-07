@@ -17,6 +17,7 @@ const usage = require('./routes/usage.js');
 
 const eventsUpload = require('./routes/events-upload.js');
 const eventsDownload = require('./routes/events-download.js');
+const eventsDelete = require('./routes/events-delete.js');
 
 (async () => {
 	const redis = new Redis({
@@ -73,6 +74,7 @@ const eventsDownload = require('./routes/events-download.js');
 
 	router.post('/api/events/upload', eventsUpload);
 	router.post('/api/events/download', eventsDownload);
+	router.post('/api/events/delete', eventsDownload);
 
 	app
 		.use(bodyParser())

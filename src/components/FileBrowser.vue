@@ -94,7 +94,7 @@
 				</td>
 			</tr>
 
-			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)"></file-entry>
+			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)"></file-entry>
 		</tbody>
 	</table>
 
@@ -194,6 +194,15 @@ export default {
 			});
 
 			await this.updateUsage();
+		},
+
+		async del(file) {
+			await this.$store.state.s3.deleteObject({
+				Bucket: this.$store.state.stargateBucket,
+				Key: file.Key
+			}).promise();
+
+			await this.list();
 		},
 
 		async list() {
