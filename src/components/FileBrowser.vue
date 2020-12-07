@@ -202,6 +202,11 @@ export default {
 				Key: file.Key
 			}).promise();
 
+			await axios.post('/api/events/delete', {
+				bytes: file.Size,
+				files: 1
+			});
+
 			await this.list();
 		},
 
