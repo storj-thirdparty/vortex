@@ -7,6 +7,7 @@ const generateAccess = require('../lib/generateAccess.js');
 const getStargateCredentials = require('../lib/getStargateCredentials.js');
 const sendActivationEmail = require('../lib/sendActivationEmail.js');
 const getBucketName = require('../lib/getBucketName.js');
+const config = require('../config.json');
 
 module.exports = async function(ctx, next) {
 	const {email, password, termsAndConditions} = ctx.request.body;
@@ -71,7 +72,9 @@ module.exports = async function(ctx, next) {
 		throw new ApiError("Connection to Stargate failed.");
 	}
 
-	await sendActivationEmail(newUser);
+	if(config.features.emailActivation === true) {
+		await sendActivationEmail(newUser);
+	}
 
 	await newUser.save();
 

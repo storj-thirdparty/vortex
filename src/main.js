@@ -36,7 +36,8 @@ const store = new Vuex.Store({
 		stargateBucket: null,
 		stargateEndpoint: null,
 		activated: null,
-		s3: null
+		s3: null,
+		features: {}
 	},
 	mutations: {
 		setUserError(state, error) {
@@ -49,7 +50,8 @@ const store = new Vuex.Store({
 			stargateSecretKey,
 			stargateBucket,
 			stargateEndpoint,
-			activated
+			activated,
+			features
 		}) {
 			state.email = email;
 			state.stargateAccessKey = stargateAccessKey;
@@ -57,8 +59,8 @@ const store = new Vuex.Store({
 			state.stargateBucket = stargateBucket;
 			state.stargateEndpoint = stargateEndpoint,
 			state.activated = activated;
-
 			state.userError = null;
+			state.features = features;
 
 			state.s3 = new AWS.S3({
 				accessKeyId: stargateAccessKey,
@@ -67,6 +69,7 @@ const store = new Vuex.Store({
 				s3ForcePathStyle: true,
 				signatureVersion: 'v4'
 			});
+
 		}
 	},
 	actions: {

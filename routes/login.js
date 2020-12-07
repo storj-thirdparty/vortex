@@ -37,6 +37,7 @@ module.exports = async function(ctx) {
 		stargateSecretKey: user.stargateSecretKey,
 		stargateBucket: getBucketName(user),
 		stargateEndpoint: config.stargateEndpoint,
-		activated: user.activated
+		activated: user.activated,
+		features: config.features
 	};
 };
