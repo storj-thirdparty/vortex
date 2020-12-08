@@ -67,7 +67,8 @@ export default {
 
 			const url = this.$store.state.s3.getSignedUrl('getObject', {
 				Bucket: this.$store.state.stargateBucket,
-				Key: this.file.Key
+				Key: this.file.Key,
+				Expires: 60 * 60 * 24
 			});
 
 			navigator.clipboard.readText().then(text => outputElem.innerText = text);

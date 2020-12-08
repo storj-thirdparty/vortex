@@ -30,13 +30,19 @@ module.exports = async ctx => {
 			createTime: user.createTime,
 			lastLoginTime: user.lastLoginTime,
 
-			bytesUploaded: user.Events
+			bytesUsed: user.Events
 				.filter(event => event.type === "upload")
-				.reduce((n, e) => n + e.params.bytes, 0),
+				.reduce((n, e) => n + e.params.bytes, 0) -
+					user.Events
+						.filter(event => event.type === "delete")
+						.reduce((n, e) => n + e.params.bytes, 0),
 
-			filesUploaded: user.Events
+			filesUsed: user.Events
 				.filter(event => event.type === "upload")
-				.reduce((n, e) => n + e.params.files, 0),
+				.reduce((n, e) => n + e.params.files, 0) -
+					user.Events
+						.filter(event => event.type === "delete")
+						.reduce((n, e) => n + e.params.files, 0),
 
 			filesDownloaded: user.Events
 				.filter(event => event.type === "download")

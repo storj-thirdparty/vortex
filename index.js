@@ -74,7 +74,7 @@ const eventsDelete = require('./routes/events-delete.js');
 
 	router.post('/api/events/upload', eventsUpload);
 	router.post('/api/events/download', eventsDownload);
-	router.post('/api/events/delete', eventsDownload);
+	router.post('/api/events/delete', eventsDelete);
 
 	app
 		.use(bodyParser())

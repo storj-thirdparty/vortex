@@ -12,16 +12,24 @@ module.exports = async ctx => {
 		include: Event
 	});
 
+	console.log(user.Events.filter(e => e.type === 'delete'));
+
 	return ctx.body = {
 		bytesUploaded: user.Events
 			.filter(event => event.type === "upload")
-			.reduce((n, e) => n + e.params.bytes, 0),
+			.reduce((n, e) => n + e.params.bytes, 0) -
+				user.Events
+					.filter(event => event.type === "delete")
+					.reduce((n, e) => n + e.params.bytes, 0),
 
 		bytesUploadedQuota: 1e+9,
 
 		filesUploaded: user.Events
 			.filter(event => event.type === "upload")
-			.reduce((n, e) => n + e.params.files, 0),
+			.reduce((n, e) => n + e.params.files, 0) -
+				user.Events
+					.filter(event => event.type === "delete")
+					.reduce((n, e) => n + e.params.files, 0),
 
 		filesUploadedQuota: 1000,
 

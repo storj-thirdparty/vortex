@@ -220,8 +220,8 @@ input {
 									<th>Email</th>
 									<th>createTime</th>
 									<th>lastLoginTime</th>
-									<th>uploaded</th>
-									<th>downloaded</th>
+									<th>storage</th>
+									<th>bandwidth</th>
 								</tr>
 							</thead>
 
@@ -244,7 +244,7 @@ input {
 									</td>
 									<td>{{user.createTime | toNiceDate}}</td>
 									<td>{{user.lastLoginTime | toNiceDate}}</td>
-									<td>{{user.filesUploaded}} files, {{user.bytesUploaded | prettyBytes}}</td>
+									<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
 									<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
 								</tr>
 							</tbody>
