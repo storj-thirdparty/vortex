@@ -13,6 +13,7 @@ const signUp = require('./routes/signUp.js');
 const passiveLogin = require('./routes/passive-login.js');
 const activateEmail = require('./routes/activate-email.js');
 const adminUsers = require('./routes/admin-users.js');
+const adminJson = require('./routes/admin-json.js');
 const usage = require('./routes/usage.js');
 
 const eventsUpload = require('./routes/events-upload.js');
@@ -71,6 +72,7 @@ const eventsDelete = require('./routes/events-delete.js');
 	});
 
 	router.post('/api/admin/users', adminUsers);
+	router.get('/api/admin/json/:id', adminJson);
 
 	router.post('/api/events/upload', eventsUpload);
 	router.post('/api/events/download', eventsDownload);

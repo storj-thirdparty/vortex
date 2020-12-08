@@ -213,6 +213,8 @@ input {
 
 						<input v-model="search" placeholder="Search by email..." class="search">
 
+						<pre v-if="userJson">{{userJson}}</pre>
+
 						<table class="table">
 							<thead>
 								<tr>
@@ -222,6 +224,7 @@ input {
 									<th>lastLoginTime</th>
 									<th>storage</th>
 									<th>bandwidth</th>
+									<th>info</th>
 								</tr>
 							</thead>
 
@@ -246,6 +249,7 @@ input {
 									<td>{{user.lastLoginTime | toNiceDate}}</td>
 									<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
 									<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
+									<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
 								</tr>
 							</tbody>
 						</table>
@@ -293,7 +297,8 @@ export default {
 	data: () => ({
 		users: [],
 		search: '',
-		results: 0
+		results: 0,
+		userJson: null
 	}),
 	filters: {
 		toNiceDate(d) {
@@ -314,6 +319,19 @@ export default {
 
 			this.users = users;
 			this.results = results;
+		},
+
+		async getInfo(user) {
+			const {data} = await axios.get(`/api/admin/json/${user.id}`);
+
+			data.Events = {
+				...data.Events,
+				bytesUploaded: prettyBytes(data.Events.bytesUploaded),
+				bytesDeleted: prettyBytes(data.Events.bytesDeleted),
+				bytesDownloaded: prettyBytes(data.Events.bytesDownloaded)
+			};
+
+			this.userJson = data;
 		}
 	},
 	watch: {
