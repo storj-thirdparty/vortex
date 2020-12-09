@@ -6,7 +6,7 @@
 
 <template>
 <tr scope="row">
-	<td>{{filename}}</td>
+	<td data-ls-disabled>{{filename}}</td>
 	<td>{{size}}</td>
 	<td>{{uploadDate}}</td>
 	<td style="min-width: 20rem;">
