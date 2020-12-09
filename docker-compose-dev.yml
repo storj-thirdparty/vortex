@@ -25,12 +25,3 @@ services:
         - POSTGRES_DB=vortex
   redis:
     image: redis:latest
-  gateway:
-    image: storjlabs/gateway
-    command: [ "run" ]
-    volumes:
-      - type: bind
-        source: ./.gateway
-        target: /root/.local/share/storj/gateway/
-    ports:
-        - "127.0.0.1:7777:7777"
