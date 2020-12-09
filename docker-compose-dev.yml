@@ -12,7 +12,6 @@ services:
     links:
       - "postgres:postgres"
       - "redis:redis"
-      - "gateway:gateway"
     command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
     volumes:
       - ./:/usr/src/app
