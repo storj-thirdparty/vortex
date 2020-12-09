@@ -39,7 +39,8 @@ module.exports = async function(ctx, next) {
 		password: await bcrypt.hash(password, 10),
 		createTime: Date.now(),
 		lastLoginTime: Date.now(),
-		activated: false
+		activated: false,
+		planId: 'free-100g'
 	});
 
 	try {

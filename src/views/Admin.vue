@@ -225,6 +225,7 @@ input {
 									<th>storage</th>
 									<th>bandwidth</th>
 									<th>info</th>
+									<th>plan</th>
 								</tr>
 							</thead>
 
@@ -250,6 +251,13 @@ input {
 									<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
 									<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
 									<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
+									<td>
+										<select class="custom-select" v-on:change="setPlan(user, $event.target.value)">
+											<option v-for="(plan, planId) in plans" v-bind:selected="user.planId === planId">
+												{{planId}}
+											</option>
+										</select>
+									</td>
 								</tr>
 							</tbody>
 						</table>
@@ -298,7 +306,8 @@ export default {
 		users: [],
 		search: '',
 		results: 0,
-		userJson: null
+		userJson: null,
+		plans: []
 	}),
 	filters: {
 		toNiceDate(d) {
@@ -311,6 +320,7 @@ export default {
 			const {
 				data: {
 					users,
+					plans,
 					results
 				}
 			} = await axios.post('/api/admin/users', {
@@ -318,11 +328,14 @@ export default {
 			});
 
 			this.users = users;
+			this.plans = plans;
 			this.results = results;
 		},
 
 		async getInfo(user) {
-			const {data} = await axios.get(`/api/admin/json/${user.id}`);
+			const {
+				data
+			} = await axios.get(`/api/admin/json/${user.id}`);
 
 			data.Events = {
 				...data.Events,
@@ -332,6 +345,15 @@ export default {
 			};
 
 			this.userJson = data;
+		},
+
+		async setPlan(user, planId) {
+			console.log({ user, planId });
+
+			await axios.post(`/api/admin/setplan`, {
+				userId: user.id,
+				planId
+			})
 		}
 	},
 	watch: {

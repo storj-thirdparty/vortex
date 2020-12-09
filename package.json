@@ -18,6 +18,7 @@
 		"axios": "^0.20.0",
 		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",
+		"human-readable-numbers": "^0.9.5",
 		"ioredis": "^4.19.2",
 		"koa": "^2.13.0",
 		"koa-bodyparser": "^4.3.0",

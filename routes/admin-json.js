@@ -9,7 +9,8 @@ module.exports = async ctx => {
 			'email',
 			'createTime',
 			'activated',
-			'lastLoginTime'
+			'lastLoginTime',
+			'planId'
 		],
 		where: {
 			id: ctx.params.id
@@ -23,6 +24,7 @@ module.exports = async ctx => {
 		createTime: user.createTime,
 		activated: user.activated,
 		lastLoginTime: user.lastLoginTime,
+		planId: user.planId,
 		Events: {
 			bytesUploaded: user.Events
 				.filter(event => event.type === "upload")

@@ -1,6 +1,7 @@
 const Sequelize = require('sequelize');
 const User = require('../models/User.js');
 const Event = require('../models/Event.js');
+const plans = require('../plans.json');
 
 module.exports = async ctx => {
 	let users = await User.findAll({
@@ -9,7 +10,8 @@ module.exports = async ctx => {
 			'email',
 			'activated',
 			'createTime',
-			'lastLoginTime'
+			'lastLoginTime',
+			'planId'
 		],
 		where: {
 			email: {
@@ -29,6 +31,7 @@ module.exports = async ctx => {
 			activated: user.activated,
 			createTime: user.createTime,
 			lastLoginTime: user.lastLoginTime,
+			planId: user.planId,
 
 			bytesUsed: user.Events
 				.filter(event => event.type === "upload")
@@ -63,7 +66,8 @@ module.exports = async ctx => {
 				}
 			},
 			limit: 10
-		})
+		}),
+		plans
 	};
 
 

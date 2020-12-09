@@ -1,0 +1,18 @@
+{
+	"free-1g": {
+		"name": "Free 1G",
+		"active": true,
+		"storageBytesQuota": 1e+9,
+		"storageFilesQuota": 1000,
+		"downloadBytesQuota": 1e+9,
+		"downloadFilesQuota": 1000
+	},
+	"free-100g": {
+		"name": "Free 100G",
+		"active": true,
+		"storageBytesQuota": 1e+11,
+		"storageFilesQuota": 100000,
+		"downloadBytesQuota": 1e+11,
+		"downloadFilesQuota": 100000
+	}
+}

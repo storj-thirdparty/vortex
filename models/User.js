@@ -14,7 +14,8 @@ User.init({
 	lastEmailTime: DataTypes.DATE,
 	stargateAccessKey: DataTypes.STRING,
 	stargateSecretKey: DataTypes.STRING,
-	activated: DataTypes.BOOLEAN
+	activated: DataTypes.BOOLEAN,
+	planId: DataTypes.STRING
 }, {
 	sequelize,
 	modelName: 'User'
