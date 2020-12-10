@@ -94,6 +94,10 @@
 				</td>
 			</tr>
 
+			<tr v-if="path.length > 0">
+				<td><a href="#" v-on:click="back">...</a></td>
+			</tr>
+
 			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
 		</tbody>
 	</table>
@@ -234,27 +238,44 @@ export default {
 					Key: file.Key.slice(this.path.length)
 				}))
 				.map(file => {
-				if(file.Key.includes('/') === true) {
-					file.type = 'folder';
-					file.Key = file.Key.split('/')[0];
-				} else {
-					file.type = 'file';
-				}
-
-				return file;
-			}).filter(file => {
-				console.log(file);
-				if(filenames.has(file.Key)) {
-					return false;
-				} else {
-					filenames.add(file.Key);
-					return true;
-				}
+					if(file.Key.includes('/') === true) {
+						return {
+							...file,
+							type: 'folder',
+							Key:  file.Key.split('/')[0]
+						};
+					} else {
+						return {
+							...file,
+							type: 'file'
+						};
+					}
+				}).filter(file => {
+					if(filenames.has(file.Key)) {
+						return false;
+					} else {
+						filenames.add(file.Key);
+						return true;
+					}
 			});
 		},
 
 		async go(path) {
+			this.previousPath = path;
+
 			this.path += path;
+			await this.list();
+		},
+
+		async back() {
+			let path = this.path;
+
+			let i;
+
+			for(i = path.length - 2; path[i - 1] !== '/' && i > 0; i--) {};
+
+			this.path = path.slice(0, i);
+
 			await this.list();
 		},
 
