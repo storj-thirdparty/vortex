@@ -94,7 +94,7 @@
 				</td>
 			</tr>
 
-			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)"></file-entry>
+			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
 		</tbody>
 	</table>
 
@@ -119,7 +119,7 @@ import FileEntry from './FileEntry.vue';
 export default {
 	data: () => ({
 		s3: null,
-		path: '/',
+		path: '',
 		filesUploading: [],
 		files: [],
 		usage: null
@@ -215,15 +215,47 @@ export default {
 		},
 
 		async list() {
-			const {
-				Contents
-			} = await this.s3.listObjects({
+			const response = await this.s3.listObjects({
 				Bucket: this.$store.state.stargateBucket
 			}).promise();
 
+			console.log({ response });
+
+			const {Contents} = response;
+
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
 
-			this.files = Contents;
+			const filenames = new Set();
+
+			this.files = Contents
+				.filter(file => file.Key.startsWith(this.path))
+				.map(file => ({
+					...file,
+					Key: file.Key.slice(this.path.length)
+				}))
+				.map(file => {
+				if(file.Key.includes('/') === true) {
+					file.type = 'folder';
+					file.Key = file.Key.split('/')[0];
+				} else {
+					file.type = 'file';
+				}
+
+				return file;
+			}).filter(file => {
+				console.log(file);
+				if(filenames.has(file.Key)) {
+					return false;
+				} else {
+					filenames.add(file.Key);
+					return true;
+				}
+			});
+		},
+
+		async go(path) {
+			this.path += path;
+			await this.list();
 		},
 
 		async updateUsage() {

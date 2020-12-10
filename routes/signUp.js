@@ -40,7 +40,7 @@ module.exports = async function(ctx, next) {
 		createTime: Date.now(),
 		lastLoginTime: Date.now(),
 		activated: false,
-		planId: 'free-100g'
+		planId: 'free-1g'
 	});
 
 	try {
