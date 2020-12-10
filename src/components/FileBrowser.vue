@@ -218,12 +218,12 @@ export default {
 			await this.updateUsage();
 		},
 
-		async list() {
+		async list(path = this.path) {
 			const response = await this.s3.listObjects({
 				Bucket: this.$store.state.stargateBucket
 			}).promise();
 
-			console.log({ response });
+			this.path = path;
 
 			const {Contents} = response;
 
@@ -261,10 +261,7 @@ export default {
 		},
 
 		async go(path) {
-			this.previousPath = path;
-
-			this.path += path;
-			await this.list();
+			await this.list(this.path + path);
 		},
 
 		async back() {
@@ -274,9 +271,7 @@ export default {
 
 			for(i = path.length - 2; path[i - 1] !== '/' && i > 0; i--) {};
 
-			this.path = path.slice(0, i);
-
-			await this.list();
+			await this.list(path.slice(0, i));
 		},
 
 		async updateUsage() {
