@@ -18,6 +18,30 @@ module.exports = async ctx => {
 		include: Event
 	});
 
+
+	const lastAuditTime = user.Events
+		.filter(event => event.type === 'audit-upload')
+		.pop()
+		.date;
+
+	const lastAuditUpload = user.Events
+		.filter(event => event.type === 'audit-upload')
+		.pop()
+		.params
+		.bytes;
+
+	const lastAuditFiles = user.Events
+		.filter(event => event.type === 'audit-upload')
+		.pop()
+		.params
+		.files;
+
+	const lastAuditDownload = user.Events
+		.filter(event => event.type === 'audit-download')
+		.pop()
+		.params
+		.bytes;
+
 	ctx.body = {
 		id: user.id,
 		email: user.email,
@@ -43,7 +67,11 @@ module.exports = async ctx => {
 				.reduce((n, e) => n + e.params.bytes, 0),
 			filesDownloaded: user.Events
 				.filter(event => event.type === "download")
-				.reduce((n, e) => n + e.params.files, 0)
+				.reduce((n, e) => n + e.params.files, 0),
+			lastAuditTime,
+			lastAuditUpload,
+			lastAuditFiles,
+			lastAuditDownload
 		}
 	};
 };

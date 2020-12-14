@@ -19,6 +19,7 @@ services:
       - ./public:/usr/src/app/public
       - ./routes:/usr/src/app/routes
       - ./src:/usr/src/app/src
+      - ./scripts:/usr/src/app/scripts
   postgres:
     image: postgres:latest
     volumes:
