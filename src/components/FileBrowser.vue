@@ -33,7 +33,7 @@
 </style>
 
 <template>
-<div class="card border-0 p-4 p-lg-5 mb-5 mt-4" @drop.prevent="upload" @dragover.prevent>
+<div class="card border-0 p-4 p-lg-5 mb-5 mt-4" @drop.prevent="upload"  @dragover.prevent>
 
 	<div class="row bars" v-if="usage != null">
 		<div class="col-sm-4">
@@ -73,6 +73,19 @@
 
 	<!--<p class="path mb-4">{{path}}</p>-->
 
+	<div class="row">
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4"></div>
+		<div class="col-sm-4" style="text-align: right">
+
+			<button class="btn btn-outline-primary" v-on:click="createFolderInputShow = true">New Folder</button style="margin-right: 15px">
+
+			<input ref="fileInput" type="file" hidden multiple v-on:change="upload">
+			<button class="btn btn-outline-primary" v-on:click="buttonUpload">Upload</button>
+
+		</div>
+	</div>
+
 	<table class="table">
 		<thead>
 			<tr>
@@ -96,6 +109,10 @@
 
 			<tr v-if="path.length > 0">
 				<td><a href="#" v-on:click="back">...</a></td>
+			</tr>
+
+			<tr v-if="createFolderInputShow === true">
+				<td><input v-model="createFolderInput" v-on:keypress.enter="createFolder"></td>
 			</tr>
 
 			<file-entry v-for="file in files" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
@@ -126,7 +143,9 @@ export default {
 		path: '',
 		filesUploading: [],
 		files: [],
-		usage: null
+		usage: null,
+		createFolderInput: '',
+		createFolderInputShow: false
 	}),
 	async created() {
 		const s3Config = {
@@ -137,8 +156,6 @@ export default {
 			signatureVersion: 'v4'
 		};
 
-		console.log(s3Config);
-
 		this.s3 = new AWS.S3(s3Config);
 
 		await this.list();
@@ -146,12 +163,14 @@ export default {
 	},
 	methods: {
 		async upload(e) {
-			let files = e.dataTransfer.files;
+			console.log(e);
+
+			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
 
 			await [...files].map(async file => {
 				const params = {
 					Bucket: this.$store.state.stargateBucket,
-					Key: file.name,
+					Key: this.path + file.name,
 					Body: file
 				};
 
@@ -173,11 +192,9 @@ export default {
 		},
 
 		async download(file) {
-			console.log(file);
-
 			const url = this.s3.getSignedUrl('getObject', {
 				Bucket: this.$store.state.stargateBucket,
-				Key: file.Key
+				Key: this.path + file.Key
 			});
 
 			const downloadURL = function(data, fileName) {
@@ -204,7 +221,7 @@ export default {
 		async del(file) {
 			await this.$store.state.s3.deleteObject({
 				Bucket: this.$store.state.stargateBucket,
-				Key: file.Key
+				Key: this.path + file.Key
 			}).promise();
 
 			console.log('del', { file });
@@ -280,6 +297,23 @@ export default {
 			} = await axios.post('/api/usage');
 
 			this.usage = data;
+		},
+
+		async buttonUpload() {
+			let fileInputElement = this.$refs.fileInput;
+		    fileInputElement.click();
+		},
+
+		async createFolder() {
+			await this.s3.putObject({
+				Bucket: this.$store.state.stargateBucket,
+				Key: this.path + this.createFolderInput + '/.vortex_placeholder'
+			}).promise();
+
+			this.createFolderInput = '';
+			this.createFolderInputShow = false;
+
+			await this.list();
 		}
 	},
 	computed: {
