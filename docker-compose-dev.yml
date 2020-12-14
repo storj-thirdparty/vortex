@@ -14,7 +14,11 @@ services:
       - "redis:redis"
     command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
     volumes:
-      - ./:/usr/src/app
+      - ./lib:/usr/src/app/lib
+      - ./models:/usr/src/app/models
+      - ./public:/usr/src/app/public
+      - ./routes:/usr/src/app/routes
+      - ./src:/usr/src/app/src
   postgres:
     image: postgres:latest
     volumes:
