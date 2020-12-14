@@ -253,9 +253,8 @@ input {
 						<div class="video embed-responsive embed-responsive-16by9 mb-5">
 							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
 						</div>
-						<h2 class="mb-4">How Storj Works</h2>
-						<p>Storj splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn't being stored in a vulnerable data center, it's being securely stored all
-							over the world.</p>
+						<h2 class="mb-4">How It Works</h2>
+						<p>This app is powered by the Tardigrade decentralized cloud service, the world’s first decentralized cloud object storage service. The Tardigrade cloud storage platform utilizes spare disk drive space and bandwidth shared by its community members worldwide, called Storage Node Operators. Tardigrade splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn’t being stored in a vulnerable data center; it’s securely stored all over the world.</p>
 					</div>
 
 					<div class="col-sm-12 col-md-6 offset-md-1">
