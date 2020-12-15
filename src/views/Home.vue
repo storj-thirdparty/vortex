@@ -127,7 +127,6 @@ input {
 .how {
 	background: #fff;
 	padding: 40px 0;
-	margin-top: 40px;
 }
 
 .keys .title {
@@ -193,7 +192,7 @@ input {
 
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 col-md-6 col-lg-5 py-5 mt-0 mt-lg-5">
+				<div class="col-sm-12 col-md-6 col-lg-5 pt-5 mt-0 mt-lg-5">
 					<Hero></Hero>
 				</div>
 
