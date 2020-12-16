@@ -15,7 +15,7 @@ a {
 	line-height: 1.5;
 }
 
-.email {
+.input {
 	width: 100%;
 	height: 48px;
 	border: 1px solid rgba(56, 75, 101, 0.4);
@@ -28,6 +28,15 @@ a {
 	color: rgba(27, 37, 51, 0.8);
 	padding: 10px 15px;
 	margin-bottom: 16px;
+}
+.email {
+	background: url("~@/assets/tar-ico-email.svg") no-repeat 16px 16px;
+	padding-left: 48px;
+}
+.password {
+	background: url("~@/assets/tar-ico-lock.svg") no-repeat 16px 16px;
+	background-position-x: 20px;
+	padding-left: 48px;
 }
 
 ::-webkit-input-placeholder {
@@ -127,7 +136,6 @@ input {
 .how {
 	background: #fff;
 	padding: 40px 0;
-	margin-top: 40px;
 }
 
 .keys .title {
@@ -193,7 +201,7 @@ input {
 
 		<div class="container">
 			<div class="row">
-				<div class="col-sm-12 col-md-6 col-lg-5 py-5 mt-0 mt-lg-5">
+				<div class="col-sm-12 col-md-6 col-lg-5 pt-5 mt-0 mt-lg-5">
 					<Hero></Hero>
 				</div>
 
@@ -208,10 +216,10 @@ input {
 							<h5 class="mb-4">Get Started</h5>
 
 							<label for="emailAddress">Email Address</label>
-							<input v-model="email" required type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
+							<input v-model="email" required type="email" class="form-control input email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
 							<label for="password">Password</label>
-							<input v-model="password" required type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+							<input v-model="password" required type="password" class="form-control input password" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
 							<div class="custom-control custom-checkbox mb-3">
 								<input v-model="termsAndConditions" required type="checkbox" class="custom-control-input" id="termsCheck">
@@ -230,10 +238,10 @@ input {
 							<h5 class="mb-4">Login</h5>
 
 							<label for="emailAddress">Email Address</label>
-							<input v-model="email" type="email" class="form-control email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
+							<input v-model="email" type="email" class="form-control input email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
 
 							<label for="password">Password</label>
-							<input v-model="password" type="password" class="form-control email" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
+							<input v-model="password" type="password" class="form-control input password" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
 
 							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Login</button>
 
