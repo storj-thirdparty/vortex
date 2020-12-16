@@ -44,7 +44,7 @@ module.exports = async ctx => {
 	} catch(err) {}
 
 	try {
-		auditResults = lastAuditDownload = user.Events
+		auditResults.lastAuditDownload = user.Events
 			.filter(event => event.type === 'audit-download')
 			.pop()
 			.params
