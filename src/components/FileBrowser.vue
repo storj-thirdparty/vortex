@@ -127,7 +127,7 @@
 
 			<tr v-if="createFolderInputShow === true">
 				<td span="3">
-					<input v-model="createFolderInput" v-on:keypress.enter="createFolder" style="width: 200px">
+					<input v-model="createFolderInput" v-on:keypress.enter="createFolder">
 					<button v-on:click="createFolder" class="btn btn-outline-primary" style="margin-left: 5px;">Ok</button>
 				</td>
 			</tr>

@@ -28,10 +28,13 @@ a {
 	color: rgba(27, 37, 51, 0.8);
 	padding: 10px 15px;
 	margin-bottom: 16px;
+
+	padding-left: 45px !important;
 }
 .email {
 	background: url("~@/assets/tar-ico-email.svg") no-repeat 16px 16px;
 	padding-left: 48px;
+
 }
 .password {
 	background: url("~@/assets/tar-ico-lock.svg") no-repeat 16px 16px;
