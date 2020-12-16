@@ -342,7 +342,7 @@ export default {
 			await this.list();
 
 			await axios.post('/api/events/upload', {
-				bytes: file.size,
+				bytes: 0,
 				files: 1
 			});
 
