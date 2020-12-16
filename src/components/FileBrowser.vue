@@ -126,7 +126,10 @@
 			</tr>
 
 			<tr v-if="createFolderInputShow === true">
-				<td><input v-model="createFolderInput" v-on:keypress.enter="createFolder"></td>
+				<td span="3">
+					<input v-model="createFolderInput" v-on:keypress.enter="createFolder" style="width: 200px">
+					<button v-on:click="createFolder" class="btn btn-outline-primary" style="margin-left: 5px;">Ok</button>
+				</td>
 			</tr>
 
 
@@ -337,6 +340,13 @@ export default {
 			this.createFolderInputShow = false;
 
 			await this.list();
+
+			await axios.post('/api/events/upload', {
+				bytes: file.size,
+				files: 1
+			});
+
+			await this.updateUsage();
 		}
 	},
 	computed: {

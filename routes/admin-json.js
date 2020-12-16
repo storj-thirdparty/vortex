@@ -18,29 +18,38 @@ module.exports = async ctx => {
 		include: Event
 	});
 
+	const auditResults = {};
 
-	const lastAuditTime = user.Events
-		.filter(event => event.type === 'audit-upload')
-		.pop()
-		.date;
+	try {
+		auditResults.lastAuditTime = user.Events
+			.filter(event => event.type === 'audit-upload')
+			.pop()
+			.date;
+	} catch(err) {}
 
-	const lastAuditUpload = user.Events
-		.filter(event => event.type === 'audit-upload')
-		.pop()
-		.params
-		.bytes;
+	try {
+		auditResults.lastAuditUpload = user.Events
+			.filter(event => event.type === 'audit-upload')
+			.pop()
+			.params
+			.bytes
+	} catch(err) {}
 
-	const lastAuditFiles = user.Events
-		.filter(event => event.type === 'audit-upload')
-		.pop()
-		.params
-		.files;
+	try {
+		auditResults.lastAuditFiles = user.Events
+			.filter(event => event.type === 'audit-upload')
+			.pop()
+			.params
+			.files;
+	} catch(err) {}
 
-	const lastAuditDownload = user.Events
-		.filter(event => event.type === 'audit-download')
-		.pop()
-		.params
-		.bytes;
+	try {
+		auditResults = lastAuditDownload = user.Events
+			.filter(event => event.type === 'audit-download')
+			.pop()
+			.params
+			.bytes;
+	} catch(err) {}
 
 	ctx.body = {
 		id: user.id,
@@ -68,10 +77,7 @@ module.exports = async ctx => {
 			filesDownloaded: user.Events
 				.filter(event => event.type === "download")
 				.reduce((n, e) => n + e.params.files, 0),
-			lastAuditTime,
-			lastAuditUpload,
-			lastAuditFiles,
-			lastAuditDownload
+			...auditResults
 		}
 	};
 };

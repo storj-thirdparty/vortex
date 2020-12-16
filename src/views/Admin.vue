@@ -220,8 +220,8 @@ input {
 								<tr>
 									<th>ID</th>
 									<th>Email</th>
-									<th>createTime</th>
-									<th>lastLoginTime</th>
+									<th>created</th>
+									<th>lastLogin</th>
 									<th>storage</th>
 									<th>bandwidth</th>
 									<th>info</th>
@@ -311,7 +311,7 @@ export default {
 	}),
 	filters: {
 		toNiceDate(d) {
-			return moment(d).format('L HH:MM');
+			return moment(d).format('L');
 		},
 		prettyBytes
 	},
