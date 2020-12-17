@@ -271,20 +271,41 @@ export default {
 
 		async list(path = this.path) {
 			const response = await this.s3.listObjects({
-				Bucket: this.$store.state.stargateBucket
+				Bucket: this.$store.state.stargateBucket,
+				Delimiter: '/',
+				Prefix: path
 			}).promise();
 
 			this.path = path;
 
 			const {
-				Contents
+				Contents,
+				CommonPrefixes
 			} = response;
+
+			console.log({ Contents, CommonPrefixes });
 
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
 
 			const filenames = new Set();
 
-			this.files = Contents
+
+			this.files = [
+				...CommonPrefixes.map(({Prefix}) => ({
+					Key: Prefix.slice(path.length, -1),
+					LastModified: new Date(0),
+					type: 'folder',
+				})),
+				...Contents.map(file => ({
+					...file,
+					Key: file.Key.slice(path.length),
+					type: 'file'
+				}))
+			];
+
+			console.log(this.files);
+
+			/*
 				.filter(file => file.Key.startsWith(this.path))
 				.map(file => ({
 					...file,
@@ -310,7 +331,7 @@ export default {
 						filenames.add(file.Key);
 						return true;
 					}
-				});
+				});*/
 		},
 
 		async go(path) {
