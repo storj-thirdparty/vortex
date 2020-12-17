@@ -121,6 +121,13 @@ input {
 	background: #0059d0;
 }
 
+.btn-primary {
+	background: #0068DC;
+}
+.btn-light {
+	background: #E6E9EF;
+}
+
 .custom-select {
 	width: 100%;
 	height: 48px;

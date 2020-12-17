@@ -1,204 +1,3 @@
-<style>
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: Poppins;
-	font-weight: bold;
-}
-
-p,
-span,
-a {
-	line-height: 1.5;
-}
-
-.email {
-	width: 100%;
-	height: 48px;
-	border: 1px solid rgba(56, 75, 101, 0.4);
-	box-sizing: border-box;
-	border-radius: 6px;
-	font-family: Inter;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	color: rgba(27, 37, 51, 0.8);
-	padding: 10px 15px;
-	margin-bottom: 16px;
-}
-
-::-webkit-input-placeholder {
-	/* WebKit, Blink, Edge */
-	color: #AFB7C1;
-}
-
-:-moz-placeholder {
-	/* Mozilla Firefox 4 to 18 */
-	color: #AFB7C1;
-	opacity: 1;
-}
-
-::-moz-placeholder {
-	/* Mozilla Firefox 19+ */
-	color: #AFB7C1;
-	opacity: 1;
-}
-
-:-ms-input-placeholder {
-	/* Internet Explorer 10-11 */
-	color: #AFB7C1;
-}
-
-::-ms-input-placeholder {
-	/* Microsoft Edge */
-	color: #AFB7C1;
-}
-
-::placeholder {
-	/* Most modern browsers support this now. */
-	color: #AFB7C1;
-}
-
-.video {
-	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-	border: 1px solid #adb4be;
-	border-radius: 6px;
-}
-
-input {
-	height: 48px;
-	font-size: 16px;
-	padding: 10px 15px;
-	border: 1px solid #adb4be;
-	color: #474e59;
-	border-radius: 6px;
-	cursor: text;
-}
-
-.button {
-	padding: 14px 0;
-	background-color: #0068DC;
-	border-radius: 6px;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 19px;
-	text-align: center;
-	text-decoration: none;
-	color: #FFFFFF;
-	margin-bottom: 16px;
-	transition: all 100ms ease-in-out;
-}
-
-.button-no-bg {
-	padding: 14px 0;
-	border-radius: 6px;
-	font-weight: bold;
-	font-size: 16px;
-	line-height: 19px;
-	text-align: center;
-	text-decoration: none;
-	color: #FFFFFF;
-	margin-bottom: 16px;
-	transition: all 100ms ease-in-out;
-}
-
-.button:hover {
-	background: #0059d0;
-}
-
-.custom-select {
-	width: 100%;
-	height: 48px;
-	border: 1px solid rgba(56, 75, 101, 0.4);
-	box-sizing: border-box;
-	border-radius: 6px;
-	font-family: Inter;
-	font-style: normal;
-	font-weight: normal;
-	font-size: 16px;
-	color: rgba(27, 37, 51, 0.8);
-	padding: 10px 15px;
-	margin-bottom: 16px;
-}
-
-.how {
-	background: #fff;
-	padding: 40px 0;
-	margin-top: 40px;
-}
-
-.keys .title {
-	font-weight: bold;
-	font-size: 29px;
-	line-height: 43px;
-	text-align: center;
-	color: #252525;
-}
-
-.keys .label {
-	font-weight: bold;
-	font-size: 16px;
-	color: #354049;
-}
-
-.keys .copy {
-	background: #FFFFFF;
-	border: 1px solid #0068DC;
-	border-radius: 4px;
-	font-weight: bold;
-	font-size: 14px;
-	text-align: center;
-	color: #0068DC;
-	cursor: pointer;
-	position: absolute;
-	bottom: 8px;
-	right: 26px;
-	padding: 4px 14px;
-	line-height: 1.6;
-	transition: all 100ms ease-in-out;
-}
-
-.keys .copy:hover {
-	background: #0068DC;
-	color: #fff;
-}
-
-.keys a {
-	font-weight: bold;
-}
-
-.keys input {
-	height: 48px;
-	font-size: 16px;
-	padding: 10px 15px;
-	border: 1px solid #adb4be;
-	color: #474e59;
-	border-radius: 6px;
-	cursor: text;
-}
-
-.keys .alert-warning {
-	color: #000;
-	background-color: #fff9f6;
-	border-color: #f9a482;
-}
-
-.user-row {
-	padding-bottom: -25px;
-}
-
-.search {
-	margin-bottom: 25px;
-}
-
-.center {
-	text-align: center;
-}
-</style>
-
 <template>
 <div>
 	<div>
@@ -215,52 +14,54 @@ input {
 
 						<pre v-if="userJson">{{userJson}}</pre>
 
-						<table class="table">
-							<thead>
-								<tr>
-									<th>ID</th>
-									<th>Email</th>
-									<th>created</th>
-									<th>lastLogin</th>
-									<th>storage</th>
-									<th>bandwidth</th>
-									<th>info</th>
-									<th>plan</th>
-								</tr>
-							</thead>
+						<div class="table-responsive">
+							<table class="table">
+								<thead>
+									<tr>
+										<th>ID</th>
+										<th>Email</th>
+										<th>created</th>
+										<th>lastLogin</th>
+										<th>storage</th>
+										<th>bandwidth</th>
+										<th>info</th>
+										<th>plan</th>
+									</tr>
+								</thead>
 
-							<tbody>
-								<tr v-for="user in users" class="user-row">
-									<td>
-										<p style="font-size: 12px;">{{user.id}}</p>
-									</td>
-									<td>{{user.email}}
+								<tbody>
+									<tr v-for="user in users" class="user-row">
+										<td>
+											<p style="font-size: 12px;">{{user.id}}</p>
+										</td>
+										<td>{{user.email}}
 
-										<svg v-if="user.activated === true" width="1em" height="1em" viewBox="0 0 16 16" class="text-success bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-											<path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
-										</svg>
+											<svg v-if="user.activated === true" width="1em" height="1em" viewBox="0 0 16 16" class="text-success bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
+											</svg>
 
-										<svg v-else width="1em" height="1em" viewBox="0 0 16 16" class="text-danger bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-											<path fill-rule="evenodd"
-											 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-										</svg>
+											<svg v-else width="1em" height="1em" viewBox="0 0 16 16" class="text-danger bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<path fill-rule="evenodd"
+												 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+											</svg>
 
-									</td>
-									<td>{{user.createTime | toNiceDate}}</td>
-									<td>{{user.lastLoginTime | toNiceDate}}</td>
-									<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
-									<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
-									<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
-									<td>
-										<select class="custom-select" v-on:change="setPlan(user, $event.target.value)">
-											<option v-for="(plan, planId) in plans" v-bind:selected="user.planId === planId">
-												{{planId}}
-											</option>
-										</select>
-									</td>
-								</tr>
-							</tbody>
-						</table>
+										</td>
+										<td>{{user.createTime | toNiceDate}}</td>
+										<td>{{user.lastLoginTime | toNiceDate}}</td>
+										<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
+										<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
+										<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
+										<td>
+											<select class="custom-select" v-on:change="setPlan(user, $event.target.value)">
+												<option v-for="(plan, planId) in plans" v-bind:selected="user.planId === planId">
+													{{planId}}
+												</option>
+											</select>
+										</td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
 
 						<p>Found {{results}} results.</p>
 
