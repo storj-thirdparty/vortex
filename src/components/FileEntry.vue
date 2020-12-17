@@ -30,7 +30,9 @@
 	<td>
 		<span v-if="file.type === 'file'">{{size}}</span>
 	</td>
-	<td>{{uploadDate}}</td>
+	<td>
+	<span v-if="file.type === 'file'">{{uploadDate}}</span>
+	</td>
 	<td style="min-width: 20rem;">
 		<div v-if="file.type === 'file'">
 			<button v-on:click="$emit('download')" class="btn btn-sm btn-outline-primary action">
