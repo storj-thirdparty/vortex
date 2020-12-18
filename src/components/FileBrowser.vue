@@ -1,5 +1,5 @@
 <style scoped>
-.card {
+.file-browser {
 	min-height: 500px;
 }
 
@@ -13,10 +13,6 @@
 .path {
 	font-size: 18px;
 	font-weight: 700;
-}
-
-.bars {
-	margin-bottom: 2rem;
 }
 
 .upload-help {
@@ -33,10 +29,13 @@
 </style>
 
 <template>
-<div class="card border-0 p-4 p-lg-5 mb-5 mt-4" @drop.prevent="upload" @dragover.prevent>
 
-	<div class="row bars mb-3" v-if="usage != null">
-		<div class="col-sm-12 col-md-4 mb-4">
+<div @drop.prevent="upload" @dragover.prevent>
+
+<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
+
+	<div class="row bars" v-if="usage != null">
+		<div class="col-sm-12 col-md-4 mb-4 mb-md-0">
 			<p class="text-small"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-hdd mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M14 9H2a1 1 0 0 0-1 1v1a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1v-1a1 1 0 0 0-1-1zM2 8a2 2 0 0 0-2 2v1a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-1a2 2 0 0 0-2-2H2z" />
 					<path d="M5 10.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm-2 0a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0z" />
@@ -48,7 +47,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-4 mb-4">
+		<div class="col-sm-12 col-md-4 mb-4 mb-md-0">
 			<p class="text-small"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-files mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd" d="M4 2h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2zm0 1a1 1 0 0 0-1 1v10a1 1 0 0 0 1 1h7a1 1 0 0 0 1-1V4a1 1 0 0 0-1-1H4z" />
 					<path d="M6 0h7a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2v-1a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1H6a1 1 0 0 0-1 1H4a2 2 0 0 1 2-2z" />
@@ -59,7 +58,7 @@
 			</div>
 		</div>
 
-		<div class="col-sm-12 col-md-4 mb-4">
+		<div class="col-sm-12 col-md-4 mb-4 mb-md-0">
 			<p class="text-small"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-arrow-down-up mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 					<path fill-rule="evenodd"
 					 d="M11.5 15a.5.5 0 0 0 .5-.5V2.707l3.146 3.147a.5.5 0 0 0 .708-.708l-4-4a.5.5 0 0 0-.708 0l-4 4a.5.5 0 1 0 .708.708L11 2.707V14.5a.5.5 0 0 0 .5.5zm-7-14a.5.5 0 0 1 .5.5v11.793l3.146-3.147a.5.5 0 0 1 .708.708l-4 4a.5.5 0 0 1-.708 0l-4-4a.5.5 0 0 1 .708-.708L4 13.293V1.5a.5.5 0 0 1 .5-.5z" />
@@ -70,6 +69,10 @@
 			</div>
 		</div>
 	</div>
+
+</div>
+
+<div class="card file-browser border-0 p-4 p-lg-5 mb-5 mt-4">
 
 	<!--<p class="path mb-4">{{path}}</p>-->
 
@@ -157,6 +160,7 @@
 		</svg>
 		Drag and drop files here
 	</p>
+</div>
 </div>
 </template>
 
