@@ -18,7 +18,10 @@ module.exports = async ctx => {
 				[Sequelize.Op.substring]: `%${ctx.request.body.search || ''}`
 			}
 		},
-		limit: 10,
+		order: [
+			['lastLoginTime', 'DESC'],
+		],
+		limit: 50,
 		include: Event
 	});
 
@@ -64,11 +67,7 @@ module.exports = async ctx => {
 				email: {
 					[Sequelize.Op.substring]: `%${ctx.request.body.search || ''}`
 				}
-			},
-			limit: 50,
-			order: [
-	            ['lastLogin', 'DESC'],
-			]
+			}
 		}),
 		plans
 	};
