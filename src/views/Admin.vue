@@ -112,7 +112,7 @@ export default {
 	}),
 	filters: {
 		toNiceDate(d) {
-			return moment(d).format('L');
+			return moment(d).format('M/D/YY');
 		},
 		prettyBytes
 	},

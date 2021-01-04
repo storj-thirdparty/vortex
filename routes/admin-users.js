@@ -65,7 +65,10 @@ module.exports = async ctx => {
 					[Sequelize.Op.substring]: `%${ctx.request.body.search || ''}`
 				}
 			},
-			limit: 10
+			limit: 50,
+			order: [
+	            ['lastLogin', 'DESC'],
+			]
 		}),
 		plans
 	};
