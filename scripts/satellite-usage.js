@@ -21,7 +21,7 @@ const config = require('../config.json');
 		"variables": {
 			"projectId": config.masterAccount.projectId,
 			"before": "2020-12-14T19:01:49.488Z",
-			"limit": 7,
+			"limit": 250,
 			"search": "",
 			"page": 1
 		},
