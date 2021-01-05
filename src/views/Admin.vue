@@ -149,7 +149,7 @@ export default {
 				'lastAuditUpload',
 				'lastAuditDownload'
 			]) {
-				this.userJson[key] = prettyBytes(key);
+				this.userJson[key] = prettyBytes(this.userJson[key]);
 			}
 
 			this.userJson = data;
