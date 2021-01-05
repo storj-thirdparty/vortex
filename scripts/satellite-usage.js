@@ -8,8 +8,6 @@ const config = require('../config.json');
 
 	const token = process.argv[2];
 
-	const date = new Date();
-
 	const {
 		data: {
 			data: {
