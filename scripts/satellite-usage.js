@@ -8,6 +8,8 @@ const config = require('../config.json');
 
 	const token = process.argv[2];
 
+	const date = new Date();
+
 	const {
 		data: {
 			data: {
@@ -20,7 +22,7 @@ const config = require('../config.json');
 		"operationName": null,
 		"variables": {
 			"projectId": config.masterAccount.projectId,
-			"before": "2020-12-14T19:01:49.488Z",
+			"before": new Date(0),
 			"limit": 250,
 			"search": "",
 			"page": 1
@@ -70,7 +72,7 @@ const config = require('../config.json');
 					bytes: bucket.storage * 1e+9
 				},
 				userId: userId,
-				date: Date.now()
+				date: date
 			});
 
 			await uploadEvent.save();
@@ -82,7 +84,7 @@ const config = require('../config.json');
 					bytes: bucket.egress * 1e+9
 				},
 				userId: userId,
-				date: Date.now()
+				date: date
 			});
 
 			await downloadEvent.save();
