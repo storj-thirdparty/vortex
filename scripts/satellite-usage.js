@@ -20,7 +20,7 @@ const config = require('../config.json');
 		"operationName": null,
 		"variables": {
 			"projectId": config.masterAccount.projectId,
-			"before": new Date(0),
+			"before": date,
 			"limit": 250,
 			"search": "",
 			"page": 1
