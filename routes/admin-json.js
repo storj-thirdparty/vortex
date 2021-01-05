@@ -35,7 +35,7 @@ module.exports = async ctx => {
 			.bytes
 
 		auditResults.storageSum = auditResults.lastAuditUpload +
-			bytesUploaded: user.Events
+			user.Events
 				.filter(event => event.type === "upload")
 				.filter(event => (new Date(event.date)).toTime() > (Date.now() - 24 * 60 * 60 * 1000))
 				.reduce((n, e) => n + e.params.bytes, 0);
