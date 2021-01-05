@@ -149,8 +149,8 @@ export default {
 				'lastAuditUpload',
 				'lastAuditDownload'
 			]) {
-				if(key in data) {
-						data[key] = prettyBytes(data[key]);
+				if(typeof data.Events[key] === 'number') {
+						data.Events[key] = prettyBytes(data.Events[key]);
 				}
 			}
 
