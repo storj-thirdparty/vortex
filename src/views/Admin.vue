@@ -145,6 +145,13 @@ export default {
 				bytesDownloaded: prettyBytes(data.Events.bytesDownloaded)
 			};
 
+			for(const key of [
+				'lastAuditUpload',
+				'lastAuditDownload'
+			]) {
+				this.userJson[key] = prettyBytes(key);
+			}
+
 			this.userJson = data;
 		},
 
