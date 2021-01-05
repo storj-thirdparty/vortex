@@ -6,7 +6,7 @@ const config = require('../config.json');
 (async () => {
 	const date = new Date();
 
-	const token = process.argv[2]; 
+	const token = process.argv[2];
 
 	const {
 		data: {
@@ -48,10 +48,9 @@ const config = require('../config.json');
 			    __typename  }
 			}`
 	}, {
-		Cookie: `token=${token}`
 		headers: {
 			"Content-Type": "application/json",
-
+			Cookie: `_tokenKey=${token}`
 		}
 	});
 
