@@ -147,7 +147,8 @@ export default {
 
 			for(const key of [
 				'lastAuditUpload',
-				'lastAuditDownload'
+				'lastAuditDownload',
+				'storageSum'
 			]) {
 				if(typeof data.Events[key] === 'number') {
 						data.Events[key] = prettyBytes(data.Events[key]);
