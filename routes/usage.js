@@ -1,7 +1,47 @@
+const moment = require('moment');
 const Sequelize = require('sequelize');
 const User = require('../models/User.js');
 const Event = require('../models/Event.js');
 const plans = require('../plans.json');
+
+async function getBytesUploaded(userId) {
+	const [ auditEvent ] = await Event.findAll({
+		where: {
+			userId,
+			type: 'audit-upload',
+		},
+		order: [ 'date', 'DESC' ],
+		limit: 1
+	});
+
+	const auditBytes = typeof auditEvent === 'object' ? auditEvent.params.bytes : 0;
+
+	const uploadEvents = await Event.findAll({
+		where: {
+			userId,
+			type: 'upload',
+			date: {
+				$gte: moment().subtract(1, 'days').toDate()
+			}
+		}
+	});
+
+	const uploadBytes = uploadEvents.reduce((n, e) => n + e.params.bytes, 0);
+
+	const deleteEvents = await Event.findAll({
+		where: {
+			userId,
+			type: 'delete',
+			date: {
+				$gte: moment().subtract(1, 'days').toDate()
+			}
+		}
+	});
+
+	const deleteBytes = deleteEvents.reduce((n, e) => n + e.params.bytes, 0);
+
+	return auditBytes + uploadBytes - deleteBytes;
+}
 
 module.exports = async ctx => {
 	const user = await User.findOne({
@@ -20,19 +60,7 @@ module.exports = async ctx => {
 	console.log(user.Events.filter(e => e.type === 'delete'));
 
 	return ctx.body = {
-		bytesUploaded: [ { bytes: 0 }, ...user.Events
-			.filter(event => event.type === 'audit-upload') ]
-			.pop()
-			.params
-			.bytes +
-				user.Events
-					.filter(event => event.type === "upload")
-					.filter(event => (new Date(event.date)).getTime() > (Date.now() - 24 * 60 * 60 * 1000))
-					.reduce((n, e) => n + e.params.bytes, 0) -
-				user.Events
-					.filter(event => event.type === "delete")
-					.filter(event => (new Date(event.date)).getTime() > (Date.now() - 24 * 60 * 60 * 1000))
-					.reduce((n, e) => n + e.params.bytes, 0),
+		bytesUploaded: await getBytesUploaded(ctx.session.userId),
 
 		bytesUploadedQuota: plans[user.planId].storageBytesQuota,
 
