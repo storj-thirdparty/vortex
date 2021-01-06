@@ -40,7 +40,7 @@ module.exports = async ctx => {
 		auditResults.storageSum = auditResults.lastAuditUpload +
 			user.Events
 				.filter(event => event.type === "upload")
-				.filter(event => (new Date(event.date)).toTime() > (Date.now() - 24 * 60 * 60 * 1000))
+				.filter(event => (new Date(event.date)).getTime() > (Date.now() - 24 * 60 * 60 * 1000))
 				.reduce((n, e) => n + e.params.bytes, 0);
 	} catch(err) {
 		console.log(err);
