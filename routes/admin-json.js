@@ -73,7 +73,15 @@ module.exports = async ctx => {
 			.files;
 	} catch(err) {}
 
-
+	try {
+		auditResults.downloadSum = auditResults.lastAuditDownload +
+			user.Events
+				.filter(event => event.type === "download")
+				.filter(event => (new Date(event.date)).getTime() > (Date.now() - 24 * 60 * 60 * 1000))
+				.reduce((n, e) => n + e.params.bytes, 0);
+	} catch(err) {
+		console.log(err);
+	}
 
 	ctx.body = {
 		id: user.id,
