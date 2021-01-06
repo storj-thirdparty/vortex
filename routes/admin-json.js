@@ -47,6 +47,25 @@ module.exports = async ctx => {
 	}
 
 	try {
+		auditResults.lastAuditDownload = user.Events
+			.filter(event => event.type === 'audit-download')
+			.pop()
+			.params
+			.bytes;
+	} catch(err) {}
+
+	try {
+		auditResults.downloadSum = auditResults.lastAuditDownload +
+			user.Events
+				.filter(event => event.type === "download")
+				.filter(event => (new Date(event.date)).getTime() > (Date.now() - 24 * 60 * 60 * 1000))
+				.reduce((n, e) => n + e.params.bytes, 0);
+	} catch(err) {
+		console.log(err);
+	}
+
+
+	try {
 		auditResults.lastAuditFiles = user.Events
 			.filter(event => event.type === 'audit-upload')
 			.pop()
@@ -54,13 +73,7 @@ module.exports = async ctx => {
 			.files;
 	} catch(err) {}
 
-	try {
-		auditResults.lastAuditDownload = user.Events
-			.filter(event => event.type === 'audit-download')
-			.pop()
-			.params
-			.bytes;
-	} catch(err) {}
+
 
 	ctx.body = {
 		id: user.id,
