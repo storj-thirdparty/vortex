@@ -2,6 +2,7 @@ const Sequelize = require('sequelize');
 const User = require('../models/User.js');
 const Event = require('../models/Event.js');
 const plans = require('../plans.json');
+const getStats = require('../lib/getStats.js');
 
 module.exports = async ctx => {
 	let users = await User.findAll({
@@ -27,7 +28,9 @@ module.exports = async ctx => {
 
 	console.log(users);
 
-	users = await Promise.all(users.map(user => {
+	users = await Promise.all(users.map(async user => {
+		const stats = await getStats(user.id);
+
 		return {
 			id: user.id,
 			email: user.email,
@@ -36,27 +39,10 @@ module.exports = async ctx => {
 			lastLoginTime: user.lastLoginTime,
 			planId: user.planId,
 
-			bytesUsed: user.Events
-				.filter(event => event.type === "upload")
-				.reduce((n, e) => n + e.params.bytes, 0) -
-					user.Events
-						.filter(event => event.type === "delete")
-						.reduce((n, e) => n + e.params.bytes, 0),
-
-			filesUsed: user.Events
-				.filter(event => event.type === "upload")
-				.reduce((n, e) => n + e.params.files, 0) -
-					user.Events
-						.filter(event => event.type === "delete")
-						.reduce((n, e) => n + e.params.files, 0),
-
-			filesDownloaded: user.Events
-				.filter(event => event.type === "download")
-				.reduce((n, e) => n + e.params.files, 0),
-
-			bytesDownloaded: user.Events
-				.filter(event => event.type === "download")
-				.reduce((n, e) => n + e.params.bytes, 0)
+			bytesUsed: stats.bytesUploaded,
+			filesUsed: stats.filesUploaded,
+			filesDownloaded: 0,
+			bytesDownloaded: stats.bytesDownloaded
 		};
 	}));
 
@@ -71,6 +57,4 @@ module.exports = async ctx => {
 		}),
 		plans
 	};
-
-
 };
