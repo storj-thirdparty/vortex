@@ -8,7 +8,7 @@ module.exports = async ctx => {
 			bytes: ctx.request.body.bytes
 		},
 		userId: ctx.session.userId,
-		date: Date.now()
+		date: new Date()
 	});
 
 	await e.save();
