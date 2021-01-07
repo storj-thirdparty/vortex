@@ -147,17 +147,13 @@ module.exports = async ctx => {
 		bytesUploaded: await getBytesUploaded(ctx.session.userId),
 		bytesUploadedQuota: plans[user.planId].storageBytesQuota,
 		filesUploaded: await getFilesUploaded(ctx.session.userId),
-
 		filesUploadedQuota: plans[user.planId].storageFilesQuota,
-
-		filesDownloaded:  user.Events
-			.filter(event => event.type === "download")
-			.reduce((n, e) => n + e.params.files, 0),
+		bytesDownloaded: await getBytesDownloaded(ctx.session.userId),
+		bytesDownloadedQuota: plans[user.planId].downloadBytesQuota
+		//filesDownloaded:  user.Events
+		//	.filter(event => event.type === "download")
+		//	.reduce((n, e) => n + e.params.files, 0),
 
 		// filesDownloaded:
-
-		bytesDownloaded: await getBytesDownloaded(ctx.session.userId),
-
-		bytesDownloadedQuota: plans[user.planId].downloadBytesQuota
 	};
 };
