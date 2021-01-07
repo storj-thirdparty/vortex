@@ -21,10 +21,10 @@ async function getBytesUploaded(userId) {
 	const uploadEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'upload',
-			date: {
-				$gte: moment().subtract(1, 'days').toDate()
-			}
+			type: 'upload'
+			//date: {
+			//	$gte: moment().subtract(1, 'days').toDate()
+			//}
 		}
 	});
 
