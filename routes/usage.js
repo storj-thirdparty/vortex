@@ -1,3 +1,4 @@
+const { Op } = require('sequelize');
 const moment = require('moment');
 const Sequelize = require('sequelize');
 const User = require('../models/User.js');
@@ -23,7 +24,7 @@ async function getBytesUploaded(userId) {
 			userId,
 			type: 'upload',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
@@ -36,7 +37,7 @@ async function getBytesUploaded(userId) {
 			userId,
 			type: 'delete',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
@@ -65,7 +66,7 @@ async function getBytesDownloaded(userId) {
 			userId,
 			type: 'download',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
@@ -77,7 +78,7 @@ async function getBytesDownloaded(userId) {
 			userId,
 			type: 'delete',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
@@ -106,7 +107,7 @@ async function getFilesUploaded(userId) {
 			userId,
 			type: 'upload',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
@@ -118,7 +119,7 @@ async function getFilesUploaded(userId) {
 			userId,
 			type: 'delete',
 			date: {
-				$gte: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, 'days').toDate()
 			}
 		}
 	});
