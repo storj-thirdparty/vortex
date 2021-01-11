@@ -49,7 +49,7 @@
 										<td>{{user.createTime | toNiceDate}}</td>
 										<td>{{user.lastLoginTime | toNiceDate}}</td>
 										<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
-										<td>{{user.filesDownloaded}} files, {{user.bytesDownloaded | prettyBytes}}</td>
+										<td>{{user.bytesDownloaded | prettyBytes}}</td>
 										<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
 										<td>
 											<select class="custom-select" v-on:change="setPlan(user, $event.target.value)">
