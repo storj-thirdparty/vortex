@@ -1,0 +1,11 @@
+on: push
+name: npm build, lint, test and publish
+jobs:
+  build:
+    name: build and publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: docker build
+        uses: actions/docker/cli@master
+        with:
+          args: build -t a
