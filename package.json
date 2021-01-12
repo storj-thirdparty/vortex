@@ -9,7 +9,8 @@
 		"lint": "vue-cli-service lint",
 		"dev": "vue-cli-service build --watch",
 		"dev-start": "(rm -rf rethinkdb_data && rethinkdb >> /dev/null) & vue-cli-service build --watch & (node scripts/fake-data.js && node index.js)",
-		"prepublish": ""
+		"prepublish": "",
+		"test": "jest test/**.js"
 	},
 	"dependencies": {
 		"@koa/router": "^9.4.0",
@@ -20,6 +21,7 @@
 		"body-parser": "^1.19.0",
 		"human-readable-numbers": "^0.9.5",
 		"ioredis": "^4.19.2",
+		"jest": "^26.6.3",
 		"koa": "^2.13.0",
 		"koa-bodyparser": "^4.3.0",
 		"koa-cookie": "^1.0.0",
