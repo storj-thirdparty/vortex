@@ -14,6 +14,4 @@ COPY lib ./lib
 COPY index.js .
 EXPOSE 3000
 
-RUN node scripts/get-master-account-access.js
-
 CMD [ "node", "index.js" ]
