@@ -16,7 +16,7 @@
 		"@koa/router": "^9.4.0",
 		"@vue/cli": "^4.5.8",
 		"aws-sdk": "^2.798.0",
-		"axios": "^0.20.0",
+		"axios": "^0.21.1",
 		"bcrypt": "^5.0.0",
 		"body-parser": "^1.19.0",
 		"human-readable-numbers": "^0.9.5",
