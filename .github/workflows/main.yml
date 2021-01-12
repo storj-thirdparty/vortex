@@ -20,5 +20,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: docker build
-        run: docker build . -t vortex
+      - name: docker compose up
+        run: docker-compose -f docker-compose-test.yml up 
