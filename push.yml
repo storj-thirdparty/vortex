@@ -1,9 +1,0 @@
-on: push
-name: npm build, lint, test and publish
-jobs:
-  build:
-    name: build and publish
-    runs-on: ubuntu-latest
-    steps:
-      - name: docker build
-        run: docker-compose build

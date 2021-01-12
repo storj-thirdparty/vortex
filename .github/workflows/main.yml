@@ -20,6 +20,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: docker build
-        uses: actions/docker/cli@master
-        with:
-          args: build -t a
+        run: docker build . -t vortex
