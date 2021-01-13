@@ -39,8 +39,8 @@
 										<th scope="col">Last Login</th>
 										<th scope="col">Storage</th>
 										<th scope="col">Bandwidth</th>
-										<th scope="col">Info</th>
 										<th scope="col">Plan</th>
+										<th scope="col">Info</th>
 									</tr>
 								</thead>
 
@@ -68,7 +68,6 @@
 										<td class="align-middle">{{user.lastLoginTime | toNiceDate}}</td>
 										<td class="align-middle">{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
 										<td class="align-middle">{{user.bytesDownloaded | prettyBytes}}</td>
-										<td class="align-middle"><button v-on:click="getInfo(user)" class="btn btn-outline-secondary">Info</button></td>
 										<td class="align-middle pr-2">
 											<select class="custom-select plan-select mb-0" v-on:change="setPlan(user, $event.target.value)">
 												<option v-for="(plan, planId) in plans" v-bind:selected="user.planId === planId">
@@ -76,6 +75,7 @@
 												</option>
 											</select>
 										</td>
+										<td class="align-middle"><button v-on:click="getInfo(user)" class="btn btn-outline-secondary">Info</button></td>
 									</tr>
 								</tbody>
 							</table>
