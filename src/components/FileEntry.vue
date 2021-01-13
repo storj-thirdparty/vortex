@@ -3,8 +3,9 @@
 	margin-right: 0.5rem;
 }
 .table td, .table th {
-	padding-left: 0;
-	padding-right: 0;
+	padding-left: 8px;
+	padding-right: 8px;
+	white-space: nowrap;
 }
 </style>
 
