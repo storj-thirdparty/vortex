@@ -75,7 +75,7 @@
 												</option>
 											</select>
 										</td>
-										<td class="align-middle"><button v-on:click="getInfo(user)" class="btn btn-outline-secondary">Info</button></td>
+										<td class="align-middle"><button v-on:click="getInfo(user)" class="btn btn-outline-secondary">+</button></td>
 									</tr>
 								</tbody>
 							</table>
