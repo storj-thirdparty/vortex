@@ -203,6 +203,10 @@ input {
 	background-color: #fff9f6;
 	border-color: #f9a482;
 }
+
+.spinner-border {
+	color: #0068dc;
+}
 </style>
 
 <template>
