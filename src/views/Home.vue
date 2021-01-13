@@ -5,7 +5,7 @@ h3,
 h4,
 h5,
 h6 {
-	font-family: Poppins;
+	font-family: Inter;
 	font-weight: bold;
 }
 
@@ -202,6 +202,10 @@ input {
 	color: #000;
 	background-color: #fff9f6;
 	border-color: #f9a482;
+}
+
+.spinner-border {
+	color: #0068dc;
 }
 </style>
 
