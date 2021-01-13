@@ -18,7 +18,7 @@
 .upload-help {
 	font-size: 1.75rem;
 	text-align: center;
-	margin-top: 2rem;
+	margin-top: 1.5rem;
 	color: #93a1ae;
 	border: 2px dashed #bec4cd;
 	border-radius: 10px;
