@@ -1,3 +1,17 @@
+<style media="screen">
+	.plan-select {
+		height: auto;
+		padding: 6px 12px;
+		cursor: pointer;
+		min-width: 120px;
+	}
+	.table td, .table th {
+	    padding-left: 8px;
+	    padding-right: 8px;
+	    white-space: nowrap;
+	}
+</style>
+
 <template>
 <div>
 	<div>
@@ -10,49 +24,53 @@
 					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4" @drop.prevent="upload" @dragover.prevent>
 						<h1 class="path mb-4">Admin Console</h1>
 
-						<input v-model="search" placeholder="Search by email..." class="search">
+						<input type="text" v-model="search" placeholder="Search by email..." class="mb-4">
 
 						<pre v-if="userJson">{{userJson}}</pre>
 
 						<div class="table-responsive">
-							<table class="table">
+							<table class="table table-striped table-hover">
 								<thead>
 									<tr>
-										<th>ID</th>
-										<th>Email</th>
-										<th>created</th>
-										<th>lastLogin</th>
-										<th>storage</th>
-										<th>bandwidth</th>
-										<th>info</th>
-										<th>plan</th>
+										<th scope="col" class="pl-2 text-center">ID</th>
+										<th scope="col" class="pl-4">Email</th>
+										<th scope="col">Created</th>
+										<th scope="col">Last Login</th>
+										<th scope="col">Storage</th>
+										<th scope="col">Bandwidth</th>
+										<th scope="col">Info</th>
+										<th scope="col">Plan</th>
 									</tr>
 								</thead>
 
 								<tbody>
 									<tr v-for="user in users" class="user-row">
-										<td>
-											<p style="font-size: 12px;">{{user.id}}</p>
-										</td>
-										<td>{{user.email}}
+										<th scope="row" class="align-middle">
+											<p class="text-small pr-2 mb-0 text-right">{{user.id}}</p>
+										</th>
+										<td class="align-middle">
 
-											<svg v-if="user.activated === true" width="1em" height="1em" viewBox="0 0 16 16" class="text-success bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<svg v-if="user.activated === true" width="1.4em" height="1.4em" viewBox="0 0 16 16" class="text-success bi bi-check" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<title>Activated</title>
 												<path fill-rule="evenodd" d="M10.97 4.97a.75.75 0 0 1 1.071 1.05l-3.992 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.236.236 0 0 1 .02-.022z" />
 											</svg>
 
-											<svg v-else width="1em" height="1em" viewBox="0 0 16 16" class="text-danger bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+											<svg v-else width="1.4em" height="1.4em" viewBox="0 0 16 16" class="text-danger bi bi-x" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+												<title>Not Activated</title>
 												<path fill-rule="evenodd"
 												 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
 											</svg>
 
+											{{user.email}}
+
 										</td>
-										<td>{{user.createTime | toNiceDate}}</td>
-										<td>{{user.lastLoginTime | toNiceDate}}</td>
-										<td>{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
-										<td>{{user.bytesDownloaded | prettyBytes}}</td>
-										<td><button v-on:click="getInfo(user)" class="btn btn-outline-info">Info</button></td>
-										<td>
-											<select class="custom-select" v-on:change="setPlan(user, $event.target.value)">
+										<td class="align-middle">{{user.createTime | toNiceDate}}</td>
+										<td class="align-middle">{{user.lastLoginTime | toNiceDate}}</td>
+										<td class="align-middle">{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
+										<td class="align-middle">{{user.bytesDownloaded | prettyBytes}}</td>
+										<td class="align-middle"><button v-on:click="getInfo(user)" class="btn btn-outline-secondary">Info</button></td>
+										<td class="align-middle pr-2">
+											<select class="custom-select plan-select mb-0" v-on:change="setPlan(user, $event.target.value)">
 												<option v-for="(plan, planId) in plans" v-bind:selected="user.planId === planId">
 													{{planId}}
 												</option>
@@ -63,7 +81,7 @@
 							</table>
 						</div>
 
-						<p>Found {{results}} results.</p>
+						<p class="mt-2">Found {{results}} results.</p>
 
 						<!--<nav aria-label="Page navigation example">
 							<ul class="pagination justify-content-center">
