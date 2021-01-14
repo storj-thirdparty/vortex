@@ -10,6 +10,13 @@
 	    padding-right: 8px;
 	    white-space: nowrap;
 	}
+	.user-email {
+		max-width: 200px;
+	}
+	.user-email:hover {
+		max-width: none;
+		overflow: visible;
+	}
 </style>
 
 <template>
@@ -69,7 +76,7 @@
 											</svg>
 
 										</td>
-										<td class="align-middle">{{user.email}}</td>
+										<td class="align-middle text-truncate user-email">{{user.email}}</td>
 										<td class="align-middle">{{user.createTime | toNiceDate}}</td>
 										<td class="align-middle">{{user.lastLoginTime | toNiceDate}}</td>
 										<td class="align-middle">{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
