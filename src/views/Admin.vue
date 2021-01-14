@@ -142,7 +142,7 @@ export default {
 		plans: []
 	}),
 	filters: {
-		toNiceDate(d) {return
+		toNiceDate(d) {
 			return moment(d).format('M/D/YY');
 		},
 		prettyBytes,
