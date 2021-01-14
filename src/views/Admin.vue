@@ -13,7 +13,7 @@
 	.user-email {
 		max-width: 200px;
 	}
-	.user-email:hover {
+	.user-email:active {
 		max-width: none;
 		overflow: visible;
 	}
