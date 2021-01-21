@@ -1,0 +1,31 @@
+version: "3.8"
+
+volumes:
+  postgres-data:
+
+
+services:
+  vortex:
+    build: .
+    ports:
+      - "127.0.0.1:3000:3000"
+    links:
+      - "postgres:postgres"
+      - "redis:redis"
+    command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
+    volumes:
+      - ./lib:/usr/src/app/lib
+      - ./models:/usr/src/app/models
+      - ./public:/usr/src/app/public
+      - ./routes:/usr/src/app/routes
+      - ./src:/usr/src/app/src
+      - ./scripts:/usr/src/app/scripts
+  postgres:
+    image: postgres:latest
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    environment:
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=vortex
+  redis:
+    image: redis:latest

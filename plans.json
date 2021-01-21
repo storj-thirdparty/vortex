@@ -14,5 +14,21 @@
 		"storageFilesQuota": 100000,
 		"downloadBytesQuota": 1e+11,
 		"downloadFilesQuota": 100000
+	},
+	"free-1tb": {
+		"name": "Free 1TB",
+		"active": true,
+		"storageBytesQuota": 1e+12,
+		"storageFilesQuota": 1000000,
+		"downloadBytesQuota": 1e+12,
+		"downloadFilesQuota": 1000000
+	},
+	"free-10tb": {
+		"name": "Free 10TB",
+		"active": true,
+		"storageBytesQuota": 1e+13,
+		"storageFilesQuota": 10000000,
+		"downloadBytesQuota": 1e+13,
+		"downloadFilesQuota": 10000000
 	}
 }

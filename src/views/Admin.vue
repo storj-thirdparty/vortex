@@ -79,7 +79,7 @@
 										<td class="align-middle text-truncate user-email">{{user.email}}</td>
 										<td class="align-middle">{{user.createTime | toNiceDate}}</td>
 										<td class="align-middle">{{user.lastLoginTime | toNiceDate}}</td>
-										<td class="align-middle">{{user.filesUsed}} files, {{user.bytesUsed | prettyBytes}}</td>
+										<td class="align-middle">{{user.filesUsed | toHumanString }} files, {{user.bytesUsed | prettyBytes}}</td>
 										<td class="align-middle">{{user.bytesDownloaded | prettyBytes}}</td>
 										<td class="align-middle pr-2">
 											<select class="custom-select plan-select mb-0" v-on:change="setPlan(user, $event.target.value)">
@@ -123,6 +123,7 @@ import axios from 'axios';
 import wasm from '../wasm.js';
 import moment from 'moment';
 import prettyBytes from 'pretty-bytes';
+import {toHumanString} from 'human-readable-numbers';
 
 import Hero from '../components/Hero.vue';
 import FileBrowser from '../components/FileBrowser.vue';
@@ -130,7 +131,6 @@ import FileBrowser from '../components/FileBrowser.vue';
 let s3;
 
 const Bucket = 'web';
-
 
 export default {
 	name: 'Home',
@@ -145,7 +145,8 @@ export default {
 		toNiceDate(d) {
 			return moment(d).format('M/D/YY');
 		},
-		prettyBytes
+		prettyBytes,
+		toHumanString	
 	},
 	methods: {
 		async getUsers() {
