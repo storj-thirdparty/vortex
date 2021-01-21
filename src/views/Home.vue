@@ -362,7 +362,7 @@ input {
 			</div>
 
 			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade" id="files" role="tabpanel" aria-labelledby="files-tab">
+				<div class="tab-pane show" id="files-tab" role="tabpanel" aria-labelledby="files-tab">
 					<div class="keys">
 						<div class="row">
 
@@ -375,11 +375,11 @@ input {
 					</div>
 				</div>
 
-				<div class="tab-pane fade" id="apps" role="tabpanel" aria-labelledby="apps-tab">
+				<div class="tab-pane" id="apps-tab" role="tabpanel" aria-labelledby="apps-tab">
 					<apps></apps>
 				</div>
 
-				<div class="tab-pane fade" id="stats" role="tabpanel" aria-labelledby="stats-tab">
+				<div class="tab-pane" id="stats-tab" role="tabpanel" aria-labelledby="stats-tab">
 					<div class="card border-0 p-4 p-lg-5 mb-5">
 						<usage></usage>
 					</div>
@@ -453,8 +453,7 @@ export default {
 	components: {
 		Hero,
 		FileBrowser,
-		Usage,
-		Apps
+		Usage
 	},
 	async created() {
 		const urlParams = new URLSearchParams(window.location.search);
