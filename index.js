@@ -61,6 +61,16 @@ const eventsDelete = require('./routes/events-delete.js');
 		await session.set(ctx.cookies.get('session'), ctx.session);
 	});
 
+	async function adminCheckToken(ctx, next) {
+		const {token} = ctx.request.body;
+
+		if(config.adminTokens.indexOf(token) !== -1) {
+			await next();
+		} else {
+			ctx.throw('Unauthorized');
+		}
+	}
+
 	router.post('/api/signup', signUp, login);
 	router.post('/api/login', login);
 	router.post('/api/passive-login', passiveLogin);
@@ -72,9 +82,9 @@ const eventsDelete = require('./routes/events-delete.js');
 		ctx.body = '';
 	});
 
-	router.post('/api/admin/users', adminUsers);
-	router.get('/api/admin/json/:id', adminJson);
-	router.post('/api/admin/setplan', adminSetPlan);
+	router.post('/api/admin/users', adminCheckToken, adminUsers);
+	router.post('/api/admin/json/:id', adminCheckToken, adminJson);
+	router.post('/api/admin/setplan', adminCheckToken, adminSetPlan);
 
 	router.post('/api/events/upload', eventsUpload);
 	router.post('/api/events/download', eventsDownload);
