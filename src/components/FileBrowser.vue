@@ -32,7 +32,7 @@
 </style>
 
 <template>
-	<div class="tab-pane fade show active" id="files" role="tabpanel" aria-labelledby="files-tab" @drop.prevent="upload" @dragover.prevent>
+	<div>
 
 		<div class="card file-browser border-0 p-4 p-lg-5 mb-5">
 
@@ -157,7 +157,6 @@ export default {
 		this.s3 = new AWS.S3(s3Config);
 
 		await this.list();
-		await this.updateUsage();
 	},
 	methods: {
 		async upload(e) {

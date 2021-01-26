@@ -336,6 +336,18 @@ input {
 
 		<div class="container">
 
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link" v-bind:class="{ active: selectedTab === 'file-browser'}" v-on:click="selectedTab = 'file-browser'"  href="#">File Browser</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" v-bind:class="{ active: selectedTab === 'apps'}" v-on:click="selectedTab = 'apps'" href="#">S3 & Apps</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" v-bind:class="{ active: selectedTab === 'usage'}" v-on:click="selectedTab = 'usage'" href="#">Metrics & Usage</a>
+			</li>
+		</ul>
+
 			<div class="row">
 				<div class="col-sm-12">
 					<div v-if="$store.state.features.emailActivation === true && this.$store.state.activated === false" class="alert alert-warning" role="alert">
@@ -344,46 +356,14 @@ input {
 				</div>
 			</div>
 
-
-			<div class="row">
-				<div class="col">
-					<ul class="nav nav-tabs" id="myTab" role="tablist">
-						<li class="nav-item" role="presentation">
-							<a class="nav-link active" id="files-tab" data-toggle="tab" href="#files" role="tab" aria-controls="files" aria-selected="true">My Files</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="apps-tab" data-toggle="tab" href="#apps" role="tab" aria-controls="apps" aria-selected="false">S3 &amp; Apps</a>
-						</li>
-						<li class="nav-item" role="presentation">
-							<a class="nav-link" id="stats-tab" data-toggle="tab" href="#stats" role="tab" aria-controls="stats" aria-selected="false">Plan &amp; Usage</a>
-						</li>
-					</ul>
-				</div>
+			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'file-browser'">
+				<file-browser></file-browser>
 			</div>
 
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane show" id="files-tab" role="tabpanel" aria-labelledby="files-tab">
-					<div class="keys">
-						<div class="row">
+			<apps v-if="selectedTab === 'apps'"></apps>
 
-							<div class="col-sm-12">
-								<div class="card border-0 p-4 p-lg-5 mb-5">
-									<file-browser></file-browser>
-								</div>
-							</div>
-						</div>
-					</div>
-				</div>
-
-				<div class="tab-pane" id="apps-tab" role="tabpanel" aria-labelledby="apps-tab">
-					<apps></apps>
-				</div>
-
-				<div class="tab-pane" id="stats-tab" role="tabpanel" aria-labelledby="stats-tab">
-					<div class="card border-0 p-4 p-lg-5 mb-5">
-						<usage></usage>
-					</div>
-				</div>
+			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'usage'">
+				<usage></usage>
 			</div>
 
 		</div>
@@ -412,7 +392,7 @@ export default {
 		email: '',
 		password: '',
 		termsAndConditions: false,
-
+		selectedTab: 'file-browser',
 		message: '',
 		showLogin: false
 	}),
@@ -453,7 +433,8 @@ export default {
 	components: {
 		Hero,
 		FileBrowser,
-		Usage
+		Usage,
+		Apps
 	},
 	async created() {
 		const urlParams = new URLSearchParams(window.location.search);
