@@ -99,7 +99,7 @@
 					<td span="3">
 					</td>
 					<td span="3">
-						<button v-on:click="createFolder" class="btn btn-primary">Save Folder</button>
+						<button v-on:click="createFolder" v-bind:disabled="createFolderInput.length < 1" class="btn btn-primary">Save Folder</button>
 					</td>
 				</tr>
 
