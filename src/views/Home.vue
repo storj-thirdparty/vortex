@@ -31,11 +31,13 @@ a {
 
 	padding-left: 45px !important;
 }
+
 .email {
 	background: url("~@/assets/tar-ico-email.svg") no-repeat 16px 16px;
 	padding-left: 48px;
 
 }
+
 .password {
 	background: url("~@/assets/tar-ico-lock.svg") no-repeat 16px 16px;
 	background-position-x: 20px;
@@ -124,6 +126,7 @@ input {
 .btn-primary {
 	background: #0068DC;
 }
+
 .btn-light {
 	background: #E6E9EF;
 }
@@ -276,7 +279,9 @@ input {
 							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
 						</div>
 						<h2 class="mb-4">How It Works</h2>
-						<p>This app is powered by the Tardigrade decentralized cloud service, the world’s first decentralized cloud object storage service. The Tardigrade cloud storage platform utilizes spare disk drive space and bandwidth shared by its community members worldwide. <br/><br/>Tardigrade splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn’t being stored in a vulnerable data center; it’s securely stored all over the world.</p>
+						<p>This app is powered by the Tardigrade decentralized cloud service, the world’s first decentralized cloud object storage service. The Tardigrade cloud storage platform utilizes spare disk drive space and bandwidth shared by
+							its community members worldwide. <br /><br />Tardigrade splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn’t being stored in a
+							vulnerable data center; it’s securely stored all over the world.</p>
 					</div>
 
 					<div class="col-sm-12 col-md-6 offset-md-1">
@@ -331,6 +336,18 @@ input {
 
 		<div class="container">
 
+		<ul class="nav nav-tabs">
+			<li class="nav-item">
+				<a class="nav-link" v-bind:class="tabStyles('file-browser')" v-on:click="selectedTab = 'file-browser'"  href="#">File Browser</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" v-bind:class="tabStyles('apps')" v-on:click="selectedTab = 'apps'" href="#">S3 & Apps</a>
+			</li>
+			<li class="nav-item white-text">
+				<a class="nav-link" v-bind:class="tabStyles('usage')" v-on:click="selectedTab = 'usage'" href="#">Metrics & Usage</a>
+			</li>
+		</ul>
+
 			<div class="row">
 				<div class="col-sm-12">
 					<div v-if="$store.state.features.emailActivation === true && this.$store.state.activated === false" class="alert alert-warning" role="alert">
@@ -339,65 +356,16 @@ input {
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col-sm-12">
-					<file-browser></file-browser>
-				</div>
+			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'file-browser'" style="border-top-left-radius: 0;">
+				<file-browser></file-browser>
 			</div>
-		</div>
 
-		<div class="container keys">
-			<div class="row">
-				<!--<div class="col-sm-12 col-md-5 py-5 text-center">
-					<div class="video embed-responsive embed-responsive-16by9 mt-4 mb-5">
-						<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UgJw-_7mOpI" frameborder="0" allowfullscreen></iframe>
-					</div>
-					<h5>Watch the Quickstart Video</h5>
-					<p>See how easy it is to start using your 1 TB of free cloud storage space on Tardigrade.</p>
-					<a href="https://documentation.tardigrade.io/how-tos/set-up-filezilla-for-decentralized-file-transfer" target="_blank">Or Visit the Docs</a>
-				</div>-->
+			<apps v-if="selectedTab === 'apps'"></apps>
 
-				<div class="col-sm-12">
-					<div class="card border-0 p-4 p-lg-5 mb-5 mt-4">
-
-						<h5 class="mb-2">Use Storj in your favourite applications</h5>
-						<p>You can view and manage your files above or access them with the credentials below.</p>
-
-						<div class="row mb-3">
-							<div class="col text-left">
-								<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
-								<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
-								<button v-on:click="copy($store.state.stargateEndpoint)" class="copy">Copy</button>
-							</div>
-						</div>
-
-						<div class="row mb-3">
-							<div class="col text-left">
-								<label class="label" for="access-key">Access Key</label>
-								<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
-								<button v-on:click="copy($store.state.stargateAccessKey)" class="copy">Copy</button>
-							</div>
-						</div>
-
-						<div class="row mb-3">
-							<div class="col text-left">
-								<label class="label" for="secret-key">Secret Key</label>
-								<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
-								<button v-on:click="copy($store.state.stargateSecretKey)" class="copy">Copy</button>
-							</div>
-						</div>
-
-						<div class="row mb-3">
-							<div class="col text-left">
-								<label class="label" for="bucket">Bucket</label>
-								<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
-								<button v-on:click="copy($store.state.stargateBucket)" class="copy">Copy</button>
-							</div>
-						</div>
-
-					</div>
-				</div>
+			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'usage'">
+				<usage></usage>
 			</div>
+
 		</div>
 
 	</div>
@@ -410,6 +378,8 @@ import wasm from '../wasm.js';
 
 import Hero from '../components/Hero.vue';
 import FileBrowser from '../components/FileBrowser.vue';
+import Usage from '../components/Usage.vue';
+import Apps from '../components/Apps.vue';
 
 let s3;
 
@@ -422,7 +392,7 @@ export default {
 		email: '',
 		password: '',
 		termsAndConditions: false,
-
+		selectedTab: 'file-browser',
 		message: '',
 		showLogin: false
 	}),
@@ -447,6 +417,18 @@ export default {
 			});
 
 			await navigator.clipboard.writeText(text);
+		},
+		tabStyles(tab) {
+			if(this.selectedTab === tab) {
+				return {
+					active: true,
+					'text-dark': true
+				};
+			} else {
+				return {
+					'text-white': true
+				};
+			}
 		}
 	},
 	computed: {
@@ -462,14 +444,16 @@ export default {
 	},
 	components: {
 		Hero,
-		FileBrowser
+		FileBrowser,
+		Usage,
+		Apps
 	},
 	async created() {
 		const urlParams = new URLSearchParams(window.location.search);
 
 		const activation = urlParams.get('activation');
 
-		if(activation) {
+		if (activation) {
 			await axios.post('/api/activate', {
 				token: activation
 			});

@@ -139,14 +139,15 @@ export default {
 		search: '',
 		results: 0,
 		userJson: null,
-		plans: []
+		plans: [],
+		token: null
 	}),
 	filters: {
 		toNiceDate(d) {
 			return moment(d).format('M/D/YY');
 		},
 		prettyBytes,
-		toHumanString	
+		toHumanString
 	},
 	methods: {
 		async getUsers() {
@@ -157,7 +158,8 @@ export default {
 					results
 				}
 			} = await axios.post('/api/admin/users', {
-				search: this.search
+				search: this.search,
+				token: this.token
 			});
 
 			this.users = users;
@@ -168,7 +170,9 @@ export default {
 		async getInfo(user) {
 			const {
 				data
-			} = await axios.get(`/api/admin/json/${user.id}`);
+			} = await axios.post(`/api/admin/json/${user.id}`, {
+				token: this.token
+			});
 
 			data.Events = {
 				...data.Events,
@@ -195,7 +199,8 @@ export default {
 
 			await axios.post(`/api/admin/setplan`, {
 				userId: user.id,
-				planId
+				planId,
+				token: this.token
 			})
 		}
 	},
@@ -205,7 +210,10 @@ export default {
 		}
 	},
 	async created() {
+		this.token = prompt("Please enter your admin token", "");
+
 		await this.getUsers();
+
 	}
 }
 </script>
