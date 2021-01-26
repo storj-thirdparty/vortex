@@ -104,9 +104,9 @@
 				</tr>
 
 
-				<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
+				<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
 
-				<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
+				<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go"></file-entry>
 			</tbody>
 		</table>
 	</div>
