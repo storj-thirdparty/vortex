@@ -212,7 +212,7 @@ input {
 }
 
 .nav-tabs {
-    border-bottom: none;
+	border-bottom: none;
 }
 </style>
 
@@ -340,17 +340,35 @@ input {
 
 		<div class="container">
 
-		<ul class="nav nav-tabs">
-			<li class="nav-item">
-				<a class="nav-link" v-bind:class="tabStyles('file-browser')" v-on:click="selectedTab = 'file-browser'"  href="#">File Browser</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" v-bind:class="tabStyles('apps')" v-on:click="selectedTab = 'apps'" href="#">S3 & Apps</a>
-			</li>
-			<li class="nav-item white-text">
-				<a class="nav-link" v-bind:class="tabStyles('usage')" v-on:click="selectedTab = 'usage'" href="#">Metrics & Usage</a>
-			</li>
-		</ul>
+			<ul class="nav nav-tabs">
+				<li class="nav-item">
+					<a class="nav-link" v-bind:class="tabStyles('file-browser')" v-on:click="selectedTab = 'file-browser'" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
+							<path
+							 d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
+						</svg>
+						File Browser
+					</a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" v-bind:class="tabStyles('apps')" v-on:click="selectedTab = 'apps'" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-shop" viewBox="0 0 16 16">
+							<path
+							 d="M2.97 1.35A1 1 0 0 1 3.73 1h8.54a1 1 0 0 1 .76.35l2.609 3.044A1.5 1.5 0 0 1 16 5.37v.255a2.375 2.375 0 0 1-4.25 1.458A2.371 2.371 0 0 1 9.875 8 2.37 2.37 0 0 1 8 7.083 2.37 2.37 0 0 1 6.125 8a2.37 2.37 0 0 1-1.875-.917A2.375 2.375 0 0 1 0 5.625V5.37a1.5 1.5 0 0 1 .361-.976l2.61-3.045zm1.78 4.275a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0 1.375 1.375 0 1 0 2.75 0V5.37a.5.5 0 0 0-.12-.325L12.27 2H3.73L1.12 5.045A.5.5 0 0 0 1 5.37v.255a1.375 1.375 0 0 0 2.75 0 .5.5 0 0 1 1 0zM1.5 8.5A.5.5 0 0 1 2 9v6h1v-5a1 1 0 0 1 1-1h3a1 1 0 0 1 1 1v5h6V9a.5.5 0 0 1 1 0v6h.5a.5.5 0 0 1 0 1H.5a.5.5 0 0 1 0-1H1V9a.5.5 0 0 1 .5-.5zM4 15h3v-5H4v5zm5-5a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1h-2a1 1 0 0 1-1-1v-3zm3 0h-2v3h2v-3z" />
+						</svg>
+						S3 & Apps
+					</a>
+				</li>
+				<li class="nav-item white-text">
+					<a class="nav-link" v-bind:class="tabStyles('usage')" v-on:click="selectedTab = 'usage'" href="#">
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
+							<path
+							 d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z" />
+						</svg>
+						Metrics & Usage
+					</a>
+				</li>
+			</ul>
 
 			<div class="row">
 				<div class="col-sm-12">
@@ -423,7 +441,7 @@ export default {
 			await navigator.clipboard.writeText(text);
 		},
 		tabStyles(tab) {
-			if(this.selectedTab === tab) {
+			if (this.selectedTab === tab) {
 				return {
 					active: true,
 					'text-dark': true

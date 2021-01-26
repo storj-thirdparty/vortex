@@ -11,7 +11,7 @@
 						<div class="col text-left">
 							<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
 							<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
-							<button v-on:click="copy($store.state.stargateEndpoint)" class="copy">Copy</button>
+							<button v-on:click="copy($store.state.stargateEndpoint, 'endpointCopyText')" class="copy">{{endpointCopyText}}</button>
 						</div>
 					</div>
 
@@ -19,7 +19,7 @@
 						<div class="col text-left">
 							<label class="label" for="access-key">Access Key</label>
 							<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
-							<button v-on:click="copy($store.state.stargateAccessKey)" class="copy">Copy</button>
+							<button v-on:click="copy($store.state.stargateAccessKey, 'accessKeyCopyText')" class="copy">{{accessKeyCopyText}}</button>
 						</div>
 					</div>
 
@@ -27,7 +27,7 @@
 						<div class="col text-left">
 							<label class="label" for="secret-key">Secret Key</label>
 							<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
-							<button v-on:click="copy($store.state.stargateSecretKey)" class="copy">Copy</button>
+							<button v-on:click="copy($store.state.stargateSecretKey, 'secretKeyCopyText')" class="copy">{{secretKeyCopyText}}</button>
 						</div>
 					</div>
 
@@ -35,7 +35,7 @@
 						<div class="col text-left">
 							<label class="label" for="bucket">Bucket</label>
 							<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
-							<button v-on:click="copy($store.state.stargateBucket)" class="copy">Copy</button>
+							<button v-on:click="copy($store.state.stargateBucket, 'bucketCopyText')" class="copy">{{bucketCopyText}}</button>
 						</div>
 					</div>
 
@@ -47,13 +47,25 @@
 
 <script>
 export default {
+	data: () => ({
+		endpointCopyText: 'Copy',
+		accessKeyCopyText: 'Copy',
+		secretKeyCopyText: 'Copy',
+		bucketCopyText: 'Copy'
+	}),
 	methods: {
-		async copy(text) {
+		async copy(text, field) {
 			await navigator.permissions.query({
 				name: "clipboard-write"
 			});
 
 			await navigator.clipboard.writeText(text);
+
+			this[field] = 'Copied!';
+
+			await new Promise(r => setTimeout(r, 1000));
+
+			this[field] = 'Copy';
 		}
 	}
 };
