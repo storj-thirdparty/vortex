@@ -210,6 +210,10 @@ input {
 .spinner-border {
 	color: #0068dc;
 }
+
+.nav-tabs {
+    border-bottom: none;
+}
 </style>
 
 <template>
