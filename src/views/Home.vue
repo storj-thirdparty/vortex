@@ -338,13 +338,13 @@ input {
 
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
-				<a class="nav-link" v-bind:class="{ active: selectedTab === 'file-browser'}" v-on:click="selectedTab = 'file-browser'"  href="#">File Browser</a>
+				<a class="nav-link" v-bind:class="tabStyles('file-browser')" v-on:click="selectedTab = 'file-browser'"  href="#">File Browser</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" v-bind:class="{ active: selectedTab === 'apps'}" v-on:click="selectedTab = 'apps'" href="#">S3 & Apps</a>
+				<a class="nav-link" v-bind:class="tabStyles('apps')" v-on:click="selectedTab = 'apps'" href="#">S3 & Apps</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" v-bind:class="{ active: selectedTab === 'usage'}" v-on:click="selectedTab = 'usage'" href="#">Metrics & Usage</a>
+			<li class="nav-item white-text">
+				<a class="nav-link" v-bind:class="tabStyles('usage')" v-on:click="selectedTab = 'usage'" href="#">Metrics & Usage</a>
 			</li>
 		</ul>
 
@@ -356,7 +356,7 @@ input {
 				</div>
 			</div>
 
-			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'file-browser'">
+			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'file-browser'" style="border-top-left-radius: 0;">
 				<file-browser></file-browser>
 			</div>
 
@@ -417,6 +417,18 @@ export default {
 			});
 
 			await navigator.clipboard.writeText(text);
+		},
+		tabStyles(tab) {
+			if(this.selectedTab === tab) {
+				return {
+					active: true,
+					'text-dark': true
+				};
+			} else {
+				return {
+					'text-white': true
+				};
+			}
 		}
 	},
 	computed: {
