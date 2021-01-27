@@ -29,6 +29,10 @@
 .metric {
 	color: #444;
 }
+
+table {
+	min-height: 400px;
+}
 </style>
 
 <template>

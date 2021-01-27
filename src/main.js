@@ -37,7 +37,8 @@ const store = new Vuex.Store({
 		stargateEndpoint: null,
 		activated: null,
 		s3: null,
-		features: {}
+		features: {},
+		usage: null
 	},
 	mutations: {
 		setUserError(state, error) {
@@ -70,6 +71,10 @@ const store = new Vuex.Store({
 				signatureVersion: 'v4'
 			});
 
+		},
+
+		setUsage(state, usage) {
+			state.usage = usage;
 		}
 	},
 	actions: {
@@ -138,6 +143,14 @@ const store = new Vuex.Store({
 				stargateEndpoint: null,
 				activated: null
 			});
+		},
+
+		async getUsage({commit}) {
+			const {
+				data
+			} = await axios.post('/api/usage');
+
+			commit('setUsage', data);
 		}
 	}
 });

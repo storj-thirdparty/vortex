@@ -52,9 +52,6 @@ import {
 } from 'human-readable-numbers';
 
 export default {
-	data: () => ({
-		usage: null
-	}),
 	methods: {
 		async updateUsage() {
 			const {
@@ -65,6 +62,9 @@ export default {
 		}
 	},
 	computed: {
+		usage() {
+			return this.$store.state.usage;
+		},
 		bytesUploadedPercent() {
 			return this.usage !== null ? (this.usage.bytesUploaded / this.usage.bytesUploadedQuota * 100).toFixed(2) : 0;
 		},
@@ -82,7 +82,7 @@ export default {
 		prettyBytes
 	},
 	async created() {
-		await this.updateUsage();
+		this.$store.dispatch('getUsage');
 	}
 };
 </script>
