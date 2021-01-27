@@ -103,7 +103,7 @@ table {
 					<td span="3">
 					</td>
 					<td span="3">
-						<button v-on:click="createFolder" v-bind:disabled="createFolderInput.length < 1" class="btn btn-primary">Save Folder</button>
+						<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
 					</td>
 				</tr>
 
@@ -145,6 +145,11 @@ export default {
 		createFolderInput: '',
 		createFolderInputShow: false
 	}),
+	computed: {
+		createFolderEnabled() {
+			return this.createFolderInput.length > 0 && this.files.filter(file => file.Key === this.createFolderInput).length === 0;
+		}
+	},
 	async created() {
 		const s3Config = {
 			accessKeyId: this.$store.state.stargateAccessKey,
