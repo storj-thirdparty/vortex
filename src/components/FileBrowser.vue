@@ -36,7 +36,7 @@
 </style>
 
 <template>
-<div>
+<div v-cloak @drop.prevent="upload" @dragover.prevent>
 	<!--<p class="path mb-4">{{path}}</p>-->
 
 	<div class="row mb-2">
@@ -45,7 +45,7 @@
 			<h2>My Files</h2>
 		</div>
 
-		<div class="col-sm-12 col-md-4 col-xl-2 mb-3" @drop.prevent="upload" @dragover.prevent>
+		<div class="col-sm-12 col-md-4 col-xl-2 mb-3">
 			<input ref="fileInput" type="file" hidden multiple v-on:change="upload">
 			<button class="btn btn-primary btn-block" v-on:click="buttonUpload">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload mr-2" viewBox="0 0 16 16">
@@ -169,7 +169,9 @@ export default {
 
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
 
-			await [...files].map(async file => {
+			console.log(e);
+
+			await Promise.all([...files].map(async file => {
 				const params = {
 					Bucket: this.$store.state.stargateBucket,
 					Key: this.path + file.name,
@@ -189,7 +191,7 @@ export default {
 				});
 
 				await this.updateUsage();
-			})
+			}));
 
 		},
 
