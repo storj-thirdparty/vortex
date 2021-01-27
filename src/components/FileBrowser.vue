@@ -30,7 +30,7 @@
 	color: #444;
 }
 
-table {
+.table-responsive {
 	min-height: 400px;
 }
 </style>
