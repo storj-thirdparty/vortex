@@ -45,7 +45,7 @@
 			<h2>My Files</h2>
 		</div>
 
-		<div class="col-sm-12 col-md-4 col-xl-2 mb-3">
+		<div class="col-sm-12 col-md-4 col-xl-2 mb-3" @drop.prevent="upload" @dragover.prevent>
 			<input ref="fileInput" type="file" hidden multiple v-on:change="upload">
 			<button class="btn btn-primary btn-block" v-on:click="buttonUpload">
 				<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-upload mr-2" viewBox="0 0 16 16">
