@@ -219,6 +219,29 @@ input {
 	margin-top: -2px;
 	margin-right: 3px;
 }
+
+.nav-tabs .nav-link {
+	background: #EFF1F5;
+	color: #000;
+	border-color: #DDE1E6;
+	padding: 12px;
+	border-bottom: 2px solid #dde1e6;
+	transition: all 100ms ease-in-out;
+}
+.nav-tabs .nav-link.active {
+	font-weight: bold;
+	color: #000;
+}
+
+.nav-tabs .nav-link:hover {
+	color: #0068dc;
+	background: #f8f9fb;
+}
+.nav-tabs .nav-link.active:hover {
+	background: #fff;
+	color: #000;
+}
+
 </style>
 
 <template>
@@ -345,7 +368,7 @@ input {
 
 		<div class="container">
 
-			<ul class="nav nav-tabs">
+			<ul class="nav nav-tabs nav-justified">
 				<li class="nav-item">
 					<a class="nav-link" v-bind:class="tabStyles('file-browser')" v-on:click="selectedTab = 'file-browser'" href="#">
 						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
@@ -361,7 +384,7 @@ input {
 						  <path d="M2.5 4a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1zm2-.5a.5.5 0 1 1-1 0 .5.5 0 0 1 1 0zm1 .5a.5.5 0 1 0 0-1 .5.5 0 0 0 0 1z"/>
 						  <path d="M2 1a2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2H2zm13 2v2H1V3a1 1 0 0 1 1-1h12a1 1 0 0 1 1 1zM2 14a1 1 0 0 1-1-1V6h14v7a1 1 0 0 1-1 1H2z"/>
 						</svg>
-						S3 & Apps
+						S3 &amp; Apps
 					</a>
 				</li>
 				<li class="nav-item white-text">
@@ -370,7 +393,7 @@ input {
 							<path
 							 d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z" />
 						</svg>
-						Metrics & Usage
+						Metrics &amp; Usage
 					</a>
 				</li>
 			</ul>
@@ -449,11 +472,6 @@ export default {
 			if (this.selectedTab === tab) {
 				return {
 					active: true,
-					'text-dark': true
-				};
-			} else {
-				return {
-					'text-white': true
 				};
 			}
 		}
