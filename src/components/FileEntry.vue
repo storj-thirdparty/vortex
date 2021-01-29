@@ -64,7 +64,7 @@
 	</td>
 	<td class="text-right">
 		<div v-if="file.type === 'file'">
-			<div class="dropdown">
+			<div class="dropdown dropleft">
 			  <button class="btn btn-white btn-actions" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M3.2 1.6C3.2 2.48366 2.48366 3.2 1.6 3.2C0.716344 3.2 0 2.48366 0 1.6C0 0.716344 0.716344 0 1.6 0C2.48366 0 3.2 0.716344 3.2 1.6Z" fill="#7C8794"/>
