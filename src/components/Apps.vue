@@ -7,7 +7,7 @@
 					<h5 class="mb-2">Use Storj in your favourite applications</h5>
 					<p>You can view and manage your files above or access them with the credentials below.</p>
 
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col text-left">
 							<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
 							<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
@@ -15,7 +15,7 @@
 						</div>
 					</div>
 
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col text-left">
 							<label class="label" for="access-key">Access Key</label>
 							<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
@@ -23,7 +23,7 @@
 						</div>
 					</div>
 
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col text-left">
 							<label class="label" for="secret-key">Secret Key</label>
 							<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
@@ -31,7 +31,7 @@
 						</div>
 					</div>
 
-					<div class="row mb-3">
+					<div class="row mb-4">
 						<div class="col text-left">
 							<label class="label" for="bucket">Bucket</label>
 							<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
