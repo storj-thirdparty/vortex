@@ -72,7 +72,7 @@
 					<path d="M1.6 16C2.48366 16 3.2 15.2837 3.2 14.4C3.2 13.5163 2.48366 12.8 1.6 12.8C0.716344 12.8 0 13.5163 0 14.4C0 15.2837 0.716344 16 1.6 16Z" fill="#7C8794"/>
 					</svg>
 				</button>
-			  <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+			  <div class="dropdown-menu shadow" aria-labelledby="dropdownMenuButton">
 			    <a class="dropdown-item action p-3" href="#" v-on:click="$emit('download')">
 						<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cloud-download mr-2 ml-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path fill-rule="evenodd"
