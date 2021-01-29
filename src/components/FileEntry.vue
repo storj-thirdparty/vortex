@@ -110,7 +110,7 @@ export default {
 		'file'
 	],
 	data: () => ({
-		shareText: 'Share'
+		shareText: 'Copy Link'
 	}),
 	computed: {
 		filename() {
@@ -141,7 +141,7 @@ export default {
 			await navigator.clipboard.writeText(url);
 			this.shareText = "URL Copied!";
 			await new Promise(resolve => setTimeout(resolve, 5000));
-			this.shareText = 'Share';
+			this.shareText = 'Copy Link';
 		}
 	}
 }
