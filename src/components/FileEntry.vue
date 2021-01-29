@@ -19,6 +19,9 @@
   font-size: 14px;
   font-family: 'Inter';
 }
+.dropdown-item svg {
+	color: #768394;
+}
 .dropdown-item:focus, .dropdown-item:hover {
   color: #1B2533;
   background-color: #F4F5F7;
