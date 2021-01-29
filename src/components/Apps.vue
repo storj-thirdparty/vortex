@@ -5,7 +5,7 @@
 			<div class="col-sm-12">
 				<div class="card border-0 p-4 p-lg-5 mb-5">
 					<h5 class="mb-2">Use Storj in your favourite applications</h5>
-					<p>You can view and manage your files above or access them with the credentials below.</p>
+					<p>You can view and manage your files in supported apps with the credentials below.</p>
 
 					<div class="row mb-3">
 						<div class="col text-left">
