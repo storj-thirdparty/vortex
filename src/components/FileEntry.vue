@@ -56,7 +56,7 @@
 	<td>
 	<span v-if="file.type === 'file'">{{uploadDate}}</span>
 	</td>
-	<td style="min-width: 24rem;" class="text-right">
+	<td class="text-right">
 		<div v-if="file.type === 'file'">
 			<div class="dropdown">
 			  <button class="btn btn-white" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
