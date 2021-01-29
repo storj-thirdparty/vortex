@@ -166,13 +166,13 @@ input {
 }
 
 .keys .copy {
-	background: #FFFFFF;
-	border: 1px solid #0068DC;
+	background: #0059D0;
+	border: 1px solid #0059D0;
 	border-radius: 4px;
 	font-weight: bold;
 	font-size: 14px;
 	text-align: center;
-	color: #0068DC;
+	color: #fff;
 	cursor: pointer;
 	position: absolute;
 	bottom: 8px;
@@ -183,7 +183,7 @@ input {
 }
 
 .keys .copy:hover {
-	background: #0068DC;
+	background: #2582FF;
 	color: #fff;
 }
 
