@@ -201,6 +201,10 @@ input {
 	cursor: text;
 }
 
+.form-control:disabled, .form-control[readonly] {
+  background-color: #F7F8FB;
+}
+
 .keys .alert-warning {
 	color: #000;
 	background-color: #fff9f6;
