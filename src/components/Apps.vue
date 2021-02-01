@@ -24,28 +24,28 @@
 
 					<div class="row m-5">
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
-							<img src="@/assets/filezilla.png" width="40" class="mb-3" alt="Filezilla">
-							<h5>Filezilla</h5>
-							<p>Use Storj as your storage layer in FileZilla.</p>
-							<a href="#">Visit Website</a>
+							<img src="@/assets/duplicati.png" width="40" class="mb-3" alt="Duplicati">
+							<h5>Duplicati</h5>
+							<p>Automatically backup to Storj with Duplicati.</p>
+							<a href="https://www.duplicati.com">Visit Website</a>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/rclone.png" width="40" class="mb-3" alt="Rclone">
 							<h5>Rclone</h5>
 							<p>Map file systems to the decentralized cloud.</p>
-							<a href="#">Visit Website</a>
+							<a href="https://rclone.org">Visit Website</a>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/restic.png" width="40" class="mb-3" alt="Restic">
 							<h5>Restic</h5>
 							<p>Backup your files, servers, and directories.</p>
-							<a href="#">Visit Website</a>
+							<a href="https://restic.net">Visit Website</a>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
-							<img src="@/assets/duplicati.png" width="40" class="mb-3" alt="Duplicati">
-							<h5>Duplicati</h5>
-							<p>Automatically backup to Storj with Duplicati.</p>
-							<a href="#">Visit Website</a>
+							<img src="@/assets/filezilla.png" width="40" class="mb-3" alt="Filezilla-pro">
+							<h5>Filezilla Pro</h5>
+							<p>Use Storj as your storage layer in FileZilla Pro.</p>
+							<a href="https://filezillapro.com">Visit Website</a>
 						</div>
 					</div>
 					<div class="row mb-4 mx-5">
