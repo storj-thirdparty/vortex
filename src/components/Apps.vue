@@ -26,13 +26,13 @@
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/duplicati.png" width="40" class="mb-3" alt="Duplicati">
 							<h5>Duplicati</h5>
-							<p>Automatically backup to Storj with Duplicati.</p>
+							<p>Free backup software to store encrypted backups.</p>
 							<a href="https://www.duplicati.com">Visit Website</a>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/rclone.png" width="40" class="mb-3" alt="Rclone">
 							<h5>Rclone</h5>
-							<p>Map file systems to the decentralized cloud.</p>
+							<p>Rclone syncs your files to cloud storage.</p>
 							<a href="https://rclone.org">Visit Website</a>
 						</div>
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
@@ -44,7 +44,7 @@
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/filezilla.png" width="40" class="mb-3" alt="Filezilla-pro">
 							<h5>Filezilla Pro</h5>
-							<p>Use Storj as your storage layer in FileZilla Pro.</p>
+							<p>Profesional FTP and Cloud Storage tool.</p>
 							<a href="https://filezillapro.com">Visit Website</a>
 						</div>
 					</div>
