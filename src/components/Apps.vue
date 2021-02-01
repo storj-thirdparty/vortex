@@ -48,7 +48,6 @@
 							<a href="#">Visit Website</a>
 						</div>
 					</div>
-
 					<div class="row mb-4 mx-5">
 						<div class="col text-left">
 							<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
