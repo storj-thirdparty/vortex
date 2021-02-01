@@ -44,7 +44,7 @@
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/filezilla.png" width="40" class="mb-3" alt="Filezilla-pro">
 							<h5>Filezilla Pro</h5>
-							<p>Profesional FTP and Cloud Storage tool. (Paid)</p>
+							<p>Professional FTP and Cloud Storage tool. (Paid)</p>
 							<a href="https://filezillapro.com">Visit Website</a>
 						</div>
 					</div>
