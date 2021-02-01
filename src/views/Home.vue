@@ -366,6 +366,8 @@ input {
 			</div>
 		</div>
 
+		<main-footer></main-footer>
+
 	</div>
 
 	<div v-else>
@@ -410,9 +412,14 @@ input {
 				</div>
 			</div>
 
-			<div class="card border-0 p-4 p-lg-5 mb-5" v-if="selectedTab === 'file-browser'" style="border-top-left-radius: 0;">
-				<file-browser></file-browser>
+			<div class="row" v-if="selectedTab === 'file-browser'">
+				<div class="col-sm-12">
+					<div class="card border-0 p-4 p-lg-5 mb-5"  style="border-top-left-radius: 0;">
+						<file-browser></file-browser>
+					</div>
+				</div>
 			</div>
+
 
 			<apps v-if="selectedTab === 'apps'"></apps>
 
@@ -421,6 +428,8 @@ input {
 			</div>
 
 		</div>
+
+		<app-footer></app-footer>
 
 	</div>
 </div>
@@ -434,6 +443,8 @@ import Hero from '../components/Hero.vue';
 import FileBrowser from '../components/FileBrowser.vue';
 import Usage from '../components/Usage.vue';
 import Apps from '../components/Apps.vue';
+import MainFooter from '../components/MainFooter.vue';
+import AppFooter from '../components/AppFooter.vue';
 
 let s3;
 
@@ -495,7 +506,9 @@ export default {
 		Hero,
 		FileBrowser,
 		Usage,
-		Apps
+		Apps,
+		MainFooter,
+		AppFooter
 	},
 	async created() {
 		const urlParams = new URLSearchParams(window.location.search);
