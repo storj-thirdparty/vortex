@@ -133,44 +133,46 @@
 
 		<div class="row">
 			<div class="col">
-				<table class="table plan-table">
-					<thead>
-						<tr>
-							<th scope="col"></th>
-							<th scope="col" class="w-25">Plan</th>
-							<th scope="col">Storage</th>
-							<th scope="col">Bandwidth</th>
-							<th scope="col">File Limit</th>
-							<th scope="col"></th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr class="plan-row plan-selected">
-							<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-							<td class="plan-name w-25">Starter</td>
-							<td>1 GB</td>
-							<td>1 GB</td>
-							<td>1,000</td>
-							<td></td>
-						</tr>
-						<tr class="plan-row">
-							<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-							<td class="plan-name w-25">Basic</td>
-							<td>100 GB</td>
-							<td>100 GB</td>
-							<td>100,000</td>
-							<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Verify Email</a></td>
-						</tr>
-						<tr class="plan-row">
-							<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-							<td class="plan-name w-25">Pro</td>
-							<td>1 TB</td>
-							<td>1 TB</td>
-							<td>1,000,000</td>
-							<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Upgrade - Free!</a></td>
-						</tr>
-					</tbody>
-				</table>
+				<div class="table-responsive">
+					<table class="table plan-table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col" class="w-25">Plan</th>
+								<th scope="col">Storage</th>
+								<th scope="col">Bandwidth</th>
+								<th scope="col">File Limit</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="plan-row plan-selected">
+								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
+								<td class="plan-name w-25">Starter</td>
+								<td>1 GB</td>
+								<td>1 GB</td>
+								<td>1,000</td>
+								<td></td>
+							</tr>
+							<tr class="plan-row">
+								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
+								<td class="plan-name w-25">Basic</td>
+								<td>100 GB</td>
+								<td>100 GB</td>
+								<td>100,000</td>
+								<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Verify Email</a></td>
+							</tr>
+							<tr class="plan-row">
+								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
+								<td class="plan-name w-25">Pro</td>
+								<td>1 TB</td>
+								<td>1 TB</td>
+								<td>1,000,000</td>
+								<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Upgrade - Free!</a></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
 			</div>
 		</div>
 
