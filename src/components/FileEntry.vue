@@ -64,8 +64,8 @@
 	</td>
 	<td class="text-right">
 		<div v-if="file.type === 'file'">
-			<div class="dropdown dropleft">
-			  <button class="btn btn-white btn-actions" type="button" aria-haspopup="true" aria-expanded="false" v-on:click="dropdownOpen = !dropdownOpen">
+			<div class="dropleft">
+			  <button class="btn btn-white btn-actions" type="button" aria-haspopup="true" aria-expanded="false" v-on:click="toggleDropdown()">
 					<svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M3.2 1.6C3.2 2.48366 2.48366 3.2 1.6 3.2C0.716344 3.2 0 2.48366 0 1.6C0 0.716344 0.716344 0 1.6 0C2.48366 0 3.2 0.716344 3.2 1.6Z" fill="#7C8794"/>
 					<path d="M3.2 8C3.2 8.88366 2.48366 9.6 1.6 9.6C0.716344 9.6 0 8.88366 0 8C0 7.11634 0.716344 6.4 1.6 6.4C2.48366 6.4 3.2 7.11634 3.2 8Z" fill="#7C8794"/>
@@ -94,7 +94,7 @@
 						</svg>
 						Delete
 					</a>
-          <a v-else class="dropdown-item action p-3" href="#" v-on:click="$emit('delete'); deleteConfirmation = false; dropdownOpen = false">
+          <a v-else class="dropdown-item action p-3" href="#" v-on:click="$emit('delete'); closeDropdown()">
 						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 							<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
 						</svg>
@@ -118,7 +118,6 @@ export default {
 	data: () => ({
     shareText: 'Copy Link',
     deleteConfirmation: false,
-    dropdownOpen: false,
 	}),
 	computed: {
 		filename() {
@@ -129,7 +128,10 @@ export default {
 		},
 		uploadDate() {
 			return this.file.LastModified.toLocaleString().split(',')[0];
-		}
+    },
+    dropdownOpen() {
+      return this.$store.state.openedDropdown === this.file.Key;
+    },
 	},
 	methods: {
 		async share() {
@@ -150,7 +152,19 @@ export default {
 			this.shareText = "URL Copied!";
 			await new Promise(resolve => setTimeout(resolve, 5000));
 			this.shareText = 'Copy Link';
-		}
+    },
+    toggleDropdown() {
+      if (this.$store.state.openedDropdown === this.file.Key) {
+        this.$store.dispatch('openDropdown', null);
+      } else {
+        this.$store.dispatch('openDropdown', this.file.Key);
+      }
+
+      this.deleteConfirmation = false;
+    },
+    closeDropdown() {
+      this.deleteConfirmation = false;
+    },
 	}
 }
 </script>

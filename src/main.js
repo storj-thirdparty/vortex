@@ -12,153 +12,148 @@ Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
-const routes = [{
-	path: '/',
-	component: Home
-}, {
-	path: '/admin',
-	component: Admin
-}];
+const routes = [
+  {
+    path: '/',
+    component: Home,
+  },
+  {
+    path: '/admin',
+    component: Admin,
+  },
+];
 
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
 const router = new Router({
-	routes // Short for `routes: routes`
+  routes, // Short for `routes: routes`
 });
 
 const store = new Vuex.Store({
-	state: {
-		userError: null,
-		email: null,
-		stargateAccessKey: null,
-		stargateSecretKey: null,
-		stargateBucket: null,
-		stargateEndpoint: null,
-		activated: null,
-		s3: null,
-		features: {},
-		usage: null
-	},
-	mutations: {
-		setUserError(state, error) {
-			state.userError = error
-		},
+  state: {
+    userError: null,
+    email: null,
+    stargateAccessKey: null,
+    stargateSecretKey: null,
+    stargateBucket: null,
+    stargateEndpoint: null,
+    activated: null,
+    s3: null,
+    features: {},
+    usage: null,
+    openedDropdown: null,
+  },
+  mutations: {
+    setOpenedDropdown(state, id) {
+      state.openedDropdown = id;
+    },
 
-		setUser(state, {
-			email,
-			stargateAccessKey,
-			stargateSecretKey,
-			stargateBucket,
-			stargateEndpoint,
-			activated,
-			features
-		}) {
-			state.email = email;
-			state.stargateAccessKey = stargateAccessKey;
-			state.stargateSecretKey = stargateSecretKey;
-			state.stargateBucket = stargateBucket;
-			state.stargateEndpoint = stargateEndpoint,
-			state.activated = activated;
-			state.userError = null;
-			state.features = features;
+    setUserError(state, error) {
+      state.userError = error;
+    },
 
-			state.s3 = new AWS.S3({
-				accessKeyId: stargateAccessKey,
-				secretAccessKey: stargateSecretKey,
-				endpoint: stargateEndpoint,
-				s3ForcePathStyle: true,
-				signatureVersion: 'v4'
-			});
+    setUser(
+      state,
+      {
+        email,
+        stargateAccessKey,
+        stargateSecretKey,
+        stargateBucket,
+        stargateEndpoint,
+        activated,
+        features,
+      }
+    ) {
+      state.email = email;
+      state.stargateAccessKey = stargateAccessKey;
+      state.stargateSecretKey = stargateSecretKey;
+      state.stargateBucket = stargateBucket;
+      (state.stargateEndpoint = stargateEndpoint),
+        (state.activated = activated);
+      state.userError = null;
+      state.features = features;
 
-		},
+      state.s3 = new AWS.S3({
+        accessKeyId: stargateAccessKey,
+        secretAccessKey: stargateSecretKey,
+        endpoint: stargateEndpoint,
+        s3ForcePathStyle: true,
+        signatureVersion: 'v4',
+      });
+    },
 
-		setUsage(state, usage) {
-			state.usage = usage;
-		}
-	},
-	actions: {
-		async signUp({
-			commit
-		}, {
-			email,
-			password,
-			termsAndConditions
-		}) {
-			const {
-				data
-			} = await axios.post('/api/signup', {
-				email,
-				password,
-				termsAndConditions
-			});
+    setUsage(state, usage) {
+      state.usage = usage;
+    },
+  },
+  actions: {
+    openDropdown({ commit }, id) {
+      commit('setOpenedDropdown', id);
+    },
 
-			if (data.error) {
-				commit('setUserError', data.error);
-			} else {
-				commit('setUser', data);
-			}
-		},
+    async signUp({ commit }, { email, password, termsAndConditions }) {
+      const { data } = await axios.post('/api/signup', {
+        email,
+        password,
+        termsAndConditions,
+      });
 
-		async login({
-			commit
-		}, {
-			email,
-			password
-		}) {
-			const {
-				data
-			} = await axios.post('/api/login', {
-				email,
-				password
-			});
+      if (data.error) {
+        commit('setUserError', data.error);
+      } else {
+        commit('setUser', data);
+      }
+    },
 
-			if (data.error) {
-				commit('setUserError', data.error);
-			} else {
-				commit('setUser', data);
-			}
-		},
+    async login({ commit }, { email, password }) {
+      const { data } = await axios.post('/api/login', {
+        email,
+        password,
+      });
 
-		async passiveLogin({commit}) {
-			const {
-				data
-			} = await axios.post('/api/passive-login');
+      if (data.error) {
+        commit('setUserError', data.error);
+      } else {
+        commit('setUser', data);
+      }
+    },
 
-			console.log(data);
+    async passiveLogin({ commit }) {
+      const { data } = await axios.post('/api/passive-login');
 
-			if (!data.error) {
-				commit('setUser', data);
-			}
-		},
+      console.log(data);
 
-		async logout({commit}) {
-			await axios.post('/api/logout');
+      if (!data.error) {
+        commit('setUser', data);
+      }
+    },
 
-			commit('setUser', {
-				email: null,
-				stargateAccessKey: null,
-				stargateSecretKey: null,
-				stargateBucket: null,
-				stargateEndpoint: null,
-				activated: null
-			});
-		},
+    async logout({ commit }) {
+      await axios.post('/api/logout');
 
-		async getUsage({commit}) {
-			const {
-				data
-			} = await axios.post('/api/usage');
+      commit('setUser', {
+        email: null,
+        stargateAccessKey: null,
+        stargateSecretKey: null,
+        stargateBucket: null,
+        stargateEndpoint: null,
+        activated: null,
+      });
+    },
 
-			commit('setUsage', data);
-		}
-	}
+    async getUsage({ commit }) {
+      const { data } = await axios.post('/api/usage');
+
+      commit('setUsage', data);
+    },
+  },
 });
 
 new Vue({
-	render(h) {
-		return h(App);
-	},
-	router,
-	store
+  render(h) {
+    return h(App);
+  },
+  router,
+  store,
 }).$mount('#app');

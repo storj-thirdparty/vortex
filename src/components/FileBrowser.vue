@@ -30,8 +30,12 @@
 	color: #444;
 }
 
-.table-responsive {
-	//min-height: 400px;
+/* .table-responsive {
+	min-height: 400px;
+} */
+
+.table {
+  margin-bottom: 9em;
 }
 </style>
 
@@ -283,10 +287,12 @@ export default {
 		},
 
 		async go(path) {
-			await this.list(this.path + path);
+      this.$store.dispatch('openDropdown', null);
+      await this.list(this.path + path);
 		},
 
 		async back() {
+      this.$store.dispatch('openDropdown', null);
 			let path = this.path;
 
 			let i;
