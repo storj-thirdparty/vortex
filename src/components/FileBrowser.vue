@@ -143,7 +143,6 @@ export default {
 	data: () => ({
 		s3: null,
 		filesUploading: [],
-		usage: null,
 		createFolderInput: '',
 		createFolderInputShow: false
 	}),
@@ -252,7 +251,7 @@ export default {
 		},
 
 		async list(path) {
-			this.$store.dispatch('list', path, {
+			this.$store.dispatch('files/list', path, {
 				root: true
 			});
 		},
@@ -264,13 +263,7 @@ export default {
 
 		async back() {
 			this.$store.dispatch('openDropdown', null);
-			let path = this.path;
-
-			let i;
-
-			for (i = path.length - 2; path[i - 1] !== '/' && i > 0; i--) {};
-
-			await this.list(path.slice(0, i));
+			this.$store.dispatch('files/back');
 		},
 
 		async buttonUpload() {
@@ -279,20 +272,10 @@ export default {
 		},
 
 		async createFolder() {
-			await this.s3.putObject({
-				Bucket: this.$store.state.stargateBucket,
-				Key: this.path + this.createFolderInput + '/.vortex_placeholder'
-			}).promise();
+			this.$store.dispatch('files/createFolder', name);
 
 			this.createFolderInput = '';
 			this.createFolderInputShow = false;
-
-			await this.list();
-
-			await axios.post('/api/events/upload', {
-				bytes: 0,
-				files: 1
-			});
 		}
 	},
 	components: {

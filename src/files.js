@@ -1,4 +1,5 @@
 export default {
+	namespaced: true,
 	state: {
 		path: '',
 		files: []
@@ -14,8 +15,6 @@ export default {
 			if(typeof path !== 'string') {
 				path = state.path;
 			}
-
-			console.log({rootState});
 
 			const response = await rootState.s3.listObjects({
 				Bucket: rootState.stargateBucket,
@@ -53,6 +52,31 @@ export default {
 			];
 
 			commit('updateFiles', {path, files});
+		},
+
+		async back({commit, state, dispatch}) {
+			let path = state.path;
+
+			let i;
+
+			for (i = path.length - 2; path[i - 1] !== '/' && i > 0; i--) {};
+
+			dispatch('list', path);
+		},
+
+		async createFolder({commit, state, dispatch, rootState}, name) {
+			await rootState.s3.putObject({
+				Bucket: rootState.stargateBucket,
+				Key: state.path + name + '/.vortex_placeholder'
+			}).promise();
+
+			dispatch('list');
+
+			await axios.post('/api/events/upload', {
+				bytes: 0,
+				files: 1
+			});
 		}
+
 	}
 };
