@@ -35,7 +35,7 @@
 } */
 
 .table {
-  margin-bottom: 9em;
+	margin-bottom: 9em;
 }
 </style>
 
@@ -142,9 +142,7 @@ import FileEntry from './FileEntry.vue';
 export default {
 	data: () => ({
 		s3: null,
-		path: '',
 		filesUploading: [],
-		files: [],
 		usage: null,
 		createFolderInput: '',
 		createFolderInputShow: false
@@ -152,6 +150,12 @@ export default {
 	computed: {
 		createFolderEnabled() {
 			return this.createFolderInput.length > 0 && this.files.filter(file => file.Key === this.createFolderInput).length === 0;
+		},
+		path() {
+			return this.$store.state.files.path;
+		},
+		files() {
+			return this.$store.state.files.files;
 		}
 	},
 	async created() {
@@ -168,7 +172,7 @@ export default {
 		await this.list();
 	},
 	methods: {
-    filename(file) {
+		filename(file) {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
 		},
 		async upload(e) {
@@ -196,8 +200,6 @@ export default {
 					bytes: file.size,
 					files: 1
 				});
-
-				await this.updateUsage();
 			}));
 
 		},
@@ -225,16 +227,14 @@ export default {
 				bytes: file.Size,
 				files: 1
 			});
-
-			await this.updateUsage();
 		},
 
 		async del(file) {
-      const params = {
-					Key: this.path + file.Key,
-        };
+			const params = {
+				Key: this.path + file.Key,
+			};
 
-      this.filesUploading.push(params);
+			this.filesUploading.push(params);
 
 			await this.$store.state.s3.deleteObject({
 				Bucket: this.$store.state.stargateBucket,
@@ -246,61 +246,24 @@ export default {
 				files: 1
 			});
 
-      await this.list();
+			await this.list();
 
-      this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
-
-			await this.updateUsage();
+			this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
 		},
 
-		async list(path = this.path) {
-			const response = await this.s3.listObjects({
-				Bucket: this.$store.state.stargateBucket,
-				Delimiter: '/',
-				Prefix: path
-			}).promise();
-
-			this.path = path;
-
-			const {
-				Contents,
-				CommonPrefixes
-			} = response;
-
-			console.log({
-				Contents,
-				CommonPrefixes
+		async list(path) {
+			this.$store.dispatch('list', path, {
+				root: true
 			});
-
-			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
-
-			const filenames = new Set();
-
-			this.files = [
-				...CommonPrefixes.map(({
-					Prefix
-				}) => ({
-					Key: Prefix.slice(path.length, -1),
-					LastModified: new Date(0),
-					type: 'folder',
-				})),
-				...Contents.map(file => ({
-					...file,
-					Key: file.Key.slice(path.length),
-					type: 'file'
-				}))
-			];
-
-			console.log(this.files);
 		},
 
 		async go(path) {
-      this.$store.dispatch('openDropdown', null);
-      await this.list(this.path + path);
+			this.$store.dispatch('openDropdown', null);
+			await this.list(this.path + path);
 		},
 
 		async back() {
-      this.$store.dispatch('openDropdown', null);
+			this.$store.dispatch('openDropdown', null);
 			let path = this.path;
 
 			let i;
