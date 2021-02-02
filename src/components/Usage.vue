@@ -1,4 +1,11 @@
 <style media="screen" scoped>
+	.progress {
+		border-radius: 1rem;
+	}
+	.progress-bar {
+		background-color: #0059D0;
+	}
+
 	.plan-table {
 		border-collapse: separate;
 		border-spacing: 0 10px;
