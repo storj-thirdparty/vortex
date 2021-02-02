@@ -86,7 +86,7 @@
 			</thead>
 			<tbody>
 				<tr v-for="file in filesUploading" scope="row">
-					<td class="upload-text">{{file.Key}}</td>
+					<td class="upload-text">{{filename(file)}}</td>
 					<td></td>
 					<td></td>
 					<td>
@@ -168,6 +168,9 @@ export default {
 		await this.list();
 	},
 	methods: {
+    filename(file) {
+			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
+		},
 		async upload(e) {
 			console.log(e);
 
@@ -227,21 +230,26 @@ export default {
 		},
 
 		async del(file) {
+      const params = {
+					Key: this.path + file.Key,
+        };
+
+      this.filesUploading.push(params);
+
 			await this.$store.state.s3.deleteObject({
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + file.Key
 			}).promise();
-
-			console.log('del', {
-				file
-			});
 
 			await axios.post('/api/events/delete', {
 				bytes: file.Size,
 				files: 1
 			});
 
-			await this.list();
+      await this.list();
+
+      this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
+
 			await this.updateUsage();
 		},
 
