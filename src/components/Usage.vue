@@ -149,8 +149,8 @@
 							<tr v-bind:class="{ 'plan-row': true, 'plan-selected': id == planId }" v-for="(plan, id) in plans">
 								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
 								<td class="plan-name w-25">{{plan.name}}</td>
-								<td>1 GB</td>
-								<td>1 GB</td>
+								<td>{{plan.storageBytesQuota | prettyBytes}}</td>
+								<td>{{plan.downloadBytesQuota | prettyBytes}}</td>
 								<td>1,000</td>
 								<td></td>
 							</tr>
