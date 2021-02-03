@@ -3,7 +3,7 @@
 	background: #133E9C;
 	background: radial-gradient(119.85% 188.21% at 81.22% 25.21%, #133E9C 0%, #000000 100%);
 	font-family: 'Inter', sans-serif;
-	min-height: 100%;
+	min-height: 100vh;
 }
 
 .about-tardigrade {
