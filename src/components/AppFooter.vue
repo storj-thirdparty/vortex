@@ -6,7 +6,6 @@ footer {
 }
 
 .footer {
-	padding-top: 3.5em;
 	background-size: cover;
 	text-align: left;
 }
