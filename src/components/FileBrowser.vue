@@ -29,13 +29,13 @@
 .metric {
 	color: #444;
 }
-.table-responsive {	
+.div-responsive {	
 	min-height: 400px;	
 } 
 </style>
 
 <template>
-<div v-cloak @drop.prevent="upload" @dragover.prevent>
+<div class="div-responsive" v-cloak @drop.prevent="upload" @dragover.prevent>
 	<!--<p class="path mb-4">{{path}}</p>-->
 
 	<div class="row mb-2">
@@ -69,7 +69,7 @@
 
 	</div>
 
-	<div class="table-responsive">
+	<div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
