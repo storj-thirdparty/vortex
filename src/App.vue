@@ -296,7 +296,7 @@
 </style>
 
 <template>
-<div id="app">
+<div id="app" v-on:click="handleOpenDropdownClicks">
 
 	<div class="alert alert-warning text-center rounded-0" role="alert">
 		Welcome! Please be aware that this is an alpha development version. Data and accounts will be deleted every few days.
@@ -342,3 +342,15 @@
 
 </div>
 </template>
+
+<script>
+export default {
+	methods: {
+		handleOpenDropdownClicks() {
+			if (this.$store.state.openedDropdown) {
+				this.$store.dispatch('openDropdown', null);
+			}
+		},
+	},
+}
+</script>
