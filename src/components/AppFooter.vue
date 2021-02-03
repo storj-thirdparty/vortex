@@ -1,8 +1,8 @@
 <style scoped>
 footer {
-	//background: #133E9C;
-	z-index: 0;
-	position: relative;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer {
