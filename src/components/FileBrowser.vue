@@ -32,11 +32,11 @@
 
 /* .table-responsive {
 	min-height: 400px;
-} */
+} 
 
 .table {
 	margin-bottom: 9em;
-}
+} */
 </style>
 
 <template>
