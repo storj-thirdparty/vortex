@@ -45,8 +45,10 @@ const store = new Vuex.Store({
 		stargateBucket: null,
 		stargateEndpoint: null,
 		activated: null,
+		planId: null,
 		s3: null,
 		features: {},
+		plans: null,
 		usage: null,
 		openedDropdown: null,
 	},
@@ -75,17 +77,21 @@ const store = new Vuex.Store({
 				stargateBucket,
 				stargateEndpoint,
 				activated,
+				planId,
 				features,
+				plans,
 			}
 		) {
 			state.email = email;
 			state.stargateAccessKey = stargateAccessKey;
 			state.stargateSecretKey = stargateSecretKey;
 			state.stargateBucket = stargateBucket;
-			(state.stargateEndpoint = stargateEndpoint),
-			(state.activated = activated);
+			state.stargateEndpoint = stargateEndpoint;
+			state.activated = activated;
+			state.planId = planId;
 			state.userError = null;
 			state.features = features;
+			state.plans = plans;
 
 			state.s3 = new AWS.S3({
 				accessKeyId: stargateAccessKey,
