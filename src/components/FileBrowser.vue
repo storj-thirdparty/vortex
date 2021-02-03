@@ -221,12 +221,6 @@ export default {
 		},
 
 		async del(file) {
-			const params = {
-				Key: this.path + file.Key,
-			};
-
-			this.filesUploading.push(params);
-
 			await this.$store.state.s3.deleteObject({
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + file.Key
@@ -238,8 +232,6 @@ export default {
 			});
 
 			await this.list();
-
-			this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
 		},
 
 		async list(path) {
