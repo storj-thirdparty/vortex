@@ -1,6 +1,7 @@
 const User = require('../models/User.js');
 const ApiError = require('../lib/ApiError.js');
 const config = require('../config.json');
+const plans = require('../plans.json');
 const getBucketName = require('../lib/getBucketName.js');
 
 module.exports = async ctx => {
@@ -25,6 +26,8 @@ module.exports = async ctx => {
 		stargateBucket: getBucketName(user),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated,
-		features: config.features
+		features: config.features,
+		planId: user.planId,
+		plans: plans
 	};
 };

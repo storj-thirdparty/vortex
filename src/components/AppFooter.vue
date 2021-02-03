@@ -1,12 +1,11 @@
 <style scoped>
 footer {
-	//background: #133E9C;
-	z-index: 0;
-	position: relative;
+    position: static;
+    bottom: 0;
+    width: 100%;
 }
 
 .footer {
-	padding-top: 3.5em;
 	background-size: cover;
 	text-align: left;
 }
@@ -204,7 +203,7 @@ footer {
 <template>
 <footer>
 	<div class="footer container">
-		<div class="footer__content py-5">
+		<div class="footer__content">
 			<div class="row mt-4">
 				<div class="col-12 col-sm-12 col-md-8 col-lg-8"><address class="footer__content-address">© 2020 Storj Labs Inc. - 3423 Piedmont Road NE, Suite 475, Atlanta, Georgia, 30305, United States</address></div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-4">

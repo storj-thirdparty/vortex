@@ -29,18 +29,13 @@
 .metric {
 	color: #444;
 }
-
-/* .table-responsive {
-	min-height: 400px;
-} */
-
-.table {
-	margin-bottom: 9em;
-}
+.div-responsive {	
+	min-height: 400px;	
+} 
 </style>
 
 <template>
-<div v-cloak @drop.prevent="upload" @dragover.prevent>
+<div class="div-responsive" v-cloak @drop.prevent="upload" @dragover.prevent>
 	<!--<p class="path mb-4">{{path}}</p>-->
 
 	<div class="row mb-2">
@@ -74,7 +69,7 @@
 
 	</div>
 
-	<div class="table-responsive">
+	<div>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -86,7 +81,12 @@
 			</thead>
 			<tbody>
 				<tr v-for="file in filesUploading" scope="row">
-					<td class="upload-text">{{filename(file)}}</td>
+					<td class="upload-text">
+						<span>
+						<svg width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg" class="bi bi-file-earmark ml-2 mr-1"><path d="M4 0h5.5v1H4a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1V4.5h1V14a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V2a2 2 0 0 1 2-2z"></path><path d="M9.5 3V0L14 4.5h-3A1.5 1.5 0 0 1 9.5 3z"></path></svg>
+						 {{filename(file)}}
+						</span>
+					</td>
 					<td></td>
 					<td></td>
 					<td>
@@ -229,12 +229,6 @@ export default {
 		},
 
 		async del(file) {
-			const params = {
-				Key: this.path + file.Key,
-			};
-
-			this.filesUploading.push(params);
-
 			await this.$store.state.s3.deleteObject({
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + file.Key
@@ -246,8 +240,6 @@ export default {
 			});
 
 			await this.list();
-
-			this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
 		},
 
 		async list(path) {

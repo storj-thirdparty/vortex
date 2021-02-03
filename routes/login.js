@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const User = require('../models/User.js');
 const ApiError = require('../lib/ApiError.js');
 const config = require('../config.json');
+const plans = require('../plans.json');
 const getBucketName = require('../lib/getBucketName.js');
 
 module.exports = async function(ctx) {
@@ -38,6 +39,8 @@ module.exports = async function(ctx) {
 		stargateBucket: getBucketName(user),
 		stargateEndpoint: config.stargateEndpoint,
 		activated: user.activated,
-		features: config.features
+		planId: user.planId,
+		features: config.features,
+		plans
 	};
 };
