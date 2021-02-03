@@ -347,7 +347,6 @@ export default {
 	methods: {
 		handleOpenDropdownClicks() {
 			if (this.$store.state.openedDropdown) {
-				console.log('dropdownstate', this.$store.state.openedDropdown)
 				this.$store.dispatch('openDropdown', null);
 			}
 		},
