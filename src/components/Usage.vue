@@ -132,58 +132,41 @@
 				</div>
 			</div>
 
-			<div class="row">
-				<div class="col">
-					<div class="table-responsive">
-						<table class="table plan-table">
-							<thead>
-								<tr>
-									<th scope="col"></th>
-									<th scope="col" class="w-25">Plan</th>
-									<th scope="col">Storage</th>
-									<th scope="col">Bandwidth</th>
-									<th scope="col">File Limit</th>
-									<th scope="col"></th>
-								</tr>
-							</thead>
-							<tbody>
-								<tr class="plan-row plan-selected">
-									<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-									<td class="plan-name w-25">Starter</td>
-									<td>1 GB</td>
-									<td>1 GB</td>
-									<td>1,000</td>
-									<td></td>
-								</tr>
-								<tr class="plan-row">
-									<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-									<td class="plan-name w-25">Basic</td>
-									<td>100 GB</td>
-									<td>100 GB</td>
-									<td>100,000</td>
-									<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Verify Email</a></td>
-								</tr>
-								<tr class="plan-row">
-									<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
-									<td class="plan-name w-25">Pro</td>
-									<td>1 TB</td>
-									<td>1 TB</td>
-									<td>1,000,000</td>
-									<td class="text-right"><a href="#" class="btn btn-sm btn-upgrade">Upgrade - Free!</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
+		<div class="row">
+			<div class="col">
+				<div class="table-responsive">
+					<table class="table plan-table">
+						<thead>
+							<tr>
+								<th scope="col"></th>
+								<th scope="col" class="w-25">Plan</th>
+								<th scope="col">Storage</th>
+								<th scope="col">Bandwidth</th>
+								<th scope="col">File Limit</th>
+								<th scope="col"></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr v-bind:class="{ 'plan-row': true, 'plan-selected': id == planId }" v-for="(plan, id) in plans">
+								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
+								<td class="plan-name w-25">{{plan.name}}</td>
+								<td>{{plan.storageBytesQuota | prettyBytes}}</td>
+								<td>{{plan.downloadBytesQuota | prettyBytes}}</td>
+								<td>1,000</td>
+								<td></td>
+							</tr>
+						</tbody>
+					</table>
 				</div>
 			</div>
+    </div>
 
-			<div class="row">
-				<div class="col">
-					<p class="text-center mt-4">Need more? <a href="#" class="font-weight-bold">Contact Us</a></p>
-				</div>
-			</div>
+    <div class="row">
+      <div class="col">
+        <p class="text-center mt-4">Need more? <a href="#" class="font-weight-bold">Contact Us</a></p>
+      </div>
+    </div>
 
-		</div>
 	</div>
 </template>
 
@@ -207,6 +190,12 @@ export default {
 	computed: {
 		usage() {
 			return this.$store.state.usage;
+		},
+		plans() {
+			return this.$store.state.plans;
+		},
+		planId() {
+			return this.$store.state.planId;
 		},
 		bytesUploadedPercent() {
 			return this.usage !== null ? (this.usage.bytesUploaded / this.usage.bytesUploadedQuota * 100).toFixed(2) : 0;
