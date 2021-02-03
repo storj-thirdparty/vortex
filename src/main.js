@@ -6,6 +6,7 @@ import axios from 'axios';
 import App from './App.vue';
 import Home from './views/Home.vue';
 import Admin from './views/Admin.vue';
+import Dashboard from './views/Dashboard.vue';
 
 import files from './files.js';
 
@@ -22,6 +23,10 @@ const routes = [{
 		path: '/admin',
 		component: Admin,
 	},
+	{
+		path: '/dashboard',
+		component: Dashboard
+	}
 ];
 
 // 3. Create the router instance and pass the `routes` option
@@ -44,6 +49,11 @@ const store = new Vuex.Store({
 		features: {},
 		usage: null,
 		openedDropdown: null,
+	},
+	getters: {
+		isLoggedIn(state) {
+			return typeof state.stargateAccessKey === 'string';
+		}
 	},
 	modules: {
 		files
