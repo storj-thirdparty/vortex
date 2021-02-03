@@ -7,6 +7,9 @@ import App from './App.vue';
 import Home from './views/Home.vue';
 import Admin from './views/Admin.vue';
 import Dashboard from './views/Dashboard.vue';
+import FileBrowser from './components/FileBrowser.vue';
+import Apps from './components/Apps.vue';
+import Usage from './components/Usage.vue';
 
 import files from './files.js';
 
@@ -25,7 +28,13 @@ const routes = [{
 	},
 	{
 		path: '/dashboard',
-		component: Dashboard
+		component: Dashboard,
+		children: [
+			{ path: '', redirect: 'browser' },
+			{ path: 'browser', component: FileBrowser },
+			{ path: 'apps', component: Apps },
+			{ path: 'plan', component: Usage },
+		]
 	}
 ];
 
