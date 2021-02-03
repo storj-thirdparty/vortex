@@ -29,6 +29,9 @@
 .metric {
 	color: #444;
 }
+.table-responsive {	
+	min-height: 400px;	
+} 
 </style>
 
 <template>
