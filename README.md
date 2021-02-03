@@ -52,7 +52,7 @@ To run you need a `config.json`
 		"emailActivation": false
 	},
 	"adminTokens": [
-		"<admin token>"
+		"<admin-token>"
 	]
 }
 ```
