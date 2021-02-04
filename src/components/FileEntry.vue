@@ -163,7 +163,12 @@ export default {
 			});
 			await navigator.clipboard.writeText(url);
 			this.shareText = "URL Copied!";
-			await new Promise(resolve => setTimeout(resolve, 5000));
+
+			setTimeout(() => {
+				this.$store.dispatch('openDropdown', null);
+			}, 700);
+
+			await new Promise(resolve => setTimeout(resolve, 1000));
 			this.shareText = 'Copy Link';
 		},
 		toggleDropdown(event) {
@@ -180,6 +185,7 @@ export default {
 		download(event) {
 			event.stopPropagation();
 			this.$emit('download');
+			this.$store.dispatch('openDropdown', null);
 			this.deleteConfirmation = false;
 		},
 		confirmDeletion(event) {
