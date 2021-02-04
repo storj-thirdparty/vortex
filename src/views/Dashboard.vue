@@ -78,10 +78,15 @@ export default {
 	components: {
 		AppFooter,
 	},
-	created() {
+	async created() {
+		await this.$store.dispatch('passiveLogin');
+
 		if(this.isLoggedIn === false) {
 			this.$router.push({path:'/'});
 		}
+
+		this.$store.dispatch('getUsage');
+		this.$store.dispatch('files/list');
 	}
 }
 </script>
