@@ -1,5 +1,7 @@
 import axios from 'axios';
 
+const listCache = new Map();
+
 export default {
 	namespaced: true,
 	state: {
@@ -14,10 +16,15 @@ export default {
 	},
 	actions: {
 		async list({commit, state, rootState}, path) {
-			console.log(...arguments);
-
 			if(typeof path !== 'string') {
 				path = state.path;
+			}
+
+			if(listCache.has(path) === true) {
+				commit('updateFiles', {
+					path,
+					files: listCache.get(path)
+				});
 			}
 
 			const response = await rootState.s3.listObjects({
@@ -55,6 +62,7 @@ export default {
 				}))
 			];
 
+			listCache.set(path, files);
 			commit('updateFiles', {path, files});
 		},
 
