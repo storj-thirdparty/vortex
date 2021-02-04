@@ -14,6 +14,8 @@ export default {
 	},
 	actions: {
 		async list({commit, state, rootState}, path) {
+			console.log(...arguments);
+
 			if(typeof path !== 'string') {
 				path = state.path;
 			}
@@ -57,13 +59,17 @@ export default {
 		},
 
 		async back({commit, state, dispatch}) {
-			let path = state.path;
+			const path = state.path;
 
-			let i;
+			let i = path.length - 2;
 
-			for (i = path.length - 2; path[i - 1] !== '/' && i > 0; i--) {};
+			while(path[i - 1] !== '/' && i > 0) {
+				i--;
+			}
 
-			dispatch('list', path);
+			const newPath = path.slice(0, i);
+
+			dispatch('list', newPath);
 		},
 
 		async createFolder({commit, state, dispatch, rootState}, name) {
