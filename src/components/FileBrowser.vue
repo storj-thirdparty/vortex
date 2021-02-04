@@ -100,7 +100,7 @@
 							</tr>
 
 							<tr v-if="path.length > 0">
-								<td><a href="#" v-on:click="back">...</a></td>
+								<td><a href="javascript:null" v-on:click="back">...</a></td>
 							</tr>
 
 							<tr v-if="createFolderInputShow === true">
