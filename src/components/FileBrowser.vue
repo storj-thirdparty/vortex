@@ -270,7 +270,7 @@ export default {
 		},
 
 		async createFolder() {
-			this.$store.dispatch('files/createFolder', name);
+			this.$store.dispatch('files/createFolder', this.createFolderInput);
 
 			this.createFolderInput = '';
 			this.createFolderInputShow = false;
