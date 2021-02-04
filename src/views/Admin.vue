@@ -120,7 +120,6 @@
 
 <script>
 import axios from 'axios';
-import wasm from '../wasm.js';
 import moment from 'moment';
 import prettyBytes from 'pretty-bytes';
 import {toHumanString} from 'human-readable-numbers';

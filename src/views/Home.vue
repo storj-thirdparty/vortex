@@ -374,7 +374,6 @@ input {
 
 <script>
 import axios from 'axios';
-import wasm from '../wasm.js';
 
 import Hero from '../components/Hero.vue';
 import MainFooter from '../components/MainFooter.vue';
