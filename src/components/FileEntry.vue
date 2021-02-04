@@ -42,7 +42,7 @@
 </style>
 
 <template>
-<tr scope="row" v-on:click.right="toggleDropdown">
+<tr scope="row">
 	<td class="w-50" data-ls-disabled>
 		<span v-if="file.type === 'folder'">
 			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder ml-2 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
@@ -74,7 +74,7 @@
 		<div v-if="file.type === 'file'">
 			<div class="dropleft">
 				<div v-if="loadingSpinner" class="spinner-border" role="status"></div>
-				<button v-else class="btn btn-white btn-actions" type="button" aria-haspopup="true" aria-expanded="false">
+				<button v-else class="btn btn-white btn-actions" type="button" aria-haspopup="true" aria-expanded="false" v-on:click="toggleDropdown">
 					<svg width="4" height="16" viewBox="0 0 4 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M3.2 1.6C3.2 2.48366 2.48366 3.2 1.6 3.2C0.716344 3.2 0 2.48366 0 1.6C0 0.716344 0.716344 0 1.6 0C2.48366 0 3.2 0.716344 3.2 1.6Z" fill="#7C8794" />
 						<path d="M3.2 8C3.2 8.88366 2.48366 9.6 1.6 9.6C0.716344 9.6 0 8.88366 0 8C0 7.11634 0.716344 6.4 1.6 6.4C2.48366 6.4 3.2 7.11634 3.2 8Z" fill="#7C8794" />
@@ -172,7 +172,6 @@ export default {
 			this.shareText = 'Copy Link';
 		},
 		toggleDropdown(event) {
-			event.preventDefault();
 			event.stopPropagation();
 
 			if (this.$store.state.openedDropdown === this.file.Key) {
