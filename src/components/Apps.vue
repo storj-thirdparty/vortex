@@ -17,7 +17,7 @@
 						<div class="col">
 							<div class="apps-bg p-5">
 								<h4 class="mb-3 text-center">Use Storj in Your Favourite Applications</h4>
-								<p class="text-center">You can view and manage your files above or access them with the credentials below.</p>
+								<p class="text-center">You can view and manage your files using the S3-compatible credentials below.</p>
 							</div>
 						</div>
 					</div>
