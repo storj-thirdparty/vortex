@@ -26,6 +26,9 @@
 	.link {
 		border-bottom: 2px solid;
 	}
+	.link:hover {
+		text-decoration: none;
+	}
 </style>
 <template>
 	<div class="keys">
