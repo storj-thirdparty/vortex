@@ -8,6 +8,21 @@
 	.docs-bg {
 		background: #F7F8FB;
 	}
+	a.docs-link {
+		padding: 14px 18px;
+		border-radius: 8px;
+		color: #000;
+		width: 100%;
+		display: block;
+		font-weight: normal;
+		margin-bottom: 20px;
+	}
+	a.docs-link-active {
+		background: #fff;
+		border-left: 7px solid #0059d0;
+		padding-left: 9px;
+		font-weight: bold;
+	}
 	.link {
 		border-bottom: 2px solid;
 	}
@@ -67,7 +82,7 @@
 					<div class="row p-5">
 						<div class="col-12 col-lg-5 px-5 pb-5">
 							<img src="@/assets/duplicati.svg" width="80" class="mb-3" alt="Duplicati">
-							<h4>Duplicati</h4>
+							<h3>Duplicati</h3>
 							<p class="mb-3">Duplicati text copy lorem ipsum dolor sit amet so un do miret.</p>
 							<a href="https://www.duplicati.com/download" target="_blank" class="btn btn-primary px-5 py-2 mt-2 mb-3">Download</a>
 							<p><a href="https://www.duplicati.com/" target="_blank" class="link">Visit Website</a></p>
@@ -111,19 +126,23 @@
 					<div class="docs-bg rounded-bottom">
 						<div class="row p-5">
 							<div class="col-12 col-lg-5 p-5">
-								<h5 class="mb-4">Docs</h5>
-								<a href="#">Getting Started</a>
+								<h4 class="mb-4">Docs</h4>
+								<div id="docs-nav" class="list-group">
+									<a href="#docs-1" class="docs-link docs-link-active">Getting Started</a>
+									<a href="#docs-2" class="docs-link">Set Up</a>
+									<a href="#docs-3" class="docs-link">Duplicati Docs</a>
+								</div>
 							</div>
 							<div class="col-12 col-lg-7 p-5">
-								<h5 class="mb-4">Getting Started</h5>
+								<h4 class="mb-4" id="docs-1">Getting Started</h4>
 								<h6>Quickstart Video</h6>
 								<div class="embed-responsive embed-responsive-16by9 mt-3 mb-5 rounded">
 									<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dqj_KEepneY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 								</div>
-								<h6>Set Up</h6>
+								<h6 id="docs-2">Set Up</h6>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
 								<img src="@/assets/setup-preview.jpg" class="img-fluid mt-3 mb-5 rounded" alt="Set up">
-								<h6>Duplicati Docs</h6>
+								<h6 id="docs-3">Duplicati Docs</h6>
 								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua.</p>
 								<a href="https://documentation.tardigrade.io/how-tos/backup-with-duplicati" target="_blank" class="link">Visit the Docs</a>
 							</div>
