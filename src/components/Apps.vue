@@ -79,7 +79,7 @@
 						</div>
 					</div> -->
 
-					<div class="row p-5">
+					<div class="row p-0 pb-4 p-md-5">
 						<div class="col-12 col-lg-5 px-5 pb-5">
 							<img src="@/assets/duplicati.svg" width="80" class="mb-3" alt="Duplicati">
 							<h3>Duplicati</h3>
@@ -124,7 +124,7 @@
 					</div>
 
 					<div class="docs-bg rounded-bottom">
-						<div class="row p-5">
+						<div class="row p-0 pb-4 p-md-5">
 							<div class="col-12 col-lg-5 p-5">
 								<h4 class="mb-4">Docs</h4>
 								<div id="docs-nav" class="list-group">
