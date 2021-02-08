@@ -8,10 +8,6 @@ RUN npm install
 
 COPY . .
 
-RUN npm run build
-
-COPY lib ./lib
-COPY index.js .
 EXPOSE 3000
 
 CMD [ "node", "index.js" ]

@@ -97,7 +97,7 @@ const eventsDelete = require('./routes/events-delete.js');
 
 	await sequelize.sync();
 
-	app.listen(3000);
+	app.listen(80);
 
 	console.log('Vortex has started :)');
 })();

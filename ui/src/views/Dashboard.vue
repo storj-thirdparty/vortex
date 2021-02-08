@@ -64,6 +64,9 @@ export default {
 			}
 		}
 	},
+	components: {
+		AppFooter,
+	},
 	computed: {
 		isLoggedIn() {
 			return this.$store.getters.isLoggedIn;
@@ -78,9 +81,6 @@ export default {
 			}
 		}
 	},
-	components: {
-		AppFooter,
-	},
 	async created() {
 		await this.$store.dispatch('passiveLogin');
 
@@ -88,6 +88,8 @@ export default {
 			this.$router.push({
 				path: '/'
 			});
+
+			return;
 		}
 
 		this.$store.dispatch('getUsage');

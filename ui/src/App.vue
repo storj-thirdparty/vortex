@@ -351,6 +351,6 @@ export default {
 				this.$store.dispatch('openDropdown', null);
 			}
 		},
-	},
+	}
 }
 </script>
