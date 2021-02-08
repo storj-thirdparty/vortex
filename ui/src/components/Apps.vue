@@ -35,7 +35,7 @@
 		<div class="row">
 
 			<div class="col-sm-12">
-				<div class="container card border-0">
+				<div class="container card card-top-flat border-0">
 
 					<div class="row border-bottom px-5 pt-4">
 						<div class="col-md-12 col-lg-6">
