@@ -4,7 +4,7 @@
 
 		<ul class="nav nav-tabs nav-justified">
 			<li class="nav-item">
-				<router-link to="/dashboard/browser" class="nav-link" v-bind:class="tabStyles('/dashboard/browser')">
+				<router-link to="/app/browser" class="nav-link" v-bind:class="tabStyles('/app/browser')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-files" viewBox="0 0 16 16">
 						<path
 						 d="M13 0H6a2 2 0 0 0-2 2 2 2 0 0 0-2 2v10a2 2 0 0 0 2 2h7a2 2 0 0 0 2-2 2 2 0 0 0 2-2V2a2 2 0 0 0-2-2zm0 13V4a2 2 0 0 0-2-2H5a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1zM3 4a1 1 0 0 1 1-1h7a1 1 0 0 1 1 1v10a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V4z" />
@@ -13,7 +13,7 @@
 				</router-link>
 			</li>
 			<li class="nav-item">
-				<router-link to="/dashboard/apps" class="nav-link" v-bind:class="tabStyles('/dashboard/apps')">
+				<router-link to="/app/apps" class="nav-link" v-bind:class="tabStyles('/app/apps')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-cloud-arrow-up" viewBox="0 0 16 16">
 						<path fill-rule="evenodd" d="M7.646 5.146a.5.5 0 0 1 .708 0l2 2a.5.5 0 0 1-.708.708L8.5 6.707V10.5a.5.5 0 0 1-1 0V6.707L6.354 7.854a.5.5 0 1 1-.708-.708l2-2z" />
 						<path
@@ -23,7 +23,7 @@
 				</router-link>
 			</li>
 			<li class="nav-item white-text">
-				<router-link to="/dashboard/plan" class="nav-link" v-bind:class="tabStyles('/dashboard/plan')">
+				<router-link to="/app/plan" class="nav-link" v-bind:class="tabStyles('/app/plan')">
 					<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-bar-chart" viewBox="0 0 16 16">
 						<path
 						 d="M4 11H2v3h2v-3zm5-4H7v7h2V7zm5-5v12h-2V2h2zm-2-1a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h2a1 1 0 0 0 1-1V2a1 1 0 0 0-1-1h-2zM6 7a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v7a1 1 0 0 1-1 1H7a1 1 0 0 1-1-1V7zm-5 4a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1v3a1 1 0 0 1-1 1H2a1 1 0 0 1-1-1v-3z" />

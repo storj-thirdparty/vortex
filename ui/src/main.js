@@ -27,7 +27,7 @@ const routes = [{
 		component: Admin,
 	},
 	{
-		path: '/dashboard',
+		path: '/app',
 		component: Dashboard,
 		children: [
 			{ path: '', redirect: 'browser' },

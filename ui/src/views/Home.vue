@@ -391,11 +391,11 @@ export default {
 		termsAndConditions: false,
 		message: '',
 		showLogin: false,
-		destination: '/dashboard'
+		destination: '/app'
 	}),
 	methods: {
 		async signUp() {
-			this.destination = '/dashboard/apps';
+			this.destination = '/app/apps';
 
 			this.$store.dispatch('signUp', {
 				email: this.email,
