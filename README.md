@@ -33,7 +33,7 @@ To run you need a `config.json`
 ```json
 {
 	"baseUrl": "http://localhost:3000",
-	"stargateEndpoint": "https://gateway.tardigradeshare.io",
+	"stargateEndpoint": "gateway.tardigradeshare.io",
 	"stargateAuthEndpoint": "https://auth.tardigradeshare.io",
 	"masterAccount": {
 		"accessKey": "<your-master-access-key>",
