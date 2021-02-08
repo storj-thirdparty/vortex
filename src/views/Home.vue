@@ -390,10 +390,13 @@ export default {
 		password: '',
 		termsAndConditions: false,
 		message: '',
-		showLogin: false
+		showLogin: false,
+		destination: '/dashboard'
 	}),
 	methods: {
 		async signUp() {
+			this.destination = '/dashboard/apps';
+
 			this.$store.dispatch('signUp', {
 				email: this.email,
 				password: this.password,
@@ -419,7 +422,7 @@ export default {
 	watch: {
 		isLoggedIn(loggedIn) {
 			if(loggedIn === true) {
-				this.$router.push({path:'/dashboard'});
+				this.$router.push({path:this.destination});
 			}
 		}
 	},
