@@ -230,6 +230,7 @@ input {
 	border-color: #DDE1E6;
 	padding: 12px;
 	border-bottom: 2px solid #dde1e6;
+	min-height: 100%;
 	transition: all 100ms ease-in-out;
 }
 .nav-tabs .nav-link.active {
