@@ -204,7 +204,7 @@ footer {
 <footer>
 	<div class="footer container">
 		<div class="footer__content">
-			<div class="row mt-4">
+			<div class="row">
 				<div class="col-12 col-sm-12 col-md-8 col-lg-8"><address class="footer__content-address">© 2021 Storj Labs Inc. - 3423 Piedmont Road NE, Suite 475, Atlanta, Georgia, 30305, United States</address></div>
 				<div class="col-12 col-sm-12 col-md-12 col-lg-4">
 					<ul class="social-section">
