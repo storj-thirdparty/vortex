@@ -35,14 +35,14 @@
 		<div class="row">
 
 			<div class="col-sm-12">
-				<div class="card border-0 pt-4 pt-lg-5 mb-5">
+				<div class="container card border-0">
 
-					<div class="row">
-						<div class="col">
-							<div class="apps-bg p-5 mb-5 text-center">
-								<h4 class="mb-3 text-center">Backup Data with Storj + Duplicati</h4>
+					<div class="row border-bottom px-5 pt-4">
+						<div class="col-md-12 col-lg-6">
+								<h4 class="mt-4 mt-xl-5 text-center text-lg-left">Backup Data with Storj + Duplicati</h4>
+						</div>
+						<div class="col-md-12 col-lg-6 text-center">
 								<img src="@/assets/duplicati-preview.svg" alt="Duplicati" class="img-fluid">
-							</div>
 						</div>
 					</div>
 
@@ -82,8 +82,8 @@
 						</div>
 					</div> -->
 
-					<div class="row p-0 pb-4 p-md-5">
-						<div class="col-12 col-lg-5 px-5 pb-5">
+					<div class="row p-0 py-4 px-md-5">
+						<div class="col-12 col-lg-4 pt-5 px-5 px-md-3">
 							<img src="@/assets/duplicati.svg" width="80" class="mb-3" alt="Duplicati">
 							<h3>Duplicati</h3>
 							<p class="mb-3">Store securely encrypted backups on Storj.</p>
@@ -91,7 +91,7 @@
 							<p><a href="https://www.duplicati.com/" target="_blank" class="link">Visit Website</a></p>
 						</div>
 
-						<div class="col-12 col-lg-7 px-5">
+						<div class="col-12 col-lg-8 p-5 px-md-3">
 							<div class="row mb-4">
 								<div class="col text-left">
 									<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
@@ -127,8 +127,8 @@
 					</div>
 
 					<div class="docs-bg rounded-bottom">
-						<div class="row p-0 pb-4 p-md-5">
-							<div class="col-12 col-lg-5 p-5">
+						<div class="row px-0 py-5 p-md-5">
+							<div class="col-12 col-lg-4 pt-5 px-5 px-md-3">
 								<h4 class="mb-4">Docs</h4>
 								<div id="docs-nav" class="list-group">
 									<a href="#docs-1" class="docs-link docs-link-active">Getting Started</a>
@@ -136,7 +136,7 @@
 									<a href="#docs-3" class="docs-link">Duplicati Docs</a>
 								</div>
 							</div>
-							<div class="col-12 col-lg-7 p-5">
+							<div class="col-12 col-lg-8 p-5 px-md-3">
 								<h4 class="mb-4" id="docs-1">Getting Started</h4>
 								<h6>Quickstart Video</h6>
 								<div class="embed-responsive embed-responsive-16by9 mt-3 mb-5 rounded">
