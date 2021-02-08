@@ -27,6 +27,10 @@ export default {
 				});
 			}
 
+			if(rootState.s3 === null) {
+				return;
+			}
+
 			const response = await rootState.s3.listObjects({
 				Bucket: rootState.stargateBucket,
 				Delimiter: '/',

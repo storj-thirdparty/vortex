@@ -3,15 +3,7 @@ version: "3.8"
 volumes:
   postgres-data:
 
-
 services:
-  vortex:
-    build: .
-    ports:
-      - "127.0.0.1:3000:3000"
-    links:
-      - "postgres:postgres"
-      - "redis:redis"
   postgres:
     image: postgres:latest
     volumes:
@@ -21,3 +13,14 @@ services:
         - POSTGRES_DB=vortex
   redis:
     image: redis:latest
+  server:
+    build: server
+    links:
+      - "postgres:postgres"
+      - "redis:redis"
+  ui:
+    build: ui
+    ports:
+        - "127.0.0.1:3000:80"
+    links:
+      - "server:server"

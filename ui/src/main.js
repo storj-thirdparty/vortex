@@ -42,7 +42,8 @@ const routes = [{
 // You can pass in additional options here, but let's
 // keep it simple for now.
 const router = new Router({
-	routes, // Short for `routes: routes`
+	routes, // Short for `routes: routes`,
+	mode: 'history'
 });
 
 const store = new Vuex.Store({
