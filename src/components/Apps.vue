@@ -86,7 +86,7 @@
 						<div class="col-12 col-lg-5 px-5 pb-5">
 							<img src="@/assets/duplicati.svg" width="80" class="mb-3" alt="Duplicati">
 							<h3>Duplicati</h3>
-							<p class="mb-3">Duplicati text copy lorem ipsum dolor sit amet so un do miret.</p>
+							<p class="mb-3">Store securely encrypted backups on Storj.</p>
 							<a href="https://www.duplicati.com/download" target="_blank" class="btn btn-primary px-5 py-2 mt-2 mb-4">Download</a>
 							<p><a href="https://www.duplicati.com/" target="_blank" class="link">Visit Website</a></p>
 						</div>
