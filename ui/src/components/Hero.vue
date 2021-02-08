@@ -8,13 +8,29 @@
 </style>
 <template>
 	<div class="hero">
+		<!-- <router-view></router-view> -->
 
-		<img src="@/assets/storj-duplicati.svg" alt="Storj + Duplicati" width="140">
-
-		<h2 class="hero-title text-white mt-4">Get 1 TB Free When You Try Storj With Duplicati</h2>
-
-		<p class="description my-4 text-white">Get safer, faster, decentralized object storage at a fraction of the cost. Experience it for yourself and start with 1 TB free when you sign up.</p>
+		<duplicati-hero v-if="checkPath() === 'duplicati'"></duplicati-hero>
+		<home-hero v-else></home-hero>
 
 		<!-- <img src="@/assets/mascot.png" alt="Mascot" class="w-100 mt-4 mascot"> -->
 	</div>
 </template>
+
+<script>
+import HomeHero from './HomeHero';
+import DuplicatiHero from './DuplicatiHero';
+
+export default {
+	name: 'Hero',
+	components: { HomeHero, DuplicatiHero },
+	methods: {
+		checkPath() {
+			const query = this.$route.query;
+			let result = 'home';
+			if (query.app) result = query.app;
+			return result;
+		},
+	}
+}
+</script>
