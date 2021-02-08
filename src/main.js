@@ -10,6 +10,7 @@ import Dashboard from './views/Dashboard.vue';
 import FileBrowser from './components/FileBrowser.vue';
 import Apps from './components/Apps.vue';
 import Usage from './components/Usage.vue';
+import NotFound from './components/NotFound.vue';
 
 import files from './files.js';
 
@@ -35,6 +36,10 @@ const routes = [{
 			{ path: 'apps', component: Apps },
 			{ path: 'plan', component: Usage },
 		]
+	},
+	{
+		path: '*',
+		component: NotFound,
 	}
 ];
 
