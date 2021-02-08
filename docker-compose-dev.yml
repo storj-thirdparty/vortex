@@ -2,24 +2,9 @@ version: "3.8"
 
 volumes:
   postgres-data:
-
+  ui-dist:
 
 services:
-  vortex:
-    build: .
-    ports:
-      - "127.0.0.1:3000:3000"
-    links:
-      - "postgres:postgres"
-      - "redis:redis"
-    command: [ "/bin/bash", "-c", "npm -g install nodemon; npm run dev & nodemon index.js" ]
-    volumes:
-      - ./lib:/usr/src/app/lib
-      - ./models:/usr/src/app/models
-      - ./public:/usr/src/app/public
-      - ./routes:/usr/src/app/routes
-      - ./src:/usr/src/app/src
-      - ./scripts:/usr/src/app/scripts
   postgres:
     image: postgres:latest
     volumes:
@@ -27,5 +12,34 @@ services:
     environment:
         - POSTGRES_PASSWORD=password
         - POSTGRES_DB=vortex
-  redis:
+  redis:    
     image: redis:latest
+  server:
+    build: server
+    links:
+      - "postgres:postgres"
+      - "redis:redis"
+    volumes:
+      - ./server/lib:/usr/src/app/lib
+      - ./server/models:/usr/src/app/models
+      - ./server/routes:/usr/src/app/routes
+      - ./server/scripts:/usr/src/app/scripts
+    command: [ "/bin/bash", "-c", "npm -g install nodemon && nodemon index.js" ]
+  ui:
+    build:
+        context: ui
+        dockerfile: Dockerfile
+    ports:
+        - "127.0.0.1:3000:80"
+    links:
+      - "server:server"
+    volumes:
+        - ui-dist:/usr/share/nginx/html
+  ui-watcher:
+    build:
+        context: ui
+        dockerfile: Dockerfile-watcher
+    volumes:
+        - ui-dist:/app/dist
+        - ./ui/src:/app/src
+        - ./ui/public:/app/public
