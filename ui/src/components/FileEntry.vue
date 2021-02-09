@@ -39,6 +39,12 @@
 .dropdown-item:hover svg {
 	color: #0068DC;
 }
+
+.deletion-confirmation {
+	font-size: 14px;
+	font-weight: bold;
+}
+
 </style>
 
 <template>
@@ -104,13 +110,24 @@
 						</svg>
 						Delete
 					</button>
-					<button v-else class="dropdown-item action p-3" v-on:click="finalDelete">
-						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-							 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
-						</svg>
-						Are you sure?
-					</button>
+					<div v-else>
+						<p class="deletion-confirmation px-3 pt-3">Are you sure?</p>
+						<div class="d-flex">
+							<button class="dropdown-item p-2 action" v-on:click="finalDelete">
+								<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+									<path fill-rule="evenodd"
+									d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+								</svg>
+								Yes
+							</button>
+							<button class="dropdown-item p-2 action" v-on:click="cancelDeletion">
+								<svg xmlns="http://www.w3.org/2000/svg" width="2em" height="2em" fill="currentColor" class="bi bi-check2 mr-1" viewBox="0 0 16 16">
+									<path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+								</svg>
+								No
+							</button>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -197,6 +214,11 @@ export default {
 			this.$store.dispatch('openDropdown', null);
 			this.loadingSpinner = true
 			this.$emit('delete');
+			this.deleteConfirmation = false;
+		},
+		cancelDeletion(event) {
+			event.stopPropagation();
+			this.$store.dispatch('openDropdown', null);
 			this.deleteConfirmation = false;
 		}
 	}
