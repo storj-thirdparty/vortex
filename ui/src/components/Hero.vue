@@ -13,7 +13,7 @@
 	<div class="hero">
 		<!-- <router-view></router-view> -->
 
-		<duplicati-hero v-if="checkPath() === 'duplicati'"></duplicati-hero>
+		<duplicati-hero v-if="app === 'duplicati'"></duplicati-hero>
 		<home-hero v-else></home-hero>
 
 		<!-- <img src="@/assets/mascot.png" alt="Mascot" class="w-100 mt-4 mascot"> -->
@@ -26,14 +26,14 @@ import DuplicatiHero from './DuplicatiHero';
 
 export default {
 	name: 'Hero',
-	components: { HomeHero, DuplicatiHero },
-	methods: {
-		checkPath() {
-			const query = this.$route.query;
-			let result = 'home';
-			if (query.app) result = query.app;
-			return result;
-		},
-	}
+	computed: {
+		app() {
+			return this.$route.query.app ? this.$route.query.app : 'home';
+		}
+	},
+	components: {
+		HomeHero,
+		DuplicatiHero
+	},
 }
 </script>
