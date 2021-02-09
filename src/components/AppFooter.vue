@@ -67,6 +67,7 @@ footer {
 	line-height: 28px;
 	color: #fff;
 	opacity: .4;
+  margin-bottom: 0;
 }
 
 .footer__content-address span {
@@ -134,6 +135,7 @@ footer {
 .footer .social-section {
 	float: right;
 	padding-left: 0;
+  margin-bottom: 0;
 }
 
 .footer .social-section .footer-social {
@@ -201,7 +203,7 @@ footer {
 </style>
 
 <template>
-<footer>
+<footer class="py-5">
 	<div class="footer container">
 		<div class="footer__content">
 			<div class="row">
