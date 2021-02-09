@@ -2,7 +2,7 @@
 
 name: tests
 
-# Controls when the action will run. 
+# Controls when the action will run.
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
   push:
@@ -20,5 +20,5 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v1
-      - name: docker compose up
-        run: docker-compose -f docker-compose-test.yml up --abort-on-container-exit
+      - name: docker-compose build
+        run: docker-compose build
