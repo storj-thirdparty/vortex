@@ -1,4 +1,7 @@
 <style>
+.hero {
+	min-height: 480px;
+}
 @media only screen and (min-width: 768px) {
 	.mascot {
 		position: absolute;
