@@ -24,4 +24,4 @@ jobs:
         key: ${{ secrets.KEY }}
         passphrase: ${{ secrets.PASSPHRASE }}
         port: ${{ secrets.PORT }}
-        script: cd /root/vortex && git checkout ${{ GITHUB_SHA }} && service vortex restart
+        script: cd /root/vortex && git checkout ${{ github.sha }} && service vortex restart
