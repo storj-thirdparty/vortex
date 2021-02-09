@@ -131,23 +131,45 @@
 							<div class="col-12 col-lg-4 pt-5 px-5 px-md-3">
 								<h4 class="mb-4">Docs</h4>
 								<div id="docs-nav" class="list-group">
-									<a href="#docs-1" class="docs-link docs-link-active">Getting Started</a>
-									<a href="#docs-2" class="docs-link">Set Up</a>
-									<a href="#docs-3" class="docs-link">Duplicati Docs</a>
+									<a href="#docs-1" class="docs-link docs-link-active">Create Backup</a>
+									<a href="#docs-2" class="docs-link">Set Passphrase</a>
+									<a href="#docs-3" class="docs-link">Configure Backup</a>
+									<a href="#docs-4" class="docs-link">Destination and Schedule</a>
+									<a href="#docs-5" class="docs-link">Run First Backup</a>
 								</div>
 							</div>
 							<div class="col-12 col-lg-8 p-5 px-md-3">
-								<h4 class="mb-4" id="docs-1">Getting Started</h4>
-								<h6>Quickstart Video</h6>
-								<div class="embed-responsive embed-responsive-16by9 mt-3 mb-5 rounded">
-									<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/dqj_KEepneY" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-								</div>
-								<h6 id="docs-2">Set Up</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-								<img src="@/assets/setup-preview.jpg" class="img-fluid mt-3 mb-5 rounded" alt="Set up">
-								<h6 id="docs-3">Duplicati Docs</h6>
-								<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore aliqua.</p>
-								<a href="https://documentation.tardigrade.io/how-tos/backup-with-duplicati" target="_blank" class="link">Visit the Docs</a>
+
+								<h4 class="mb-4" id="docs-1">Create Backup</h4>
+								<p>Setting up Duplicati encrypted backups on Storj only takes 2 minutes. Navigate to <b>Add Backup</b> and <b>Configure a new Backup</b>.</p>
+								<img src="@/assets/duplicati/1.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Create Backup">
+
+								<h4 id="docs-2">Set Passphrase</h4>
+								<p>Name your backup, select <b>AES-256 encryption, built in</b> for encryption, and pick a strong passphrase. Note: that the backup will still function with the No Encryption, however we highly recommend you use the encrypted option.</p>
+								<img src="@/assets/duplicati/2.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Set Passphrase">
+
+								<h4 id="docs-3">Configure Backup</h4>
+								<p>For <b>Storage Type</b> select <b>S3 Compatible</b>, check <b>Use SSL</b>, for Server select <b>Customer server url</b>, and copy-paste your S3 Compatible Endpoint in the input box. Also copy-paste your given Bucket Name, Access Key to <b>AWS Access ID</b>, and Secret Key to <b>AWS Access Key</b>. You can select anything you would like for <b>Folder path</b>, but we recommend something like backup.</p>
+								<img src="@/assets/duplicati/3.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Configure Backup">
+								<p>Select <b>Test Connection</b>. When prompted if the bucket name should start with your username, select <b>No</b>.</p>
+								<img src="@/assets/duplicati/4.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Bucket Name">
+								<p>You should see <b>Connection Worked!</b> If you see an error, please verify that the credentials were copied properly, or contact support for assistance.</p>
+								<img src="@/assets/duplicati/5.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Success">
+
+								<h4 id="docs-4">Destination and Schedule</h4>
+								<p>Select the folder or folders you would like to backup. In our example, we will backup our collection of cat pictures.</p>
+								<img src="@/assets/duplicati/6.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Source Data">
+								<p>You can then set a schedule for the backups.</p>
+								<img src="@/assets/duplicati/7.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Backup Schedule">
+								<p>You will then be able to set <b>Backup Retention</b>. We recommend that you leave remote volume size as is. Click <b>Save</b>.</p>
+								<img src="@/assets/duplicati/8.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Backup Retention">
+								<p>You will be reminded to make a safe copy of your passphrase. <b>IF YOU LOSE YOUR PASSPHRASE YOUR DATA CANNOT BE RECOVERED</b>. So pretty please write it down and/or store your passphrase in a safe place.</p>
+								<img src="@/assets/duplicati/9.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Save Your Passphrase">
+
+								<h4 id="docs-5">Run First Backup</h4>
+								<p>Congratulations, you have successfully setup Duplicati with Storj. You may click <b>Run Now</b>, to start your first backup job. The backup will occur on the schedule that you have set.</p>
+								<img src="@/assets/duplicati/10.png" class="img-fluid w-100 mt-3 rounded border shadow" alt="Run First Backup">
+
 							</div>
 						</div>
 					</div>
