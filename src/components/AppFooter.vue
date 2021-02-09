@@ -133,7 +133,6 @@ footer {
 }
 
 .footer .social-section {
-	float: right;
 	padding-left: 0;
   margin-bottom: 0;
 }
@@ -207,8 +206,8 @@ footer {
 	<div class="footer container">
 		<div class="footer__content">
 			<div class="row">
-				<div class="col-12 col-sm-12 col-md-8"><address class="footer__content-address">© 2021 Storj Labs Inc. - 3423 Piedmont Road NE, Suite 475, Atlanta, Georgia, 30305, United States</address></div>
-				<div class="col-12 col-sm-12 col-md-4">
+				<div class="col-12 col-sm-12 col-md-8 text-center text-md-left"><address class="footer__content-address">© 2021 Storj Labs Inc. - 3423 Piedmont Road NE, Suite 475, Atlanta, Georgia, 30305, United States</address></div>
+				<div class="col-12 col-sm-12 col-md-4 text-center text-md-right">
 					<ul class="social-section">
 						<li class="footer-social">
 							<a rel="noopener noreferrer" class="footer__link" href="https://twitter.com/storjproject" target="_blank"><img class="social-link" src="@/assets/twitter-footer.svg" alt=""></a>
