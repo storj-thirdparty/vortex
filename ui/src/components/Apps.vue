@@ -149,7 +149,7 @@
 								<img src="@/assets/duplicati/2.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Set Passphrase">
 
 								<h4 id="docs-3">Configure Backup</h4>
-								<p>For <b>Storage Type</b> select <b>S3 Compatible</b>, check <b>Use SSL</b>, for Server select <b>Customer server url</b>, and copy-paste your S3 Compatible Endpoint in the input box. Also copy-paste your given Bucket Name, Access Key to <b>AWS Access ID</b>, and Secret Key to <b>AWS Access Key</b>. You can select anything you would like for <b>Folder path</b>, but we recommend something like backup.</p>
+								<p>For <b>Storage Type</b> select <b>S3 Compatible</b>, check <b>Use SSL</b>, for Server select <b>Custom server url</b>, and copy-paste your S3 Compatible Endpoint in the input box. Also copy-paste your given Bucket Name, Access Key to <b>AWS Access ID</b>, and Secret Key to <b>AWS Access Key</b>. You can select anything you would like for <b>Folder path</b>, but we recommend something like backup.</p>
 								<img src="@/assets/duplicati/3.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Configure Backup">
 								<p>Select <b>Test Connection</b>. When prompted if the bucket name should start with your username, select <b>No</b>.</p>
 								<img src="@/assets/duplicati/4.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Bucket Name">
