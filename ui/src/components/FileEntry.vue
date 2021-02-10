@@ -252,19 +252,21 @@ export default {
 			this.deleteConfirmation = true;
 		},
 		finalDelete(event) {
+			console.log("I've started")
 			event.stopPropagation();
 			this.$store.dispatch('openDropdown', null);
 			this.loadingSpinner = true;
 
 			if(this.file.type === 'file') {
-				this.$emit('delete');
+				this.dispatch('delete', {
+					path: this.path, file: this.file
+				});
 			} else {
 				this.dispatch('deleteFolder', {
 					path: this.path,
 					file: this.file
-				})
+				});
 			}
-
 
 			this.deleteConfirmation = false;
 		},

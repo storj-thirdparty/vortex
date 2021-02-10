@@ -98,8 +98,23 @@ export default {
 			});
 		},
 
-		async deleteFolder({commit, state, dispatch, rootState}, name) {
-			
+		async delete({commit, state, dispatch, rootState}, { file, path, deleteFolder }) {
+			await rootState.s3.deleteObject({
+				Bucket: rootState.stargateBucket,
+				Key: path + file.Key
+			}).promise();
+
+			await axios.post('/api/events/delete', {
+				bytes: file.Size,
+				files: 1
+			});
+
+			if (!deleteFolder) await this.list();
+			console.log('deleteeeeeeed')
+		},
+
+		async deleteFolder({commit, state, dispatch, rootState}, { file, path }) {
+
 		}
 
 	}
