@@ -96,6 +96,10 @@ export default {
 				bytes: 0,
 				files: 1
 			});
+		},
+
+		async deleteFolder({commit, state, dispatch, rootState}, name) {
+			
 		}
 
 	}

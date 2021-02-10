@@ -268,7 +268,7 @@ export default {
 		},
 
 		async buttonUpload() {
-			let fileInputElement = this.$refs.fileInput;
+			const fileInputElement = this.$refs.fileInput;
 			fileInputElement.click();
 		},
 
