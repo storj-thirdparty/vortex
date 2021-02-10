@@ -154,7 +154,10 @@ export default {
 	}),
 	computed: {
 		createFolderEnabled() {
-			return this.createFolderInput.length > 0 && this.files.filter(file => file.Key === this.createFolderInput).length === 0;
+			return this.createFolderInput.length > 0 &&
+				this.createFolderInput.indexOf('/') === -1 &&
+				this.createFolderInput.indexOf('.') === -1 &&
+				this.files.filter(file => file.Key === this.createFolderInput).length === 0;
 		},
 		path() {
 			return this.$store.state.files.path;
