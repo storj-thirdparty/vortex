@@ -237,20 +237,6 @@ export default {
 			});
 		},
 
-		// async del(file) {
-		// 	await this.$store.state.s3.deleteObject({
-		// 		Bucket: this.$store.state.stargateBucket,
-		// 		Key: this.path + file.Key
-		// 	}).promise();
-
-		// 	await axios.post('/api/events/delete', {
-		// 		bytes: file.Size,
-		// 		files: 1
-		// 	});
-
-		// 	await this.list();
-		// },
-
 		async list(path) {
 			this.$store.dispatch('files/list', path, {
 				root: true
