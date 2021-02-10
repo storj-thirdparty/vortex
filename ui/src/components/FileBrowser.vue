@@ -100,7 +100,7 @@
 							</tr>
 
 							<tr v-if="path.length > 0">
-								<td><a href="javascript:null" v-on:click="back">...</a></td>
+								<td><a href="javascript:null" v-on:click="back">..</a></td>
 							</tr>
 
 							<tr v-if="createFolderInputShow === true">
@@ -117,7 +117,7 @@
 
 							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 
-							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
+							<file-entry v-for="file in files.filter(f => f.type === 'file' && f.Key !== '.vortex_placeholder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 						</tbody>
 					</table>
 				</div>
