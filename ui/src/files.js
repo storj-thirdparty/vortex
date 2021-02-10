@@ -42,11 +42,6 @@ export default {
 				CommonPrefixes
 			} = response;
 
-			console.log({
-				Contents,
-				CommonPrefixes
-			});
-
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
 
 			const filenames = new Set();
