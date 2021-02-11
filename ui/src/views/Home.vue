@@ -401,7 +401,7 @@ export default {
 	}),
 	methods: {
 		async signUp() {
-			this.destination = '/app/apps';
+			this.updatePath();
 
 			this.$store.dispatch('signUp', {
 				email: this.email,
@@ -411,11 +411,18 @@ export default {
 		},
 
 		async login() {
+			this.updatePath();
+
 			this.$store.dispatch('login', {
 				email: this.email,
 				password: this.password
 			});
-		}
+		},
+
+		updatePath() {
+			if (this.$route.query.app) this.destination = '/app/apps';
+			else this.destination = '/app/browser';
+		},
 	},
 	computed: {
 		error() {
