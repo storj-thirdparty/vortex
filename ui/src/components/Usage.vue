@@ -163,7 +163,7 @@
 
     <div class="row">
       <div class="col">
-        <p class="text-center mt-4">Need more? <a href="#" class="font-weight-bold">Contact Us</a></p>
+        <p class="text-center mt-4">Need more? <a href="mailto:vortex@storj.io" class="font-weight-bold">Contact Us</a></p>
       </div>
     </div>
 
