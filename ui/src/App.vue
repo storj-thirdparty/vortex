@@ -312,12 +312,12 @@
 					<!--<div class="collapse navbar-collapse" id="navbarToggler">-->
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item mr-3 d-none d-sm-block">
-								<a class="nav-link" href="https://storj.io/blog">
+								<a class="nav-link" href="https://storj.io/blog" target="_blank">
 									<p class="navlink">Blog</p>
 								</a>
 							</li>
 							<li class="nav-item mr-3 d-none d-sm-block">
-								<a class="nav-link" href="https://forum.storj.io/">
+								<a class="nav-link" href="https://forum.storj.io/" target="_blank">
 									<p class="navlink">Forum</p>
 								</a>
 							</li>
