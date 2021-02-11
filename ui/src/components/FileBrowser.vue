@@ -115,9 +115,9 @@
 							</tr>
 
 
-							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
+							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 
-							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
+							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 						</tbody>
 					</table>
 				</div>
@@ -237,20 +237,6 @@ export default {
 			});
 		},
 
-		async del(file) {
-			await this.$store.state.s3.deleteObject({
-				Bucket: this.$store.state.stargateBucket,
-				Key: this.path + file.Key
-			}).promise();
-
-			await axios.post('/api/events/delete', {
-				bytes: file.Size,
-				files: 1
-			});
-
-			await this.list();
-		},
-
 		async list(path) {
 			this.$store.dispatch('files/list', path, {
 				root: true
@@ -268,7 +254,7 @@ export default {
 		},
 
 		async buttonUpload() {
-			let fileInputElement = this.$refs.fileInput;
+			const fileInputElement = this.$refs.fileInput;
 			fileInputElement.click();
 		},
 

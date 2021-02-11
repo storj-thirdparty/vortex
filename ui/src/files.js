@@ -42,11 +42,6 @@ export default {
 				CommonPrefixes
 			} = response;
 
-			console.log({
-				Contents,
-				CommonPrefixes
-			});
-
 			Contents.sort((a, b) => a.LastModified < b.LastModified ? -1 : -1);
 
 			const filenames = new Set();
@@ -96,7 +91,48 @@ export default {
 				bytes: 0,
 				files: 1
 			});
-		}
+		},
+
+		async delete({dispatch, rootState}, { path, file, folder }) {
+			await rootState.s3.deleteObject({
+				Bucket: rootState.stargateBucket,
+				Key: path + file.Key
+			}).promise();
+
+			await axios.post('/api/events/delete', {
+				bytes: file.Size,
+				files: 1
+			});
+
+			if (!folder) dispatch('list');
+		},
+
+		async deleteFolder({dispatch, rootState}, { file, path }) {
+			const allFiles = [];
+			path = path.length > 0 ? path + file.Key : file.Key + '/';
+
+			async function recurse(filePath) {
+				const response = await rootState.s3.listObjects({
+					Bucket: rootState.stargateBucket,
+					Delimiter: '/',
+					Prefix: filePath,
+				}).promise();
+
+				const { Contents, CommonPrefixes } = response;
+
+				Contents.forEach((file) => {
+					allFiles.push(dispatch('delete', { path: '', file, folder: true }));
+				});
+
+				for (let i = 0; i < CommonPrefixes.length; i++) {
+					const folder = CommonPrefixes[i];
+					await recurse(folder.Prefix);
+				}
+			}
+
+			await recurse(path);
+			Promise.all(allFiles).then((_) => dispatch('list'));
+		},
 
 	}
 };
