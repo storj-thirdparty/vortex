@@ -2,6 +2,7 @@
 .path {
   font-size: 15px;
   color: gray;
+  cursor: pointer;
 }
 </style>
 
