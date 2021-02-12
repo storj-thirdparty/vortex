@@ -165,29 +165,26 @@ export default {
 			return this.$store.state.files.files;
 		}
 	},
-	async created() {
-		const s3Config = {
-			accessKeyId: this.$store.state.stargateAccessKey,
-			secretAccessKey: this.$store.state.stargateSecretKey,
-			endpoint: this.$store.state.stargateEndpoint,
-			s3ForcePathStyle: true,
-			signatureVersion: 'v4'
-		};
+	async updated() {
+		if (!this.s3) {
+			const s3Config = {
+				accessKeyId: this.$store.state.stargateAccessKey,
+				secretAccessKey: this.$store.state.stargateSecretKey,
+				endpoint: this.$store.state.stargateEndpoint,
+				s3ForcePathStyle: true,
+				signatureVersion: 'v4'
+			};
 
-		this.s3 = new AWS.S3(s3Config);
+			this.s3 = new AWS.S3(s3Config);
+		}
 
-		await this.list();
 	},
 	methods: {
 		filename(file) {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
 		},
 		async upload(e) {
-			console.log(e);
-
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-
-			console.log(e);
 
 			await Promise.all([...files].map(async file => {
 				const params = {
