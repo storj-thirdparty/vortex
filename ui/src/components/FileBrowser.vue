@@ -72,7 +72,7 @@
 
 				</div>
 
-				<div class="table-responsive">
+				<div>
 					<table class="table table-hover">
 						<thead>
 							<tr>
