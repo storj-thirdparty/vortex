@@ -177,8 +177,6 @@ const store = new Vuex.Store({
 				data
 			} = await axios.post('/api/passive-login');
 
-			console.log(data);
-
 			if (!data.error) {
 				commit('setUser', data);
 			}
