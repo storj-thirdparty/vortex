@@ -29,9 +29,20 @@
 .metric {
 	color: #444;
 }
+
 .div-responsive {
 	min-height: 400px;
 }
+
+.dropdown-arrow {
+	cursor: pointer;
+	color: #768394;
+}
+
+.table-heading {
+	cursor: pointer;
+}
+
 </style>
 
 <template>
@@ -72,14 +83,48 @@
 
 				</div>
 
-				<div class="table-responsive">
+				<div>
 					<table class="table table-hover">
 						<thead>
 							<tr>
-								<th class="table-heading" scope="col">Name</th>
-								<th class="table-heading" scope="col">Size</th>
-								<th class="table-heading" scope="col">Upload Date</th>
-								<th class="table-heading" scope="col"></th>
+								<th v-on:mouseover="mouseOverHandler('name')" v-on:mouseleave="mouseLeaveHandler('name')"
+								v-on:click="sortTable('name')" class="table-heading" scope="col">Name
+									<a class="dropdown-arrow" v-if="headingSorted === 'name' && orderBy === 'asc'">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+										</svg>
+									</a>
+									<a class="dropdown-arrow" v-else>
+										<svg v-if="nameHover" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-down-short down-arrow" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+										</svg>
+									</a>
+								</th>
+								<th v-on:mouseover="mouseOverHandler('size')" v-on:mouseleave=" mouseLeaveHandler('size')" v-on:click="sortTable('size')" class="table-heading" scope="col">Size
+									<a class="dropdown-arrow" v-if="headingSorted === 'size' && orderBy === 'asc'">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+										</svg>
+									</a>
+									<a class="dropdown-arrow" v-else>
+										<svg v-if="sizeHover" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-down-short down-arrow" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+										</svg>
+									</a>
+								</th>
+								<th v-on:mouseover="mouseOverHandler('date')" v-on:mouseleave="mouseLeaveHandler('date')"
+								v-on:click="sortTable('date')" class="table-heading" scope="col">Upload Date
+									<a class="dropdown-arrow" v-if="headingSorted === 'date' && orderBy === 'asc'">
+										<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-up-short" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 12a.5.5 0 0 0 .5-.5V5.707l2.146 2.147a.5.5 0 0 0 .708-.708l-3-3a.5.5 0 0 0-.708 0l-3 3a.5.5 0 1 0 .708.708L7.5 5.707V11.5a.5.5 0 0 0 .5.5z"/>
+										</svg>
+									</a>
+									<a class="dropdown-arrow" v-else>
+										<svg v-if="dateHover" xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-arrow-down-short down-arrow" viewBox="0 0 16 16">
+											<path fill-rule="evenodd" d="M8 4a.5.5 0 0 1 .5.5v5.793l2.146-2.147a.5.5 0 0 1 .708.708l-3 3a.5.5 0 0 1-.708 0l-3-3a.5.5 0 1 1 .708-.708L7.5 10.293V4.5A.5.5 0 0 1 8 4z"/>
+										</svg>
+									</a>
+								</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -150,7 +195,12 @@ export default {
 		s3: null,
 		filesUploading: [],
 		createFolderInput: '',
-		createFolderInputShow: false
+		createFolderInputShow: false,
+		nameHover: false,
+		sizeHover: false,
+		dateHover: false,
+		headingSorted: null,
+		orderBy: 'desc',
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -166,29 +216,26 @@ export default {
 			return this.$store.state.files.files;
 		}
 	},
-	async created() {
-		const s3Config = {
-			accessKeyId: this.$store.state.stargateAccessKey,
-			secretAccessKey: this.$store.state.stargateSecretKey,
-			endpoint: this.$store.state.stargateEndpoint,
-			s3ForcePathStyle: true,
-			signatureVersion: 'v4'
-		};
+	async updated() {
+		if (!this.s3) {
+			const s3Config = {
+				accessKeyId: this.$store.state.stargateAccessKey,
+				secretAccessKey: this.$store.state.stargateSecretKey,
+				endpoint: this.$store.state.stargateEndpoint,
+				s3ForcePathStyle: true,
+				signatureVersion: 'v4'
+			};
 
-		this.s3 = new AWS.S3(s3Config);
+			this.s3 = new AWS.S3(s3Config);
+		}
 
-		await this.list();
 	},
 	methods: {
 		filename(file) {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
 		},
 		async upload(e) {
-			console.log(e);
-
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-
-			console.log(e);
 
 			await Promise.all([...files].map(async file => {
 				const params = {
@@ -263,11 +310,42 @@ export default {
 
 			this.createFolderInput = '';
 			this.createFolderInputShow = false;
-		}
+		},
+
+		sortTable(heading) {
+			['name', 'size', 'date'].forEach((category) => {
+				if (category !== heading) this[category + 'Hover'] = false;
+			});
+
+			if (this.headingSorted === heading) {
+				this.orderBy = this.orderBy === 'desc' ? 'asc' : 'desc';
+				this.$store.dispatch('files/sortAllFiles', { heading, order: this.orderBy });
+			} else {
+				this.headingSorted = heading;
+				this.orderBy = 'desc';
+				this.$store.dispatch('files/sortAllFiles', { heading, order: this.orderBy });
+			}
+		},
+
+		mouseOverHandler(heading) {
+			if (this.headingSorted !== heading) {
+				if (heading === 'name') this.nameHover = true;
+				if (heading === 'size') this.sizeHover = true;
+				if (heading === 'date') this.dateHover = true;
+			}
+		},
+
+		mouseLeaveHandler(heading) {
+			if (this.headingSorted !== heading) {
+				if (heading === 'name') this.nameHover = false;
+				if (heading === 'size') this.sizeHover = false;
+				if (heading === 'date') this.dateHover = false;
+			}
+		},
 	},
 	components: {
 		FileEntry,
-BreadCrumbs
+    BreadCrumbs
 	}
 }
 </script>

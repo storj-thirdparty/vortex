@@ -195,6 +195,7 @@ export default {
 			return this.file.Key.length > 25 ? this.file.Key.slice(0, 25) + '...' : this.file.Key;
 		},
 		size() {
+			console.log('size', typeof this.file.Size)
 			return prettyBytes(this.file.Size);
 		},
 		uploadDate() {
