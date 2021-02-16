@@ -19,5 +19,6 @@ jobs:
           with:
             key: ${{ secrets.KEY }}
             name: id_rsa
+            know_hosts: ${{ secrets.PUBLIC_KEY }}
         - name: Push to docker remote
           run: DOCKER_HOST="ssh://${{ secrets.USERNAME }}@${{ secrets.HOST }}" docker-compose up -
