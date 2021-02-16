@@ -22,3 +22,4 @@ jobs:
             ssh_public_key: ${{ secrets.PUBLIC_KEY }}
             deploy_path: /root/vortex-deploy
             stack_file_name: docker-compose.yml
+            args: up
