@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deploy
+name: deploy
 
 # Controls when the action will run.
 on:
@@ -13,12 +13,8 @@ jobs:
     name: Build
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout and restart service
-      uses: appleboy/ssh-action@master
-      with:
-        host: ${{ secrets.HOST }}
-        username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.KEY }}
-        passphrase: ${{ secrets.PASSPHRASE }}
-        port: ${{ secrets.PORT }}
-        script: cd /root/vortex && git fetch ${{ github.ref }} && git checkout ${{ github.ref }} && service vortex restart
+        - uses: actions/checkout@v2
+        - name: Load ssh key
+          run: echo ${{ secrets.KEY }} | ssh-add -
+        - name: Push to docker remote
+          run: DOCKER_HOST="ssh://${{ secrets.USERNAME }}@${{ secrets.HOST }}" docker-compose up -d
