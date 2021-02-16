@@ -15,6 +15,6 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - name: Load ssh key
-          run: echo ${{ secrets.KEY }} | ssh-add -
+          run: echo "${{ secrets.KEY }}" | ssh-add -
         - name: Push to docker remote
           run: DOCKER_HOST="ssh://${{ secrets.USERNAME }}@${{ secrets.HOST }}" docker-compose up -d
