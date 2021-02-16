@@ -15,7 +15,7 @@ jobs:
     steps:
         - uses: actions/checkout@v2
         - name: Load ssh key
-          run: echo "${{ secrets.KEY }}" > $HOME/.ssh/docker
+          run: echo "${{ secrets.KEY }}" >> $HOME/.ssh/docker
         - name: Set default ssh key to docker key
           run: echo "IdentityFile $HOME/.ssh/docker" > $HOME/.ssh/config
         - name: Push to docker remote
