@@ -94,7 +94,7 @@
 						<div class="col-12 col-lg-8 p-5 px-md-3">
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="stargate-endpoint">S3 Compatible Endpoint</label>
+									<label class="label" for="stargate-endpoint" id="lbl-stargate-endpoint">S3 Compatible Endpoint</label>
 									<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
 									<button v-on:click="copy($store.state.stargateEndpoint, 'endpointCopyText')" class="copy">{{endpointCopyText}}</button>
 								</div>
@@ -102,7 +102,7 @@
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="access-key">Access Key</label>
+									<label class="label" for="access-key" id="lbl-access-key">Access Key</label>
 									<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
 									<button v-on:click="copy($store.state.stargateAccessKey, 'accessKeyCopyText')" class="copy">{{accessKeyCopyText}}</button>
 								</div>
@@ -110,7 +110,7 @@
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="secret-key">Secret Key</label>
+									<label class="label" for="secret-key" id="lbl-secret-key">Secret Key</label>
 									<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
 									<button v-on:click="copy($store.state.stargateSecretKey, 'secretKeyCopyText')" class="copy">{{secretKeyCopyText}}</button>
 								</div>
@@ -118,7 +118,7 @@
 
 							<div class="row mb-5">
 								<div class="col text-left">
-									<label class="label" for="bucket">Bucket</label>
+									<label class="label" for="bucket" id="lbl-bucket">Bucket</label>
 									<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
 									<button v-on:click="copy($store.state.stargateBucket, 'bucketCopyText')" class="copy">{{bucketCopyText}}</button>
 								</div>
@@ -131,35 +131,35 @@
 							<div class="col-12 col-lg-4 pt-5 px-5 px-md-3">
 								<h4 class="mb-4">Docs</h4>
 								<div id="docs-nav" class="list-group">
-									<a href="#docs-1" class="docs-link docs-link-active">Create Backup</a>
-									<a href="#docs-2" class="docs-link">Set Passphrase</a>
-									<a href="#docs-3" class="docs-link">Configure Backup</a>
-									<a href="#docs-4" class="docs-link">Destination and Schedule</a>
+									<a href="#docs-1" class="docs-link docs-link-active">Add Backup</a>
+									<a href="#docs-2" class="docs-link">General backup settings</a>
+									<a href="#docs-3" class="docs-link">Backup destination</a>
+									<a href="#docs-4" class="docs-link">Source data</a>
 									<a href="#docs-5" class="docs-link">Run First Backup</a>
 								</div>
 							</div>
 							<div class="col-12 col-lg-8 p-5 px-md-3">
 
-								<h4 class="mb-4" id="docs-1">Create Backup</h4>
-								<p>Setting up Duplicati encrypted backups on Storj only takes 2 minutes. Navigate to <b>Add Backup</b> and <b>Configure a new Backup</b>.</p>
+								<h4 class="mb-4" id="docs-1">Add Backup</h4>
+								<p>Setting up Duplicati encrypted backups on Storj only takes 2 minutes. Navigate to <b>Add Backup</b> and <b>Configure a new Backup</b>. Click Next.</p>
 								<img src="@/assets/duplicati/1.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Create Backup">
 
-								<h4 id="docs-2">Set Passphrase</h4>
-								<p>Name your backup, select <b>AES-256 encryption, built in</b> for encryption, and pick a strong passphrase. Note: that the backup will still function with the No Encryption, however we highly recommend you use the encrypted option.</p>
+								<h4 id="docs-2">General backup settings</h4>
+								<p>Name your backup, select <b>AES-256 encryption, built in</b> for encryption, and pick a strong passphrase. <i>Note</i> : The backup will still function with the <b>No Encryption</b>, however we highly recommend you to use the encrypted option. Click Next.</p>
 								<img src="@/assets/duplicati/2.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Set Passphrase">
 
-								<h4 id="docs-3">Configure Backup</h4>
-								<p>For <b>Storage Type</b> select <b>S3 Compatible</b>, check <b>Use SSL</b>, for Server select <b>Custom server url</b>, and copy-paste your S3 Compatible Endpoint in the input box. Also copy-paste your given Bucket Name, Access Key to <b>AWS Access ID</b>, and Secret Key to <b>AWS Access Key</b>. You can select anything you would like for <b>Folder path</b>, but we recommend something like backup.</p>
+								<h4 id="docs-3">Backup destination</h4>
+								<p>For <b>Storage Type</b> select <b>S3 Compatible</b>, check <b>Use SSL</b>, for <b>Server</b> select <b>Custom server url</b>, and copy-paste your <a href="#lbl-stargate-endpoint" class="link">S3 Compatible Endpoint</a> in the input box. Also copy-paste <a href="#lbl-bucket" class="link">Bucket</a> to your given <b>Bucket Name</b>, <a href="#lbl-access-key" class="link">Access Key</a> to <b>AWS Access ID</b>, and <a href="#lbl-secret-key" class="link">Secret Key</a> to <b>AWS Access Key</b>. You can enter anything you would like for <b>Folder path</b>, but we recommend something like backup.</p>
 								<img src="@/assets/duplicati/3.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Configure Backup">
-								<p>Select <b>Test Connection</b>. When prompted if the bucket name should start with your username, select <b>No</b>.</p>
+								<p>Click <b>Test Connection</b>. When prompted if the bucket name should start with your username, click <b>No</b>.</p>
 								<img src="@/assets/duplicati/4.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Bucket Name">
-								<p>You should see <b>Connection Worked!</b> If you see an error, please verify that the credentials were copied properly, or contact support for assistance.</p>
+								<p>You should see <b>Connection Worked!</b> If you see an error, please verify that the credentials were copied properly, or <a href="mailto:vortex@storj.io" class="font-weight-bold">contact support</a> for assistance. Click Next.</p>
 								<img src="@/assets/duplicati/5.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Success">
 
-								<h4 id="docs-4">Destination and Schedule</h4>
-								<p>Select the folder or folders you would like to backup. In our example, we will backup our collection of cat pictures.</p>
+								<h4 id="docs-4">Source data</h4>
+								<p>Select the folder or folders you would like to backup. In our example, we will backup our collection of cat pictures. Click Next.</p>
 								<img src="@/assets/duplicati/6.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Source Data">
-								<p>You can then set a schedule for the backups.</p>
+								<p>You can then set a schedule for the backups. Click Next.</p>
 								<img src="@/assets/duplicati/7.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Backup Schedule">
 								<p>You will then be able to set <b>Backup Retention</b>. We recommend that you leave remote volume size as is. Click <b>Save</b>.</p>
 								<img src="@/assets/duplicati/8.png" class="img-fluid mt-3 mb-5 rounded border shadow" alt="Backup Retention">
