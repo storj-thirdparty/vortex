@@ -50,12 +50,12 @@
 	<div class="col-sm-12">
 		<div class="card card-top-flat border-0 p-4 p-lg-5">
 			<div class="div-responsive" v-cloak @drop.prevent="upload" @dragover.prevent>
-				<!--<p class="path mb-4">{{path}}</p>-->
 
 				<div class="row mb-2">
 
 					<div class="col-sm-12 col-md-4 col-xl-8 mb-3">
 						<h2>My Files</h2>
+						<bread-crumbs></bread-crumbs>
 					</div>
 
 					<div class="col-sm-12 col-md-4 col-xl-2 mb-3">
@@ -188,6 +188,7 @@ import {
 } from 'human-readable-numbers';
 
 import FileEntry from './FileEntry.vue';
+import BreadCrumbs from './BreadCrumbs.vue';
 
 export default {
 	data: () => ({
@@ -344,6 +345,7 @@ export default {
 	},
 	components: {
 		FileEntry,
+    BreadCrumbs
 	}
 }
 </script>
