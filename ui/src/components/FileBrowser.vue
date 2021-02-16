@@ -270,6 +270,7 @@ export default {
 				a = document.createElement('a');
 				a.href = data;
 				a.download = fileName;
+				a.setAttribute('target', '_blank');
 				document.body.appendChild(a);
 				a.style = 'display: none';
 				a.click();
