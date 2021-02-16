@@ -21,4 +21,4 @@ jobs:
             name: id_rsa
             known_hosts: "vortex.storj.io ${{ secrets.PUBLIC_KEY }}"
         - name: Push to docker remote
-          run: DOCKER_HOST="ssh://${{ secrets.USERNAME }}@${{ secrets.HOST }}" docker-compose up -d
+          run: DOCKER_HOST="ssh://${{ secrets.HOST }}" docker-compose up -d
