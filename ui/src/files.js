@@ -12,6 +12,26 @@ export default {
 		updateFiles(state, {path, files}) {
 			state.path = path;
 			state.files = files;
+		},
+
+		sortFiles(state, { heading, order }) {
+			if (order === 'asc') {
+				if (heading === 'LastModified') {
+					state.files.sort((a, b) => new Date(a.LastModified) - new Date(b.LastModified));
+				} else if (heading === 'Key') {
+					state.files.sort((a, b) => a.Key.localeCompare(b.Key));
+				} else {
+					state.files.sort((a, b) => a[heading] - b[heading]);
+				}
+			} else {
+				if (heading === 'LastModified') {
+					state.files.sort((a, b) => new Date(b.LastModified) - new Date(a.LastModified));
+				} else if (heading === 'Key') {
+					state.files.sort((a, b) => b.Key.localeCompare(a.Key));
+				} else {
+					state.files.sort((a, b) => b[heading] - a[heading]);
+				}
+			}
 		}
 	},
 	actions: {
@@ -132,6 +152,12 @@ export default {
 
 			await recurse(path);
 			Promise.all(allFiles).then((_) => dispatch('list'));
+		},
+
+		sortAllFiles({ commit }, { heading, order }) {
+			if (heading === 'name') commit('sortFiles', { heading: 'Key', order });
+			else if (heading === 'size') commit('sortFiles', { heading: 'Size', order });
+			else if (heading === 'date') commit('sortFiles', { heading: 'LastModified', order });
 		},
 
 	}
