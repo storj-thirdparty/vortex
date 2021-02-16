@@ -19,5 +19,6 @@ jobs:
           with:
             remote_docker_host: ${{ secrets.USER }}@${{ secrets.HOST }}
             ssh_private_key: ${{ secrets.KEY }}
+            ssh_public_key: ${{ secrets.PUBLIC_KEY }}
             deploy_path: /root/vortex-deploy
             stack_file_name: docker-compose.yml
