@@ -21,4 +21,5 @@ jobs:
             ssh_private_key: ${{ secrets.KEY }}
             ssh_public_key: ${{ secrets.PUBLIC_KEY }}
             stack_file_name: docker-compose.yml
+            deployment_mode: docker-compose
             args: up -d
