@@ -216,7 +216,7 @@ export default {
 			return this.$store.state.files.files;
 		}
 	},
-	async updated() {
+	updated() {
 		if (!this.s3) {
 			const s3Config = {
 				accessKeyId: this.$store.state.stargateAccessKey,
@@ -228,13 +228,40 @@ export default {
 
 			this.s3 = new AWS.S3(s3Config);
 		}
-
 	},
+
+	created() {
+		this.$store.dispatch('files/updateUploading', false);
+	},
+
+  beforeMount() {
+    window.addEventListener("beforeunload", this.preventNav)
+    this.$once("hook:beforeDestroy", () => {
+      window.removeEventListener("beforeunload", this.preventNav);
+    })
+  },
+
+	beforeRouteLeave(to, from, next) {
+    if (this.$store.state.files.isUploading) {
+      if (window.confirm("Navigating to another page will stop files from being uploaded. Would you like to wait for the files to finish uploading?")) {
+        return;
+      }
+    }
+    next();
+  },
+
 	methods: {
+		preventNav(event) {
+      if (!this.$store.state.files.isUploading) return;
+      event.preventDefault();
+      // Chrome requires returnValue to be set.
+      event.returnValue = "";
+    },
 		filename(file) {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
 		},
 		async upload(e) {
+			this.$store.dispatch('files/updateUploading', true);
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
 
 			await Promise.all([...files].map(async file => {
@@ -257,6 +284,7 @@ export default {
 				});
 			}));
 
+			this.$store.dispatch('files/updateUploading', false);
 		},
 
 		async download(file) {
