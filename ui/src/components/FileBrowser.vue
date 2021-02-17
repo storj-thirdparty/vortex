@@ -294,7 +294,7 @@ export default {
 				a = document.createElement("a");
 				a.href = data;
 				a.download = fileName;
-				a.setAttribute('download', 'download');
+				a.setAttribute('download', fileName);
 				document.body.appendChild(a);
 				a.style = "display: none";
 				a.click();
