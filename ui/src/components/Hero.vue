@@ -21,19 +21,19 @@
 </template>
 
 <script>
-import HomeHero from './HomeHero';
-import DuplicatiHero from './DuplicatiHero';
+import HomeHero from "./HomeHero";
+import DuplicatiHero from "./DuplicatiHero";
 
 export default {
-	name: 'Hero',
+	name: "Hero",
 	computed: {
 		app() {
-			return this.$route.query.app ? this.$route.query.app : 'home';
+			return this.$route.query.app ? this.$route.query.app : "home";
 		}
 	},
 	components: {
 		HomeHero,
 		DuplicatiHero
 	},
-}
+};
 </script>

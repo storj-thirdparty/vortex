@@ -4,7 +4,8 @@
 	"description": "Project Wormhole",
 	"main": "index.js",
 	"scripts": {
-		"test": "jest test/**.js"
+		"test": "jest test/**.js",
+		"lint": "eslint ."
 	},
 	"dependencies": {
 		"@koa/router": "^9.4.0",
@@ -36,7 +37,7 @@
 	"devDependencies": {
 		"@vue/cli-plugin-router": "~4.5.0",
 		"@vue/cli-service": "~4.5.0",
-		"eslint": "^6.7.2",
+		"eslint": "^6.8.0",
 		"eslint-plugin-vue": "^6.2.2",
 		"nodemon": "^2.0.6",
 		"vue-template-compiler": "^2.6.11",

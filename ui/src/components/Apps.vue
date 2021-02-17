@@ -183,10 +183,10 @@
 <script>
 export default {
 	data: () => ({
-		endpointCopyText: 'Copy',
-		accessKeyCopyText: 'Copy',
-		secretKeyCopyText: 'Copy',
-		bucketCopyText: 'Copy'
+		endpointCopyText: "Copy",
+		accessKeyCopyText: "Copy",
+		secretKeyCopyText: "Copy",
+		bucketCopyText: "Copy"
 	}),
 	methods: {
 		async copy(text, field) {
@@ -196,11 +196,11 @@ export default {
 
 			await navigator.clipboard.writeText(text);
 
-			this[field] = 'Copied!';
+			this[field] = "Copied!";
 
 			await new Promise(r => setTimeout(r, 1000));
 
-			this[field] = 'Copy';
+			this[field] = "Copy";
 		}
 	}
 };

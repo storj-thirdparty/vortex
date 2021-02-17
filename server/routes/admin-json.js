@@ -1,16 +1,17 @@
-const Sequelize = require('sequelize');
-const User = require('../models/User.js');
-const Event = require('../models/Event.js');
+const User = require("../models/User.js");
+const Event = require("../models/Event.js");
+
+/* eslint-disable */
 
 module.exports = async ctx => {
 	const user = await User.findOne({
 		attributes: [
-			'id',
-			'email',
-			'createTime',
-			'activated',
-			'lastLoginTime',
-			'planId'
+			"id",
+			"email",
+			"createTime",
+			"activated",
+			"lastLoginTime",
+			"planId"
 		],
 		where: {
 			id: ctx.params.id
@@ -22,17 +23,18 @@ module.exports = async ctx => {
 
 	try {
 		auditResults.lastAuditTime = user.Events
-			.filter(event => event.type === 'audit-upload')
+			.filter(event => event.type === "audit-upload")
 			.pop()
 			.date;
-	} catch(err) {}
+	} catch(err) {
+	}
 
 	try {
 		auditResults.lastAuditUpload = user.Events
-			.filter(event => event.type === 'audit-upload')
+			.filter(event => event.type === "audit-upload")
 			.pop()
 			.params
-			.bytes
+			.bytes;
 
 	} catch(err) {}
 
@@ -48,7 +50,7 @@ module.exports = async ctx => {
 
 	try {
 		auditResults.lastAuditDownload = user.Events
-			.filter(event => event.type === 'audit-download')
+			.filter(event => event.type === "audit-download")
 			.pop()
 			.params
 			.bytes;
@@ -67,7 +69,7 @@ module.exports = async ctx => {
 
 	try {
 		auditResults.lastAuditFiles = user.Events
-			.filter(event => event.type === 'audit-upload')
+			.filter(event => event.type === "audit-upload")
 			.pop()
 			.params
 			.files;

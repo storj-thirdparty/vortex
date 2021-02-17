@@ -119,23 +119,23 @@
 </template>
 
 <script>
-import axios from 'axios';
-import moment from 'moment';
-import prettyBytes from 'pretty-bytes';
-import {toHumanString} from 'human-readable-numbers';
+import axios from "axios";
+import moment from "moment";
+import prettyBytes from "pretty-bytes";
+import {toHumanString} from "human-readable-numbers";
 
-import Hero from '../components/Hero.vue';
-import FileBrowser from '../components/FileBrowser.vue';
+import Hero from "../components/Hero.vue";
+import FileBrowser from "../components/FileBrowser.vue";
 
 let s3;
 
-const Bucket = 'web';
+const Bucket = "web";
 
 export default {
-	name: 'Home',
+	name: "Home",
 	data: () => ({
 		users: [],
-		search: '',
+		search: "",
 		results: 0,
 		userJson: null,
 		plans: [],
@@ -143,7 +143,7 @@ export default {
 	}),
 	filters: {
 		toNiceDate(d) {
-			return moment(d).format('M/D/YY');
+			return moment(d).format("M/D/YY");
 		},
 		prettyBytes,
 		toHumanString
@@ -156,7 +156,7 @@ export default {
 					plans,
 					results
 				}
-			} = await axios.post('/api/admin/users', {
+			} = await axios.post("/api/admin/users", {
 				search: this.search,
 				token: this.token
 			});
@@ -181,12 +181,12 @@ export default {
 			};
 
 			for(const key of [
-				'lastAuditUpload',
-				'lastAuditDownload',
-				'storageSum'
+				"lastAuditUpload",
+				"lastAuditDownload",
+				"storageSum"
 			]) {
-				if(typeof data.Events[key] === 'number') {
-						data.Events[key] = prettyBytes(data.Events[key]);
+				if(typeof data.Events[key] === "number") {
+					data.Events[key] = prettyBytes(data.Events[key]);
 				}
 			}
 
@@ -196,11 +196,11 @@ export default {
 		async setPlan(user, planId) {
 			console.log({ user, planId });
 
-			await axios.post(`/api/admin/setplan`, {
+			await axios.post("/api/admin/setplan", {
 				userId: user.id,
 				planId,
 				token: this.token
-			})
+			});
 		}
 	},
 	watch: {
@@ -214,5 +214,5 @@ export default {
 		await this.getUsers();
 
 	}
-}
+};
 </script>

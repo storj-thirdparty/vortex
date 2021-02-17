@@ -379,37 +379,37 @@ input {
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 
-import Hero from '../components/Hero.vue';
-import MainFooter from '../components/MainFooter.vue';
+import Hero from "../components/Hero.vue";
+import MainFooter from "../components/MainFooter.vue";
 
 let s3;
 
-const Bucket = 'web';
+const Bucket = "web";
 
 export default {
-	name: 'Home',
+	name: "Home",
 	data: () => ({
-		apiKey: '',
-		email: '',
-		password: '',
+		apiKey: "",
+		email: "",
+		password: "",
 		termsAndConditions: false,
-		message: '',
+		message: "",
 		showLogin: false,
-		destination: '/app'
+		destination: "/app"
 	}),
 	methods: {
 		async signUp() {
-			this.$store.dispatch('signUp', {
+			this.$store.dispatch("signUp", {
 				email: this.email,
 				password: this.password,
 				termsAndConditions: this.termsAndConditions
-			})
+			});
 		},
 
 		async login() {
-			this.$store.dispatch('login', {
+			this.$store.dispatch("login", {
 				email: this.email,
 				password: this.password
 			});
@@ -435,20 +435,20 @@ export default {
 		MainFooter,
 	},
 	async created() {
-		if (this.$route.query.app) this.destination = '/app/apps';
-		else this.destination = '/app/browser';
+		if (this.$route.query.app) this.destination = "/app/apps";
+		else this.destination = "/app/browser";
 
 		const urlParams = new URLSearchParams(window.location.search);
 
-		const activation = urlParams.get('activation');
+		const activation = urlParams.get("activation");
 
 		if (activation) {
-			await axios.post('/api/activate', {
+			await axios.post("/api/activate", {
 				token: activation
 			});
 		}
 
-		await this.$store.dispatch('passiveLogin');
+		await this.$store.dispatch("passiveLogin");
 	}
-}
+};
 </script>

@@ -307,9 +307,6 @@
 			<div class="col">
 				<nav class="navbar navbar-expand-sm second-nav p-0">
 					<a class="navbar-brand" href="/"><img class="logo" alt="Storj logo" src="@/assets/storj-logo.svg"></a>
-					<!--<button class="navbar-toggler navbar-light bg-light" type="button" data-toggle="collapse" data-target="#navbarToggler" aria-controls="navbarToggler" aria-expanded="false" aria-label="Toggle navigation"> <span
-						 class="navbar-toggler-icon"></span></button>-->
-					<!--<div class="collapse navbar-collapse" id="navbarToggler">-->
 						<ul class="navbar-nav ml-auto">
 							<li class="nav-item mr-3 d-none d-sm-block">
 								<a class="nav-link" href="https://storj.io/blog" target="_blank">
@@ -348,9 +345,9 @@ export default {
 	methods: {
 		handleOpenDropdownClicks() {
 			if (this.$store.state.openedDropdown) {
-				this.$store.dispatch('openDropdown', null);
+				this.$store.dispatch("openDropdown", null);
 			}
 		},
 	}
-}
+};
 </script>

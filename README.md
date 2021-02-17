@@ -28,7 +28,7 @@ docker exec -it vortex_vortex_1 /usr/src/app/scripts/audit.sh
 
 # config
 
-To run you need a `config.json`
+To run you need a `server/config.json`
 
 ```json
 {

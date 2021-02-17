@@ -1,13 +1,12 @@
-const bcrypt = require('bcrypt');
-const postmark = require('postmark');
-const User = require('../models/User.js');
-const ApiError = require('../lib/ApiError.js');
-const masterAccount = require('../lib/masterAccount.js');
-const generateAccess = require('../lib/generateAccess.js');
-const getStargateCredentials = require('../lib/getStargateCredentials.js');
-const sendActivationEmail = require('../lib/sendActivationEmail.js');
-const getBucketName = require('../lib/getBucketName.js');
-const config = require('../config.json');
+const bcrypt = require("bcrypt");
+const User = require("../models/User.js");
+const ApiError = require("../lib/ApiError.js");
+const masterAccount = require("../lib/masterAccount.js");
+const generateAccess = require("../lib/generateAccess.js");
+const getStargateCredentials = require("../lib/getStargateCredentials.js");
+const sendActivationEmail = require("../lib/sendActivationEmail.js");
+const getBucketName = require("../lib/getBucketName.js");
+const config = require("../config.json");
 
 module.exports = async function(ctx, next) {
 	const {email, password, termsAndConditions} = ctx.request.body;
@@ -15,23 +14,23 @@ module.exports = async function(ctx, next) {
 	const re = /\S+@\S+\.\S+/;
 
 	if (!re.test(email)) {
-		throw new ApiError('Not a valid email address.');
+		throw new ApiError("Not a valid email address.");
 	}
 
 	if (email.length > 100) {
-		throw new ApiError('Email too long.');
+		throw new ApiError("Email too long.");
 	}
 
 	if (password.length < 8) {
-		throw new ApiError('Password must be at least 8 characters.');
+		throw new ApiError("Password must be at least 8 characters.");
 	}
 
 	if (password.length > 100) {
-		throw new ApiError('Password too long.');
+		throw new ApiError("Password too long.");
 	}
 
 	if (termsAndConditions !== true) {
-		throw new ApiError('Please accept the terms and conditions.');
+		throw new ApiError("Please accept the terms and conditions.");
 	}
 
 	const newUser = User.build({
@@ -40,13 +39,13 @@ module.exports = async function(ctx, next) {
 		createTime: Date.now(),
 		lastLoginTime: Date.now(),
 		activated: false,
-		planId: 'free-1g'
+		planId: "free-1g"
 	});
 
 	try {
 		await newUser.save();
-	} catch {
-		throw new ApiError('Email already exists.');
+	} catch(err) {
+		throw new ApiError("Email already exists.");
 	}
 
 	const bucket = getBucketName(newUser);

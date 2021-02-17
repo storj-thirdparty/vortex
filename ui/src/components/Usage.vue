@@ -172,18 +172,18 @@
 </template>
 
 <script>
-import axios from 'axios';
-import prettyBytes from 'pretty-bytes';
+import axios from "axios";
+import prettyBytes from "pretty-bytes";
 import {
 	toHumanString
-} from 'human-readable-numbers';
+} from "human-readable-numbers";
 
 export default {
 	methods: {
 		async updateUsage() {
 			const {
 				data
-			} = await axios.post('/api/usage');
+			} = await axios.post("/api/usage");
 
 			this.usage = data;
 		}
@@ -215,7 +215,7 @@ export default {
 		prettyBytes
 	},
 	async created() {
-		this.$store.dispatch('getUsage');
+		this.$store.dispatch("getUsage");
 	}
 };
 </script>

@@ -2,6 +2,8 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
+/* eslint-disable */
+
 (() => {
 	// Map multiple JavaScript environments to a single common API,
 	// preferring web standards over Node.js API.
@@ -11,40 +13,40 @@
 	// - Node.js
 	// - Electron
 	// - Parcel
-	if (typeof global !== 'undefined') {
+	if (typeof global !== "undefined") {
 		// global already exists
-	} else if (typeof window !== 'undefined') {
+	} else if (typeof window !== "undefined") {
 		window.global = window;
-	} else if (typeof self !== 'undefined') {
+	} else if (typeof self !== "undefined") {
 		self.global = self;
 	} else {
-		throw new TypeError('cannot export Go (neither global, window nor self is defined)');
+		throw new TypeError("cannot export Go (neither global, window nor self is defined)");
 	}
 
-	if (!global.require && typeof require !== 'undefined') {
+	if (!global.require && typeof require !== "undefined") {
 		global.require = require;
 	}
 
 	if (!global.fs && global.require) {
-		const fs = require('fs');
+		const fs = require("fs");
 		if (Object.keys(fs) !== 0) {
 			global.fs = fs;
 		}
 	}
 
 	const enosys = () => {
-		const err = new Error('not implemented');
-		err.code = 'ENOSYS';
+		const err = new Error("not implemented");
+		err.code = "ENOSYS";
 		return err;
 	};
 
 	if (!global.fs) {
-		let outputBuf = '';
+		let outputBuf = "";
 		global.fs = {
 			constants: {O_WRONLY: -1, O_RDWR: -1, O_CREAT: -1, O_TRUNC: -1, O_APPEND: -1, O_EXCL: -1}, // Unused
 			writeSync(fd, buf) {
 				outputBuf += decoder.decode(buf);
-				const nl = outputBuf.lastIndexOf('\n');
+				const nl = outputBuf.lastIndexOf("\n");
 				if (nl != -1) {
 					console.log(outputBuf.slice(0, Math.max(0, nl)));
 					outputBuf = outputBuf.slice(nl + 1);
@@ -165,7 +167,7 @@
 	}
 
 	if (!global.crypto) {
-		const nodeCrypto = require('crypto');
+		const nodeCrypto = require("crypto");
 		global.crypto = {
 			getRandomValues(b) {
 				nodeCrypto.randomFillSync(b);
@@ -183,25 +185,25 @@
 	}
 
 	if (!global.TextEncoder) {
-		global.TextEncoder = require('util').TextEncoder;
+		global.TextEncoder = require("util").TextEncoder;
 	}
 
 	if (!global.TextDecoder) {
-		global.TextDecoder = require('util').TextDecoder;
+		global.TextDecoder = require("util").TextDecoder;
 	}
 
 	// End of polyfills for common API.
 
-	const encoder = new TextEncoder('utf-8');
-	const decoder = new TextDecoder('utf-8');
+	const encoder = new TextEncoder("utf-8");
+	const decoder = new TextDecoder("utf-8");
 
 	global.Go = class {
 		constructor() {
-			this.argv = ['js'];
+			this.argv = ["js"];
 			this.env = {};
 			this.exit = code => {
 				if (code !== 0) {
-					console.warn('exit code:', code);
+					console.warn("exit code:", code);
 				}
 			};
 
@@ -240,7 +242,7 @@
 			const storeValue = (addr, v) => {
 				const nanHead = 0x7FF80000;
 
-				if (typeof v === 'number' && v !== 0) {
+				if (typeof v === "number" && v !== 0) {
 					if (isNaN(v)) {
 						this.mem.setUint32(addr + 4, nanHead, true);
 						this.mem.setUint32(addr, 0, true);
@@ -271,21 +273,21 @@
 				this._goRefCounts[id]++;
 				let typeFlag = 0;
 				switch (typeof v) {
-					case 'object':
-						if (v !== null) {
-							typeFlag = 1;
-						}
+				case "object":
+					if (v !== null) {
+						typeFlag = 1;
+					}
 
-						break;
-					case 'string':
-						typeFlag = 2;
-						break;
-					case 'symbol':
-						typeFlag = 3;
-						break;
-					case 'function':
-						typeFlag = 4;
-						break;
+					break;
+				case "string":
+					typeFlag = 2;
+					break;
+				case "symbol":
+					typeFlag = 3;
+					break;
+				case "function":
+					typeFlag = 4;
+					break;
 				}
 
 				this.mem.setUint32(addr + 4, nanHead | typeFlag, true);
@@ -324,7 +326,7 @@
 					// This changes the SP, thus we have to update the SP used by the imported function.
 
 					// func wasmExit(code int32)
-					'runtime.wasmExit': sp => {
+					"runtime.wasmExit": sp => {
 						const code = this.mem.getInt32(sp + 8, true);
 						this.exited = true;
 						delete this._inst;
@@ -336,7 +338,7 @@
 					},
 
 					// Func wasmWrite(fd uintptr, p unsafe.Pointer, n int32)
-					'runtime.wasmWrite': sp => {
+					"runtime.wasmWrite": sp => {
 						const fd = getInt64(sp + 8);
 						const p = getInt64(sp + 16);
 						const n = this.mem.getInt32(sp + 24, true);
@@ -344,24 +346,24 @@
 					},
 
 					// Func resetMemoryDataView()
-					'runtime.resetMemoryDataView': sp => {
+					"runtime.resetMemoryDataView": sp => {
 						this.mem = new DataView(this._inst.exports.mem.buffer);
 					},
 
 					// Func nanotime1() int64
-					'runtime.nanotime1': sp => {
+					"runtime.nanotime1": sp => {
 						setInt64(sp + 8, (timeOrigin + performance.now()) * 1000000);
 					},
 
 					// Func walltime1() (sec int64, nsec int32)
-					'runtime.walltime1': sp => {
+					"runtime.walltime1": sp => {
 						const msec = (new Date()).getTime();
 						setInt64(sp + 8, msec / 1000);
 						this.mem.setInt32(sp + 16, (msec % 1000) * 1000000, true);
 					},
 
 					// Func scheduleTimeoutEvent(delay int64) int32
-					'runtime.scheduleTimeoutEvent': sp => {
+					"runtime.scheduleTimeoutEvent": sp => {
 						const id = this._nextCallbackTimeoutID;
 						this._nextCallbackTimeoutID++;
 						this._scheduledTimeouts.set(id, setTimeout(
@@ -370,7 +372,7 @@
 								while (this._scheduledTimeouts.has(id)) {
 									// For some reason Go failed to register the timeout event, log and try again
 									// (temporary workaround for https://github.com/golang/go/issues/28975)
-									console.warn('scheduleTimeoutEvent: missed timeout event');
+									console.warn("scheduleTimeoutEvent: missed timeout event");
 									this._resume();
 								}
 							},
@@ -380,19 +382,19 @@
 					},
 
 					// Func clearTimeoutEvent(id int32)
-					'runtime.clearTimeoutEvent': sp => {
+					"runtime.clearTimeoutEvent": sp => {
 						const id = this.mem.getInt32(sp + 8, true);
 						clearTimeout(this._scheduledTimeouts.get(id));
 						this._scheduledTimeouts.delete(id);
 					},
 
 					// Func getRandomData(r []byte)
-					'runtime.getRandomData': sp => {
+					"runtime.getRandomData": sp => {
 						crypto.getRandomValues(loadSlice(sp + 8));
 					},
 
 					// Func finalizeRef(v ref)
-					'syscall/js.finalizeRef': sp => {
+					"syscall/js.finalizeRef": sp => {
 						const id = this.mem.getUint32(sp + 8, true);
 						this._goRefCounts[id]--;
 						if (this._goRefCounts[id] === 0) {
@@ -404,39 +406,39 @@
 					},
 
 					// Func stringVal(value string) ref
-					'syscall/js.stringVal': sp => {
+					"syscall/js.stringVal": sp => {
 						storeValue(sp + 24, loadString(sp + 8));
 					},
 
 					// Func valueGet(v ref, p string) ref
-					'syscall/js.valueGet': sp => {
+					"syscall/js.valueGet": sp => {
 						const result = Reflect.get(loadValue(sp + 8), loadString(sp + 16));
 						sp = this._inst.exports.getsp(); // See comment above
 						storeValue(sp + 32, result);
 					},
 
 					// Func valueSet(v ref, p string, x ref)
-					'syscall/js.valueSet': sp => {
+					"syscall/js.valueSet": sp => {
 						Reflect.set(loadValue(sp + 8), loadString(sp + 16), loadValue(sp + 32));
 					},
 
 					// Func valueDelete(v ref, p string)
-					'syscall/js.valueDelete': sp => {
+					"syscall/js.valueDelete": sp => {
 						Reflect.deleteProperty(loadValue(sp + 8), loadString(sp + 16));
 					},
 
 					// Func valueIndex(v ref, i int) ref
-					'syscall/js.valueIndex': sp => {
+					"syscall/js.valueIndex": sp => {
 						storeValue(sp + 24, Reflect.get(loadValue(sp + 8), getInt64(sp + 16)));
 					},
 
 					// ValueSetIndex(v ref, i int, x ref)
-					'syscall/js.valueSetIndex': sp => {
+					"syscall/js.valueSetIndex": sp => {
 						Reflect.set(loadValue(sp + 8), getInt64(sp + 16), loadValue(sp + 24));
 					},
 
 					// Func valueCall(v ref, m string, args []ref) (ref, bool)
-					'syscall/js.valueCall': sp => {
+					"syscall/js.valueCall": sp => {
 						try {
 							const v = loadValue(sp + 8);
 							const m = Reflect.get(v, loadString(sp + 16));
@@ -452,7 +454,7 @@
 					},
 
 					// Func valueInvoke(v ref, args []ref) (ref, bool)
-					'syscall/js.valueInvoke': sp => {
+					"syscall/js.valueInvoke": sp => {
 						try {
 							const v = loadValue(sp + 8);
 							const args = loadSliceOfValues(sp + 16);
@@ -467,7 +469,7 @@
 					},
 
 					// Func valueNew(v ref, args []ref) (ref, bool)
-					'syscall/js.valueNew': sp => {
+					"syscall/js.valueNew": sp => {
 						try {
 							const v = loadValue(sp + 8);
 							const args = loadSliceOfValues(sp + 16);
@@ -482,30 +484,30 @@
 					},
 
 					// Func valueLength(v ref) int
-					'syscall/js.valueLength': sp => {
+					"syscall/js.valueLength": sp => {
 						setInt64(sp + 16, Number.parseInt(loadValue(sp + 8).length));
 					},
 
 					// ValuePrepareString(v ref) (ref, int)
-					'syscall/js.valuePrepareString': sp => {
+					"syscall/js.valuePrepareString": sp => {
 						const string = encoder.encode(String(loadValue(sp + 8)));
 						storeValue(sp + 16, string);
 						setInt64(sp + 24, string.length);
 					},
 
 					// ValueLoadString(v ref, b []byte)
-					'syscall/js.valueLoadString': sp => {
+					"syscall/js.valueLoadString": sp => {
 						const string = loadValue(sp + 8);
 						loadSlice(sp + 16).set(string);
 					},
 
 					// Func valueInstanceOf(v ref, t ref) bool
-					'syscall/js.valueInstanceOf': sp => {
+					"syscall/js.valueInstanceOf": sp => {
 						this.mem.setUint8(sp + 24, (loadValue(sp + 8) instanceof loadValue(sp + 16)) ? 1 : 0);
 					},
 
 					// Func copyBytesToGo(dst []byte, src ref) (int, bool)
-					'syscall/js.copyBytesToGo': sp => {
+					"syscall/js.copyBytesToGo": sp => {
 						const dst = loadSlice(sp + 8);
 						const src = loadValue(sp + 32);
 						if (!(src instanceof Uint8Array || src instanceof Uint8ClampedArray)) {
@@ -520,7 +522,7 @@
 					},
 
 					// Func copyBytesToJS(dst ref, src []byte) (int, bool)
-					'syscall/js.copyBytesToJS': sp => {
+					"syscall/js.copyBytesToJS": sp => {
 						const dst = loadValue(sp + 8);
 						const src = loadSlice(sp + 16);
 						if (!(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)) {
@@ -570,7 +572,7 @@
 
 			const stringPtr = string => {
 				const ptr = offset;
-				const bytes = encoder.encode(string + '\0');
+				const bytes = encoder.encode(string + "\0");
 				new Uint8Array(this.mem.buffer, offset, bytes.length).set(bytes);
 				offset += bytes.length;
 				if (offset % 8 !== 0) {
@@ -611,7 +613,7 @@
 
 		_resume() {
 			if (this.exited) {
-				throw new Error('Go program has already exited');
+				throw new Error("Go program has already exited");
 			}
 
 			this._inst.exports.resume();
@@ -639,16 +641,16 @@
 		!global.process.versions.electron
 	) {
 		if (process.argv.length < 3) {
-			console.error('usage: go_js_wasm_exec [wasm binary] [arguments]');
+			console.error("usage: go_js_wasm_exec [wasm binary] [arguments]");
 			process.exit(1);
 		}
 
 		const go = new Go();
 		go.argv = process.argv.slice(2);
-		go.env = Object.assign({TMPDIR: require('os').tmpdir()}, process.env);
+		go.env = Object.assign({TMPDIR: require("os").tmpdir()}, process.env);
 		go.exit = process.exit;
 		WebAssembly.instantiate(fs.readFileSync(process.argv[2]), go.importObject).then(result => {
-			process.on('exit', code => { // Node.js exits if no event handler is pending
+			process.on("exit", code => { // Node.js exits if no event handler is pending
 				if (code === 0 && !go.exited) {
 					// Deadlock, make Go print error and stack traces
 					go._pendingEvent = {id: 0};

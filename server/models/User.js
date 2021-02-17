@@ -1,7 +1,7 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../lib/sequelize');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../lib/sequelize");
 
-class User extends Model {};
+class User extends Model {}
 
 User.init({
 	email: {
@@ -18,7 +18,7 @@ User.init({
 	planId: DataTypes.STRING
 }, {
 	sequelize,
-	modelName: 'User'
+	modelName: "User"
 });
 
 module.exports = User;

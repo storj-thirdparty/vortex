@@ -1,11 +1,11 @@
-const User = require('../models/User.js');
-const ApiError = require('../lib/ApiError.js');
-const config = require('../config.json');
-const plans = require('../plans.json');
-const getBucketName = require('../lib/getBucketName.js');
+const User = require("../models/User.js");
+const ApiError = require("../lib/ApiError.js");
+const config = require("../config.json");
+const plans = require("../plans.json");
+const getBucketName = require("../lib/getBucketName.js");
 
 module.exports = async ctx => {
-	if(typeof ctx.session.userId === 'undefined') {
+	if(typeof ctx.session.userId === "undefined") {
 		throw new ApiError("No login with session.");
 	}
 
@@ -16,7 +16,7 @@ module.exports = async ctx => {
 	});
 
 	if (user === null) {
-		throw new ApiError('Session invalid.');
+		throw new ApiError("Session invalid.");
 	}
 
 	ctx.body = {

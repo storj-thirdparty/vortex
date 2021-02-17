@@ -1,18 +1,18 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Vuex from 'vuex';
-import axios from 'axios';
+import Vue from "vue";
+import Router from "vue-router";
+import Vuex from "vuex";
+import axios from "axios";
 
-import App from './App.vue';
-import Home from './views/Home.vue';
-import Admin from './views/Admin.vue';
-import Dashboard from './views/Dashboard.vue';
-import FileBrowser from './components/FileBrowser.vue';
-import Apps from './components/Apps.vue';
-import Usage from './components/Usage.vue';
-import NotFound from './components/NotFound.vue';
+import App from "./App.vue";
+import Home from "./views/Home.vue";
+import Admin from "./views/Admin.vue";
+import Dashboard from "./views/Dashboard.vue";
+import FileBrowser from "./components/FileBrowser.vue";
+import Apps from "./components/Apps.vue";
+import Usage from "./components/Usage.vue";
+import NotFound from "./components/NotFound.vue";
 
-import files from './files.js';
+import files from "./files.js";
 
 Vue.use(Router);
 Vue.use(Vuex);
@@ -20,27 +20,27 @@ Vue.use(Vuex);
 Vue.config.productionTip = false;
 
 const routes = [{
-		path: '/',
-		component: Home,
-	},
-	{
-		path: '/admin',
-		component: Admin,
-	},
-	{
-		path: '/app',
-		component: Dashboard,
-		children: [
-			{ path: '', redirect: 'browser' },
-			{ path: 'browser', component: FileBrowser },
-			{ path: 'apps', component: Apps },
-			{ path: 'plan', component: Usage },
-		]
-	},
-	{
-		path: '*',
-		component: NotFound,
-	}
+	path: "/",
+	component: Home,
+},
+{
+	path: "/admin",
+	component: Admin,
+},
+{
+	path: "/app",
+	component: Dashboard,
+	children: [
+		{ path: "", redirect: "browser" },
+		{ path: "browser", component: FileBrowser },
+		{ path: "apps", component: Apps },
+		{ path: "plan", component: Usage },
+	]
+},
+{
+	path: "*",
+	component: NotFound,
+}
 ];
 
 // 3. Create the router instance and pass the `routes` option
@@ -48,7 +48,7 @@ const routes = [{
 // keep it simple for now.
 const router = new Router({
 	routes, // Short for `routes: routes`,
-	mode: 'history'
+	mode: "history"
 });
 
 const store = new Vuex.Store({
@@ -69,7 +69,7 @@ const store = new Vuex.Store({
 	},
 	getters: {
 		isLoggedIn(state) {
-			return typeof state.stargateAccessKey === 'string';
+			return typeof state.stargateAccessKey === "string";
 		}
 	},
 	modules: {
@@ -113,7 +113,7 @@ const store = new Vuex.Store({
 				secretAccessKey: stargateSecretKey,
 				endpoint: stargateEndpoint,
 				s3ForcePathStyle: true,
-				signatureVersion: 'v4',
+				signatureVersion: "v4",
 			});
 		},
 
@@ -125,7 +125,7 @@ const store = new Vuex.Store({
 		openDropdown({
 			commit
 		}, id) {
-			commit('setOpenedDropdown', id);
+			commit("setOpenedDropdown", id);
 		},
 
 		async signUp({
@@ -137,16 +137,16 @@ const store = new Vuex.Store({
 		}) {
 			const {
 				data
-			} = await axios.post('/api/signup', {
+			} = await axios.post("/api/signup", {
 				email,
 				password,
 				termsAndConditions,
 			});
 
 			if (data.error) {
-				commit('setUserError', data.error);
+				commit("setUserError", data.error);
 			} else {
-				commit('setUser', data);
+				commit("setUser", data);
 			}
 		},
 
@@ -158,15 +158,15 @@ const store = new Vuex.Store({
 		}) {
 			const {
 				data
-			} = await axios.post('/api/login', {
+			} = await axios.post("/api/login", {
 				email,
 				password,
 			});
 
 			if (data.error) {
-				commit('setUserError', data.error);
+				commit("setUserError", data.error);
 			} else {
-				commit('setUser', data);
+				commit("setUser", data);
 			}
 		},
 
@@ -175,19 +175,19 @@ const store = new Vuex.Store({
 		}) {
 			const {
 				data
-			} = await axios.post('/api/passive-login');
+			} = await axios.post("/api/passive-login");
 
 			if (!data.error) {
-				commit('setUser', data);
+				commit("setUser", data);
 			}
 		},
 
 		async logout({
 			commit
 		}) {
-			await axios.post('/api/logout');
+			await axios.post("/api/logout");
 
-			commit('setUser', {
+			commit("setUser", {
 				email: null,
 				stargateAccessKey: null,
 				stargateSecretKey: null,
@@ -202,9 +202,9 @@ const store = new Vuex.Store({
 		}) {
 			const {
 				data
-			} = await axios.post('/api/usage');
+			} = await axios.post("/api/usage");
 
-			commit('setUsage', data);
+			commit("setUsage", data);
 		},
 	},
 });
@@ -215,4 +215,4 @@ new Vue({
 	},
 	router,
 	store,
-}).$mount('#app');
+}).$mount("#app");

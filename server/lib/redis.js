@@ -1,5 +1,5 @@
-const Redis = require('ioredis');
+const Redis = require("ioredis");
 
 module.exports = new Redis({
-	host: 'redis'
+	host: "redis"
 });
