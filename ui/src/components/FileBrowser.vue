@@ -294,8 +294,10 @@ export default {
 				a = document.createElement("a");
 				a.href = data;
 				a.download = fileName;
+				a.setAttribute('download', 'download');
 				document.body.appendChild(a);
 				a.style = "display: none";
+				console.log(a)
 				a.click();
 				a.remove();
 			};
