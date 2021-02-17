@@ -1,8 +1,8 @@
-const Event = require('../models/Event.js');
+const Event = require("../models/Event.js");
 
 module.exports = async ctx => {
 	const e = Event.build({
-		type: 'download',
+		type: "download",
 		params: {
 			files: ctx.request.body.files,
 			bytes: ctx.request.body.bytes
@@ -13,5 +13,5 @@ module.exports = async ctx => {
 
 	await e.save();
 
-	ctx.body = '';
+	ctx.body = "";
 };

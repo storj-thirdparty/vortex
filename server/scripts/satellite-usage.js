@@ -1,7 +1,6 @@
-const axios = require('axios');
-const User = require('../models/User.js');
-const Event = require('../models/Event.js');
-const config = require('../config.json');
+const axios = require("axios");
+const Event = require("../models/Event.js");
+const config = require("../config.json");
 
 (async () => {
 	const date = new Date();
@@ -59,12 +58,8 @@ const config = require('../config.json');
 			console.log(bucket);
 			const userId = bucket.bucketName.slice(config.bucketPrefix.length);
 
-			const user = await User.findOne({
-				where: {id: userId}
-			})
-
 			const uploadEvent = Event.build({
-				type: 'audit-upload',
+				type: "audit-upload",
 				params: {
 					files: bucket.objectCount,
 					bytes: bucket.storage * 1e+9
@@ -76,7 +71,7 @@ const config = require('../config.json');
 			await uploadEvent.save();
 
 			const downloadEvent = Event.build({
-				type: 'audit-download',
+				type: "audit-download",
 				params: {
 					files: bucket.objectCount,
 					bytes: bucket.egress * 1e+9
@@ -88,7 +83,7 @@ const config = require('../config.json');
 			await downloadEvent.save();
 
 		} else {
-			console.log('found', bucket.bucketName, 'with bad prefix');
+			console.log("found", bucket.bucketName, "with bad prefix");
 		}
 	}
 })();

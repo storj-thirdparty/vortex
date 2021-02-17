@@ -1,14 +1,14 @@
-const crypto = require('crypto');
-const redis = require('./redis.js');
+const crypto = require("crypto");
+const redis = require("./redis.js");
 
 const expire = 2 * 24 * 60 * 60 * 1000;
 
 module.exports = {
 	async create() {
-		const id = crypto.randomBytes(32).toString('base64');
+		const id = crypto.randomBytes(32).toString("base64");
 
 		await redis.multi()
-			.hset(`session:${id}`, '_created', Date.now())
+			.hset(`session:${id}`, "_created", Date.now())
 			.expire(`session:${id}`, expire)
 			.exec();
 

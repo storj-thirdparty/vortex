@@ -1,4 +1,4 @@
-const session = require('./lib/session');
+const session = require("./lib/session");
 
 (async () => {
 	const id = await session.create();

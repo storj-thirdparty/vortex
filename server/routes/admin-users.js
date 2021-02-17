@@ -1,26 +1,26 @@
-const Sequelize = require('sequelize');
-const User = require('../models/User.js');
-const Event = require('../models/Event.js');
-const plans = require('../plans.json');
-const getStats = require('../lib/getStats.js');
+const Sequelize = require("sequelize");
+const User = require("../models/User.js");
+const Event = require("../models/Event.js");
+const plans = require("../plans.json");
+const getStats = require("../lib/getStats.js");
 
 module.exports = async ctx => {
 	let users = await User.findAll({
 		attributes: [
-			'id',
-			'email',
-			'activated',
-			'createTime',
-			'lastLoginTime',
-			'planId'
+			"id",
+			"email",
+			"activated",
+			"createTime",
+			"lastLoginTime",
+			"planId"
 		],
 		where: {
 			email: {
-				[Sequelize.Op.substring]: `%${ctx.request.body.search || ''}`
+				[Sequelize.Op.substring]: `%${ctx.request.body.search || ""}`
 			}
 		},
 		order: [
-			['lastLoginTime', 'DESC'],
+			["lastLoginTime", "DESC"],
 		],
 		limit: 50,
 		include: Event
@@ -51,7 +51,7 @@ module.exports = async ctx => {
 		results: await User.count({
 			where: {
 				email: {
-					[Sequelize.Op.substring]: `%${ctx.request.body.search || ''}`
+					[Sequelize.Op.substring]: `%${ctx.request.body.search || ""}`
 				}
 			}
 		}),

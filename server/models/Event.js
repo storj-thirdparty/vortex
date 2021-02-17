@@ -1,9 +1,9 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../lib/sequelize');
+const { Model, DataTypes } = require("sequelize");
+const sequelize = require("../lib/sequelize");
 
-const User = require('./User.js');
+const User = require("./User.js");
 
-class Event extends Model {};
+class Event extends Model {}
 
 Event.init({
 	type: DataTypes.STRING,
@@ -11,11 +11,11 @@ Event.init({
 	date: DataTypes.DATE
 }, {
 	sequelize,
-	modelName: 'Event'
+	modelName: "Event"
 });
 
 User.hasMany(Event, {
-	foreignKey: 'userId'
+	foreignKey: "userId"
 });
 
 Event.belongsTo(User);

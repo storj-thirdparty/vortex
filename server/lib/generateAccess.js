@@ -1,6 +1,6 @@
-const fs = require('fs');
-const config = require('../config');
-const wasmExec = require('./wasm_exec.js');
+/* global Go, WebAssembly */
+const fs = require("fs");
+const config = require("../config");
 
 const go = new Go();
 

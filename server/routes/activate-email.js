@@ -1,7 +1,6 @@
-const User = require('../models/User.js');
-const config = require('../config.json');
-const redis = require('../lib/redis.js');
-const ApiError = require('../lib/ApiError.js');
+const User = require("../models/User.js");
+const redis = require("../lib/redis.js");
+const ApiError = require("../lib/ApiError.js");
 
 module.exports = async function (token) {
 	const id = await redis.get(`activation:${token}`);
@@ -17,7 +16,7 @@ module.exports = async function (token) {
 	console.log({user});
 
 	if (user === null) {
-		throw new ApiError('Token not valid.');
+		throw new ApiError("Token not valid.");
 	}
 
 	user.activated = true;

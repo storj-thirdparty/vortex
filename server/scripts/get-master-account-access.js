@@ -1,8 +1,7 @@
-const fs = require('fs');
-const axios = require('axios');
-const config = require('../config.json');
-const generateAccess = require('../lib/generateAccess.js');
-const getStargateCredentials = require('../lib/getStargateCredentials.js');
+const fs = require("fs");
+const config = require("../config.json");
+const generateAccess = require("../lib/generateAccess.js");
+const getStargateCredentials = require("../lib/getStargateCredentials.js");
 
 (async () => {
 	const access = await generateAccess();
@@ -12,5 +11,5 @@ const getStargateCredentials = require('../lib/getStargateCredentials.js');
 		...(await getStargateCredentials(access))
 	};
 
-	fs.writeFileSync(`${__dirname}/../config.json`, JSON.stringify(config, null, '\t'));
+	fs.writeFileSync(`${__dirname}/../config.json`, JSON.stringify(config, null, "\t"));
 })();

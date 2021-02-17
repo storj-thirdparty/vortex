@@ -1,30 +1,27 @@
-const { Op } = require('sequelize');
-const moment = require('moment');
-const Sequelize = require('sequelize');
-const User = require('../models/User.js');
-const Event = require('../models/Event.js');
-const plans = require('../plans.json');
+const { Op } = require("sequelize");
+const moment = require("moment");
+const Event = require("../models/Event.js");
 
 async function getBytesUploaded(userId) {
 	const [ auditEvent ] = await Event.findAll({
 		where: {
 			userId,
-			type: 'audit-upload',
+			type: "audit-upload",
 		},
 		order: [
-			[ 'date', 'DESC' ]
+			[ "date", "DESC" ]
 		],
 		limit: 1
 	});
 
-	const auditBytes = typeof auditEvent === 'object' ? auditEvent.params.bytes : 0;
+	const auditBytes = typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
 
 	const uploadEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'upload',
+			type: "upload",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});
@@ -35,9 +32,9 @@ async function getBytesUploaded(userId) {
 	const deleteEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'delete',
+			type: "delete",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});
@@ -51,22 +48,22 @@ async function getBytesDownloaded(userId) {
 	const [ auditEvent ] = await Event.findAll({
 		where: {
 			userId,
-			type: 'audit-download',
+			type: "audit-download",
 		},
 		order: [
-			[ 'date', 'DESC' ]
+			[ "date", "DESC" ]
 		],
 		limit: 1
 	});
 
-	const auditBytes = typeof auditEvent === 'object' ? auditEvent.params.bytes : 0;
+	const auditBytes = typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
 
 	const downloadEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'download',
+			type: "download",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});
@@ -76,9 +73,9 @@ async function getBytesDownloaded(userId) {
 	const deleteEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'delete',
+			type: "delete",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});
@@ -92,22 +89,22 @@ async function getFilesUploaded(userId) {
 	const [ auditEvent ] = await Event.findAll({
 		where: {
 			userId,
-			type: 'audit-upload',
+			type: "audit-upload",
 		},
 		order: [
-			[ 'date', 'DESC' ]
+			[ "date", "DESC" ]
 		],
 		limit: 1
 	});
 
-	const auditFiles = typeof auditEvent === 'object' ? auditEvent.params.files : 0;
+	const auditFiles = typeof auditEvent === "object" ? auditEvent.params.files : 0;
 
 	const uploadEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'upload',
+			type: "upload",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});
@@ -117,9 +114,9 @@ async function getFilesUploaded(userId) {
 	const deleteEvents = await Event.findAll({
 		where: {
 			userId,
-			type: 'delete',
+			type: "delete",
 			date: {
-				[Op.gte]: moment().subtract(1, 'days').toDate()
+				[Op.gte]: moment().subtract(1, "days").toDate()
 			}
 		}
 	});

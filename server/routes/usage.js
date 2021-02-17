@@ -1,6 +1,6 @@
-const User = require('../models/User');
-const getStats = require('../lib/getStats');
-const plans = require('../plans.json');
+const User = require("../models/User");
+const getStats = require("../lib/getStats");
+const plans = require("../plans.json");
 
 module.exports = async ctx => {
 	const user = await User.findOne({
