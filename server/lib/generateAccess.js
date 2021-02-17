@@ -1,7 +1,7 @@
 /* global Go, WebAssembly */
 const fs = require("fs");
 const config = require("../config");
-require('./wasm_exec.js');
+require("./wasm_exec.js");
 
 const go = new Go();
 

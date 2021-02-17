@@ -53,8 +53,7 @@
 		<span v-if="file.type === 'folder'">
 			<svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-folder ml-2 mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
 				<path d="M9.828 4a3 3 0 0 1-2.12-.879l-.83-.828A1 1 0 0 0 6.173 2H2.5a1 1 0 0 0-1 .981L1.546 4h-1L.5 3a2 2 0 0 1 2-2h3.672a2 2 0 0 1 1.414.586l.828.828A2 2 0 0 0 9.828 3v1z" />
-				<path fill-rule="evenodd"
-				 d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
+				<path fill-rule="evenodd" d="M13.81 4H2.19a1 1 0 0 0-.996 1.09l.637 7a1 1 0 0 0 .995.91h10.348a1 1 0 0 0 .995-.91l.637-7A1 1 0 0 0 13.81 4zM2.19 3A2 2 0 0 0 .198 5.181l.637 7A2 2 0 0 0 2.826 14h10.348a2 2 0 0 0 1.991-1.819l.637-7A2 2 0 0 0 13.81 3H2.19z" />
 			</svg>
 
 			<a v-on:click="$emit('go', file.Key + '/')" href="javascript:null" style="margin-left: 5px;">{{filename}}</a>
@@ -90,8 +89,7 @@
 				<div class="dropdown-menu shadow show" v-if="dropdownOpen">
 					<button class="dropdown-item action p-3" v-on:click="download">
 						<svg width="1.5em" height="1.5em" viewBox="0 0 16 16" class="bi bi-cloud-download mr-2 ml-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-							 d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
+							<path fill-rule="evenodd" d="M4.406 1.342A5.53 5.53 0 0 1 8 0c2.69 0 4.923 2 5.166 4.579C14.758 4.804 16 6.137 16 7.773 16 9.569 14.502 11 12.687 11H10a.5.5 0 0 1 0-1h2.688C13.979 10 15 8.988 15 7.773c0-1.216-1.02-2.228-2.313-2.228h-.5v-.5C12.188 2.825 10.328 1 8 1a4.53 4.53 0 0 0-2.941 1.1c-.757.652-1.153 1.438-1.153 2.055v.448l-.445.049C2.064 4.805 1 5.952 1 7.318 1 8.785 2.23 10 3.781 10H6a.5.5 0 0 1 0 1H3.781C1.708 11 0 9.366 0 7.318c0-1.763 1.266-3.223 2.942-3.593.143-.863.698-1.723 1.464-2.383z" />
 							<path fill-rule="evenodd" d="M7.646 15.854a.5.5 0 0 0 .708 0l3-3a.5.5 0 0 0-.708-.708L8.5 14.293V5.5a.5.5 0 0 0-1 0v8.793l-2.146-2.147a.5.5 0 0 0-.708.708l3 3z" />
 						</svg>
 						Download
@@ -105,8 +103,7 @@
 					</button>
 					<button v-if="!deleteConfirmation" class="dropdown-item action p-3" v-on:click="confirmDeletion">
 						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-							 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+							<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
 						</svg>
 						Delete
 					</button>
@@ -146,8 +143,7 @@
 				<div class="dropdown-menu shadow show" v-if="dropdownOpen">
 					<button v-if="!deleteConfirmation" class="dropdown-item action p-3" v-on:click="confirmDeletion">
 						<svg width="2em" height="2em" viewBox="0 0 16 16" class="bi bi-x mr-1" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-							<path fill-rule="evenodd"
-							 d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
+							<path fill-rule="evenodd" d="M4.646 4.646a.5.5 0 0 1 .708 0L8 7.293l2.646-2.647a.5.5 0 0 1 .708.708L8.707 8l2.647 2.646a.5.5 0 0 1-.708.708L8 8.707l-2.646 2.647a.5.5 0 0 1-.708-.708L7.293 8 4.646 5.354a.5.5 0 0 1 0-.708z" />
 						</svg>
 						Delete
 					</button>
@@ -178,28 +174,28 @@
 </template>
 
 <script>
-import prettyBytes from 'pretty-bytes';
+import prettyBytes from "pretty-bytes";
 
 export default {
 	props: [
-		'path',
-		'file'
+		"path",
+		"file"
 	],
 	data: () => ({
-		shareText: 'Copy Link',
+		shareText: "Copy Link",
 		deleteConfirmation: false,
 		loadingSpinner: false,
 	}),
 	computed: {
 		filename() {
-			return this.file.Key.length > 25 ? this.file.Key.slice(0, 25) + '...' : this.file.Key;
+			return this.file.Key.length > 25 ? this.file.Key.slice(0, 25) + "..." : this.file.Key;
 		},
 		size() {
-			console.log('size', typeof this.file.Size)
+			console.log("size", typeof this.file.Size);
 			return prettyBytes(this.file.Size);
 		},
 		uploadDate() {
-			return this.file.LastModified.toLocaleString().split(',')[0];
+			return this.file.LastModified.toLocaleString().split(",")[0];
 		},
 		dropdownOpen() {
 			return this.$store.state.openedDropdown === this.file.Key;
@@ -208,15 +204,13 @@ export default {
 	methods: {
 		async share(event) {
 			event.stopPropagation();
-			this.$emit('share');
+			this.$emit("share");
 
-			const url = this.$store.state.s3.getSignedUrl('getObject', {
+			const url = this.$store.state.s3.getSignedUrl("getObject", {
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + this.file.Key,
 				Expires: 60 * 60 * 24
 			});
-
-			navigator.clipboard.readText().then(text => outputElem.innerText = text);
 
 			await navigator.permissions.query({
 				name: "clipboard-write"
@@ -225,27 +219,27 @@ export default {
 			this.shareText = "URL Copied!";
 
 			setTimeout(() => {
-				this.$store.dispatch('openDropdown', null);
+				this.$store.dispatch("openDropdown", null);
 			}, 700);
 
 			await new Promise(resolve => setTimeout(resolve, 1000));
-			this.shareText = 'Copy Link';
+			this.shareText = "Copy Link";
 		},
 		toggleDropdown(event) {
 			event.stopPropagation();
 
 			if (this.$store.state.openedDropdown === this.file.Key) {
-				this.$store.dispatch('openDropdown', null);
+				this.$store.dispatch("openDropdown", null);
 			} else {
-				this.$store.dispatch('openDropdown', this.file.Key);
+				this.$store.dispatch("openDropdown", this.file.Key);
 			}
 
 			this.deleteConfirmation = false;
 		},
 		download(event) {
 			event.stopPropagation();
-			this.$emit('download');
-			this.$store.dispatch('openDropdown', null);
+			this.$emit("download");
+			this.$store.dispatch("openDropdown", null);
 			this.deleteConfirmation = false;
 		},
 		confirmDeletion(event) {
@@ -254,15 +248,15 @@ export default {
 		},
 		finalDelete(event) {
 			event.stopPropagation();
-			this.$store.dispatch('openDropdown', null);
+			this.$store.dispatch("openDropdown", null);
 			this.loadingSpinner = true;
 
-			if(this.file.type === 'file') {
-				this.$store.dispatch('files/delete', {
+			if(this.file.type === "file") {
+				this.$store.dispatch("files/delete", {
 					path: this.path, file: this.file
 				});
 			} else {
-				this.$store.dispatch('files/deleteFolder', {
+				this.$store.dispatch("files/deleteFolder", {
 					path: this.path,
 					file: this.file
 				});
@@ -272,9 +266,9 @@ export default {
 		},
 		cancelDeletion(event) {
 			event.stopPropagation();
-			this.$store.dispatch('openDropdown', null);
+			this.$store.dispatch("openDropdown", null);
 			this.deleteConfirmation = false;
 		}
 	}
-}
+};
 </script>

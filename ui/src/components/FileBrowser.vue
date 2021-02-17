@@ -181,32 +181,28 @@
 </template>
 
 <script>
-import axios from 'axios';
-import prettyBytes from 'pretty-bytes';
-import {
-	toHumanString
-} from 'human-readable-numbers';
+import axios from "axios";
 
-import FileEntry from './FileEntry.vue';
-import BreadCrumbs from './BreadCrumbs.vue';
+import FileEntry from "./FileEntry.vue";
+import BreadCrumbs from "./BreadCrumbs.vue";
 
 export default {
 	data: () => ({
 		s3: null,
 		filesUploading: [],
-		createFolderInput: '',
+		createFolderInput: "",
 		createFolderInputShow: false,
 		nameHover: false,
 		sizeHover: false,
 		dateHover: false,
 		headingSorted: null,
-		orderBy: 'desc',
+		orderBy: "desc",
 	}),
 	computed: {
 		createFolderEnabled() {
 			return this.createFolderInput.trim().length > 0 &&
-				this.createFolderInput.indexOf('/') === -1 &&
-				this.createFolderInput.indexOf('.') === -1 &&
+				this.createFolderInput.indexOf("/") === -1 &&
+				this.createFolderInput.indexOf(".") === -1 &&
 				this.files.filter(file => file.Key === this.createFolderInput.trim()).length === 0;
 		},
 		path() {
@@ -223,7 +219,7 @@ export default {
 				secretAccessKey: this.$store.state.stargateSecretKey,
 				endpoint: this.$store.state.stargateEndpoint,
 				s3ForcePathStyle: true,
-				signatureVersion: 'v4'
+				signatureVersion: "v4"
 			};
 
 			this.s3 = new AWS.S3(s3Config);
@@ -232,7 +228,7 @@ export default {
 	},
 	methods: {
 		filename(file) {
-			return file.Key.length > 25 ? file.Key.slice(0, 25) + '...' : file.Key;
+			return file.Key.length > 25 ? file.Key.slice(0, 25) + "..." : file.Key;
 		},
 		async upload(e) {
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
@@ -251,7 +247,7 @@ export default {
 
 				this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
 
-				await axios.post('/api/events/upload', {
+				await axios.post("/api/events/upload", {
 					bytes: file.size,
 					files: 1
 				});
@@ -260,44 +256,44 @@ export default {
 		},
 
 		async download(file) {
-			const url = this.s3.getSignedUrl('getObject', {
+			const url = this.s3.getSignedUrl("getObject", {
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + file.Key
 			});
 
 			const downloadURL = function(data, fileName) {
 				var a;
-				a = document.createElement('a');
+				a = document.createElement("a");
 				a.href = data;
 				a.download = fileName;
 				document.body.appendChild(a);
-				a.style = 'display: none';
+				a.style = "display: none";
 				a.click();
 				a.remove();
 			};
 
 			downloadURL(url);
 
-			await axios.post('/api/events/download', {
+			await axios.post("/api/events/download", {
 				bytes: file.Size,
 				files: 1
 			});
 		},
 
 		async list(path) {
-			this.$store.dispatch('files/list', path, {
+			this.$store.dispatch("files/list", path, {
 				root: true
 			});
 		},
 
 		async go(path) {
-			this.$store.dispatch('openDropdown', null);
+			this.$store.dispatch("openDropdown", null);
 			await this.list(this.path + path);
 		},
 
 		async back() {
-			this.$store.dispatch('openDropdown', null);
-			this.$store.dispatch('files/back');
+			this.$store.dispatch("openDropdown", null);
+			this.$store.dispatch("files/back");
 		},
 
 		async buttonUpload() {
@@ -306,46 +302,46 @@ export default {
 		},
 
 		async createFolder() {
-			this.$store.dispatch('files/createFolder', this.createFolderInput.trim());
+			this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
-			this.createFolderInput = '';
+			this.createFolderInput = "";
 			this.createFolderInputShow = false;
 		},
 
 		sortTable(heading) {
-			['name', 'size', 'date'].forEach((category) => {
-				if (category !== heading) this[category + 'Hover'] = false;
+			["name", "size", "date"].forEach((category) => {
+				if (category !== heading) this[category + "Hover"] = false;
 			});
 
 			if (this.headingSorted === heading) {
-				this.orderBy = this.orderBy === 'desc' ? 'asc' : 'desc';
-				this.$store.dispatch('files/sortAllFiles', { heading, order: this.orderBy });
+				this.orderBy = this.orderBy === "desc" ? "asc" : "desc";
+				this.$store.dispatch("files/sortAllFiles", { heading, order: this.orderBy });
 			} else {
 				this.headingSorted = heading;
-				this.orderBy = 'desc';
-				this.$store.dispatch('files/sortAllFiles', { heading, order: this.orderBy });
+				this.orderBy = "desc";
+				this.$store.dispatch("files/sortAllFiles", { heading, order: this.orderBy });
 			}
 		},
 
 		mouseOverHandler(heading) {
 			if (this.headingSorted !== heading) {
-				if (heading === 'name') this.nameHover = true;
-				if (heading === 'size') this.sizeHover = true;
-				if (heading === 'date') this.dateHover = true;
+				if (heading === "name") this.nameHover = true;
+				if (heading === "size") this.sizeHover = true;
+				if (heading === "date") this.dateHover = true;
 			}
 		},
 
 		mouseLeaveHandler(heading) {
 			if (this.headingSorted !== heading) {
-				if (heading === 'name') this.nameHover = false;
-				if (heading === 'size') this.sizeHover = false;
-				if (heading === 'date') this.dateHover = false;
+				if (heading === "name") this.nameHover = false;
+				if (heading === "size") this.sizeHover = false;
+				if (heading === "date") this.dateHover = false;
 			}
 		},
 	},
 	components: {
 		FileEntry,
-    BreadCrumbs
+		BreadCrumbs
 	}
-}
+};
 </script>

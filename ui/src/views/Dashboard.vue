@@ -51,7 +51,7 @@
 </template>
 
 <script>
-import AppFooter from '../components/AppFooter.vue';
+import AppFooter from "../components/AppFooter.vue";
 
 export default {
 	methods: {
@@ -76,24 +76,24 @@ export default {
 		isLoggedIn(loggedIn) {
 			if (loggedIn === false) {
 				this.$router.push({
-					path: '/'
+					path: "/"
 				});
 			}
 		}
 	},
 	async created() {
-		await this.$store.dispatch('passiveLogin');
+		await this.$store.dispatch("passiveLogin");
 
 		if (this.isLoggedIn === false) {
 			this.$router.push({
-				path: '/'
+				path: "/"
 			});
 
 			return;
 		}
 
-		this.$store.dispatch('getUsage');
-		this.$store.dispatch('files/list');
+		this.$store.dispatch("getUsage");
+		this.$store.dispatch("files/list");
 	}
-}
+};
 </script>

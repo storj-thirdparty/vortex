@@ -19,23 +19,23 @@
 
 <script>
 export default {
-  name: 'BreadCrumbs',
-  methods: {
-    crumbs() {
-      let path = this.$store.state.files.path.split('/');
-      path = path.length > 1 ? ['Home', ...path.slice(0, path.length - 1)] : ['Home'];
-      return path;
-    },
-    async list(idx) {
-      const crumbs = this.crumbs();
-      let path = '';
-      if (idx > 0) path = crumbs.slice(1, idx + 1).join('/') + '/';
-      await this.$store.dispatch('files/list', path);
-    },
-    displayDivider(idx) {
-      const length = this.crumbs().length;
-      return (idx !== 0 || length > 1) && (idx !== length - 1);
-    },
-  }
-}
+	name: "BreadCrumbs",
+	methods: {
+		crumbs() {
+			let path = this.$store.state.files.path.split("/");
+			path = path.length > 1 ? ["Home", ...path.slice(0, path.length - 1)] : ["Home"];
+			return path;
+		},
+		async list(idx) {
+			const crumbs = this.crumbs();
+			let path = "";
+			if (idx > 0) path = crumbs.slice(1, idx + 1).join("/") + "/";
+			await this.$store.dispatch("files/list", path);
+		},
+		displayDivider(idx) {
+			const length = this.crumbs().length;
+			return (idx !== 0 || length > 1) && (idx !== length - 1);
+		},
+	}
+};
 </script>
