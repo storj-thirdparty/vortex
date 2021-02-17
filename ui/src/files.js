@@ -138,9 +138,21 @@ export default {
 					Prefix: filePath,
 				}).promise();
 
-				await Promise.all(Contents.map(async file => {
-					await dispatch("delete", { path: "", file, folder: true })
-				}));
+				async function thread() {
+					while(Contents.length) {
+						const file = Contents.pop();
+
+						await dispatch("delete", { path: "", file, folder: true });
+					}
+				}
+
+				await Promise.all([
+					thread(),
+					thread(),
+					thread(),
+					thread(),
+					thread()
+				]);
 
 				for(const {Prefix} of CommonPrefixes) {
 					await recurse(Prefix);
