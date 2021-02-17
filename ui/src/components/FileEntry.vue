@@ -188,6 +188,7 @@ export default {
 	}),
 	computed: {
 		filename() {
+			return this.file.Key;
 			return this.file.Key.length > 25 ? this.file.Key.slice(0, 25) + "..." : this.file.Key;
 		},
 		size() {
