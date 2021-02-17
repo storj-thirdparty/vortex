@@ -202,7 +202,7 @@ export default {
 		createFolderEnabled() {
 			return this.createFolderInput.trim().length > 0 &&
 				this.createFolderInput.indexOf("/") === -1 &&
-				this.createFolderInput.indexOf(".") === -1 &&
+				[...this.createFolderInput].filter((char) => char === '.').length !== this.createFolderInput.length &&
 				this.files.filter(file => file.Key === this.createFolderInput.trim()).length === 0;
 		},
 		path() {
