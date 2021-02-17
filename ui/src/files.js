@@ -5,13 +5,18 @@ const listCache = new Map();
 export default {
 	namespaced: true,
 	state: {
-		path: "",
-		files: []
+		path: '',
+		files: [],
+		isUploading: false,
 	},
 	mutations: {
 		updateFiles(state, {path, files}) {
 			state.path = path;
 			state.files = files;
+		},
+
+		setUploading(state, flag) {
+			state.isUploading = flag;
 		},
 
 		sortFiles(state, { heading, order }) {
@@ -151,6 +156,10 @@ export default {
 			if (heading === "name") commit("sortFiles", { heading: "Key", order });
 			else if (heading === "size") commit("sortFiles", { heading: "Size", order });
 			else if (heading === "date") commit("sortFiles", { heading: "LastModified", order });
+		},
+
+		updateUploading({ commit }, flag) {
+			commit('setUploading', flag);
 		},
 
 	}
