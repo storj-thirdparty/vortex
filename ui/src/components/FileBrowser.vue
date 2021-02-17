@@ -43,12 +43,6 @@
 	cursor: pointer;
 }
 
-.ellipsis {
-	text-overflow: ellipsis;
-	white-space: nowrap;
-  overflow: scroll;
-}
-
 </style>
 
 <template>
@@ -89,7 +83,7 @@
 
 				</div>
 
-				<div class="ellipsis">
+				<div>
 					<table class="table table-hover">
 						<thead>
 							<tr>
