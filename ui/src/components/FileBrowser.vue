@@ -297,7 +297,6 @@ export default {
 				a.setAttribute('download', 'download');
 				document.body.appendChild(a);
 				a.style = "display: none";
-				console.log(a)
 				a.click();
 				a.remove();
 			};
