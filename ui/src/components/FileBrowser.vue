@@ -227,7 +227,7 @@ export default {
 	},
 
 	created() {
-		this.$store.dispatch('files/updateUploading', false);
+		this.$store.dispatch('files/updatePreventRefresh', false);
 	},
 
   beforeMount() {
@@ -238,7 +238,7 @@ export default {
   },
 
 	beforeRouteLeave(to, from, next) {
-    if (this.$store.state.files.isUploading) {
+    if (this.$store.state.files.preventRefresh) {
       if (window.confirm("Navigating to another page will stop files from being uploaded. Would you like to wait for the files to finish uploading?")) {
         return;
       }
@@ -248,7 +248,7 @@ export default {
 
 	methods: {
 		preventNav(event) {
-      if (!this.$store.state.files.isUploading) return;
+      if (!this.$store.state.files.preventRefresh) return;
       event.preventDefault();
       // Chrome requires returnValue to be set.
       event.returnValue = "";
@@ -257,7 +257,7 @@ export default {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + "..." : file.Key;
 		},
 		async upload(e) {
-			this.$store.dispatch('files/updateUploading', true);
+			this.$store.dispatch('files/updatePreventRefresh', true);
 			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
 
 			await Promise.all([...files].map(async file => {
@@ -280,7 +280,7 @@ export default {
 				});
 			}));
 
-			this.$store.dispatch('files/updateUploading', false);
+			this.$store.dispatch('files/updatePreventRefresh', false);
 		},
 
 		async download(file) {

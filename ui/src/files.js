@@ -7,7 +7,7 @@ export default {
 	state: {
 		path: '',
 		files: [],
-		isUploading: false,
+		preventRefresh: false,
 	},
 	mutations: {
 		updateFiles(state, {path, files}) {
@@ -15,8 +15,8 @@ export default {
 			state.files = files;
 		},
 
-		setUploading(state, flag) {
-			state.isUploading = flag;
+		setPreventRefresh(state, flag) {
+			state.preventRefresh = flag;
 		},
 
 		sortFiles(state, { heading, order }) {
@@ -127,7 +127,11 @@ export default {
 				files: 1
 			});
 
-			if (!folder) dispatch("list");
+			if (!folder) {
+				dispatch('updatePreventRefresh', false);
+				dispatch("list");
+			}
+
 		},
 
 		async deleteFolder({dispatch, rootState}, { file, path }) {
@@ -162,6 +166,7 @@ export default {
 			await recurse(path.length > 0 ? path + file.Key : file.Key + "/");
 
 			await dispatch("list");
+			dispatch('updatePreventRefresh', false);
 		},
 
 		sortAllFiles({ commit }, { heading, order }) {
@@ -170,8 +175,8 @@ export default {
 			else if (heading === "date") commit("sortFiles", { heading: "LastModified", order });
 		},
 
-		updateUploading({ commit }, flag) {
-			commit('setUploading', flag);
+		updatePreventRefresh({ commit }, flag) {
+			commit('setPreventRefresh', flag);
 		},
 
 	}
