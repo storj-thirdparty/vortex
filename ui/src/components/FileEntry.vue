@@ -202,6 +202,7 @@ export default {
 	},
 	methods: {
 		async share(event) {
+			console.log("I've been clicked!")
 			event.stopPropagation();
 			this.$emit("share");
 
@@ -211,18 +212,13 @@ export default {
 				Expires: 60 * 60 * 24
 			});
 
-			await navigator.permissions.query({
-				name: "clipboard-write"
-			});
 			await navigator.clipboard.writeText(url);
 			this.shareText = "URL Copied!";
 
 			setTimeout(() => {
 				this.$store.dispatch("openDropdown", null);
+				this.shareText = "Copy Link";
 			}, 700);
-
-			await new Promise(resolve => setTimeout(resolve, 1000));
-			this.shareText = "Copy Link";
 		},
 		toggleDropdown(event) {
 			event.stopPropagation();
