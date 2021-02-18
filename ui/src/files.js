@@ -153,8 +153,6 @@ export default {
 				await Promise.all([
 					thread(),
 					thread(),
-					thread(),
-					thread(),
 					thread()
 				]);
 
