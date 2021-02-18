@@ -137,7 +137,7 @@
 								</td>
 								<td>
 									<div class="progress">
-										<div class="progress-bar" role="progressbar" v-bind:style="{width: `${file.progress * 100}%`}"></div>
+										<div class="progress-bar" role="progressbar" v-bind:style="{width: `${file.progress}%`}">{{file.progress}}%</div>
 									</div>
 								</td>
 								<td></td>
@@ -193,7 +193,6 @@ import BreadCrumbs from "./BreadCrumbs.vue";
 export default {
 	data: () => ({
 		s3: null,
-		filesUploading: [],
 		createFolderInput: "",
 		createFolderInputShow: false,
 		nameHover: false,
@@ -213,6 +212,9 @@ export default {
 		},
 		files() {
 			return this.$store.state.files.files;
+		},
+		filesUploading() {
+			return this.$store.state.files.uploading;
 		}
 	},
 	updated() {
@@ -260,43 +262,7 @@ export default {
 			return file.Key.length > 25 ? file.Key.slice(0, 25) + "..." : file.Key;
 		},
 		async upload(e) {
-			this.$store.dispatch('files/updatePreventRefresh', true);
-			let files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
-
-			await Promise.all([...files].map(async file => {
-				const params = {
-					Bucket: this.$store.state.stargateBucket,
-					Key: this.path + file.name,
-					Body: file
-				};
-
-				this.filesUploading.push({
-					...params,
-					progress: 0
-				});
-
-				const upload = this.s3.upload({
-					...params
-				});
-
-				upload.on('httpUploadProgress', progress => {
-					console.log(progress);
-					this.filesUploading.find(f => f.Key === params.Key).progress = progress.loaded / progress.total;
-				});
-
-				await upload.promise();
-
-				await this.list();
-
-				this.filesUploading.splice(this.filesUploading.indexOf(params), 1);
-
-				await axios.post("/api/events/upload", {
-					bytes: file.size,
-					files: 1
-				});
-			}));
-
-			this.$store.dispatch('files/updatePreventRefresh', false);
+			await this.$store.dispatch("files/upload", e);
 		},
 
 		async download(file) {
@@ -325,19 +291,19 @@ export default {
 		},
 
 		async list(path) {
-			this.$store.dispatch("files/list", path, {
+			await this.$store.dispatch("files/list", path, {
 				root: true
 			});
 		},
 
 		async go(path) {
-			this.$store.dispatch("openDropdown", null);
+			await this.$store.dispatch("openDropdown", null);
 			await this.list(this.path + path);
 		},
 
 		async back() {
-			this.$store.dispatch("openDropdown", null);
-			this.$store.dispatch("files/back");
+			await this.$store.dispatch("openDropdown", null);
+			await this.$store.dispatch("files/back");
 		},
 
 		async buttonUpload() {
@@ -346,7 +312,7 @@ export default {
 		},
 
 		async createFolder() {
-			this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
+			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;

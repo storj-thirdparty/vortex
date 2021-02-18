@@ -7,10 +7,14 @@ export default {
 	state: {
 		path: '',
 		files: [],
+		uploading: [],
 		preventRefresh: false,
 	},
 	mutations: {
-		updateFiles(state, {path, files}) {
+		updateFiles(state, {
+			path,
+			files
+		}) {
 			state.path = path;
 			state.files = files;
 		},
@@ -19,7 +23,10 @@ export default {
 			state.preventRefresh = flag;
 		},
 
-		sortFiles(state, { heading, order }) {
+		sortFiles(state, {
+			heading,
+			order
+		}) {
 			if (order === "asc") {
 				if (heading === "LastModified") {
 					state.files.sort((a, b) => new Date(a.LastModified) - new Date(b.LastModified));
@@ -37,22 +44,41 @@ export default {
 					state.files.sort((a, b) => b[heading] - a[heading]);
 				}
 			}
+		},
+
+		pushUpload(state, file) {
+			state.uploading.push(file);
+		},
+
+		setProgress(state, {
+			Key,
+			progress
+		}) {
+			state.uploading.find(file => file.Key === Key).progress = progress;
+		},
+
+		finishUpload(state, Key) {
+			state.uploading = state.uploading.filter(file => file.Key !== Key);
 		}
 	},
 	actions: {
-		async list({commit, state, rootState}, path) {
-			if(typeof path !== "string") {
+		async list({
+			commit,
+			state,
+			rootState
+		}, path) {
+			if (typeof path !== "string") {
 				path = state.path;
 			}
 
-			if(listCache.has(path) === true) {
+			if (listCache.has(path) === true) {
 				commit("updateFiles", {
 					path,
 					files: listCache.get(path)
 				});
 			}
 
-			if(rootState.s3 === null) {
+			if (rootState.s3 === null) {
 				return;
 			}
 
@@ -82,20 +108,26 @@ export default {
 					Key: file.Key.slice(path.length),
 					type: "file"
 				}))
-					.filter(file => file.Key.length > 0)
-					.filter(file => file.Key !== ".vortex_placeholder")
+				.filter(file => file.Key.length > 0)
+				.filter(file => file.Key !== ".vortex_placeholder")
 			];
 
 			listCache.set(path, files);
-			commit("updateFiles", {path, files});
+			commit("updateFiles", {
+				path,
+				files
+			});
 		},
 
-		async back({state, dispatch}) {
+		async back({
+			state,
+			dispatch
+		}) {
 			const path = state.path;
 
 			let i = path.length - 2;
 
-			while(path[i - 1] !== "/" && i > 0) {
+			while (path[i - 1] !== "/" && i > 0) {
 				i--;
 			}
 
@@ -104,7 +136,59 @@ export default {
 			dispatch("list", newPath);
 		},
 
-		async createFolder({state, dispatch, rootState}, name) {
+		async upload({
+			commit,
+			state,
+			rootState,
+			dispatch
+		}, e) {
+			//dispatch('updatePreventRefresh', true);
+
+			const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
+
+			await Promise.all([...files].map(async file => {
+				const params = {
+					Bucket: rootState.stargateBucket,
+					Key: state.path + file.name,
+					Body: file
+				};
+
+				commit("pushUpload", {
+					...params,
+					progress: 0
+				});
+
+				const upload = rootState.s3.upload({
+					...params
+				});
+
+				upload.on('httpUploadProgress', progress => {
+					commit("setProgress", {
+						Key: params.Key,
+						progress: Math.round(progress.loaded / progress.total * 100)
+					});
+				});
+
+				await upload.promise();
+
+				await dispatch("list");
+
+				commit("finishUpload", params.Key);
+
+				await axios.post("/api/events/upload", {
+					bytes: file.size,
+					files: 1
+				});
+			}));
+
+			//dispatch('updatePreventRefresh', false);
+		},
+
+		async createFolder({
+			state,
+			dispatch,
+			rootState
+		}, name) {
 			await rootState.s3.putObject({
 				Bucket: rootState.stargateBucket,
 				Key: state.path + name + "/.vortex_placeholder"
@@ -118,7 +202,14 @@ export default {
 			});
 		},
 
-		async delete({dispatch, rootState}, { path, file, folder }) {
+		async delete({
+			dispatch,
+			rootState
+		}, {
+			path,
+			file,
+			folder
+		}) {
 			await rootState.s3.deleteObject({
 				Bucket: rootState.stargateBucket,
 				Key: path + file.Key
@@ -136,19 +227,32 @@ export default {
 
 		},
 
-		async deleteFolder({dispatch, rootState}, { file, path }) {
+		async deleteFolder({
+			dispatch,
+			rootState
+		}, {
+			file,
+			path
+		}) {
 			async function recurse(filePath) {
-				const {Contents, CommonPrefixes} = await rootState.s3.listObjects({
+				const {
+					Contents,
+					CommonPrefixes
+				} = await rootState.s3.listObjects({
 					Bucket: rootState.stargateBucket,
 					Delimiter: "/",
 					Prefix: filePath,
 				}).promise();
 
 				async function thread() {
-					while(Contents.length) {
+					while (Contents.length) {
 						const file = Contents.pop();
 
-						await dispatch("delete", { path: "", file, folder: true });
+						await dispatch("delete", {
+							path: "",
+							file,
+							folder: true
+						});
 					}
 				}
 
@@ -158,7 +262,9 @@ export default {
 					thread()
 				]);
 
-				for(const {Prefix} of CommonPrefixes) {
+				for (const {
+						Prefix
+					} of CommonPrefixes) {
 					await recurse(Prefix);
 				}
 			}
@@ -169,13 +275,29 @@ export default {
 			dispatch('updatePreventRefresh', false);
 		},
 
-		sortAllFiles({ commit }, { heading, order }) {
-			if (heading === "name") commit("sortFiles", { heading: "Key", order });
-			else if (heading === "size") commit("sortFiles", { heading: "Size", order });
-			else if (heading === "date") commit("sortFiles", { heading: "LastModified", order });
+		sortAllFiles({
+			commit
+		}, {
+			heading,
+			order
+		}) {
+			if (heading === "name") commit("sortFiles", {
+				heading: "Key",
+				order
+			});
+			else if (heading === "size") commit("sortFiles", {
+				heading: "Size",
+				order
+			});
+			else if (heading === "date") commit("sortFiles", {
+				heading: "LastModified",
+				order
+			});
 		},
 
-		updatePreventRefresh({ commit }, flag) {
+		updatePreventRefresh({
+			commit
+		}, flag) {
 			commit('setPreventRefresh', flag);
 		},
 
