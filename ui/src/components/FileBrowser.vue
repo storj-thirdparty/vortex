@@ -294,14 +294,13 @@ export default {
 				a = document.createElement("a");
 				a.href = data;
 				a.download = fileName;
-				a.setAttribute('download', fileName);
 				document.body.appendChild(a);
 				a.style = "display: none";
 				a.click();
 				a.remove();
 			};
 
-			downloadURL(url);
+			downloadURL(url, file.Key);
 
 			await axios.post("/api/events/download", {
 				bytes: file.Size,
