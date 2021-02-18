@@ -82,6 +82,8 @@ export default {
 					Key: file.Key.slice(path.length),
 					type: "file"
 				}))
+					.filter(file => file.Key.length > 0)
+					.filter(file => file.Key !== ".vortex_placeholder")
 			];
 
 			listCache.set(path, files);
