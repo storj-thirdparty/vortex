@@ -8,6 +8,9 @@ export default {
 		path: '',
 		files: [],
 		preventRefresh: false,
+		selectedFile: null,
+		shiftSelectedFiles: [],
+		filesToBeDeleted: [],
 	},
 	mutations: {
 		updateFiles(state, {path, files}) {
@@ -19,24 +22,66 @@ export default {
 			state.preventRefresh = flag;
 		},
 
+		setSelectedFile(state, file) {
+			state.selectedFile = file;
+			state.shiftSelectedFiles = [];
+		},
+
+		setFilesToBeDeleted(state, files) {
+			state.filesToBeDeleted = [...state.filesToBeDeleted, ...files];
+		},
+
+		removeFileToBeDeleted(state, file) {
+			state.filesToBeDeleted = state.filesToBeDeleted.filter((singleFile) => singleFile.Key !== file.Key);
+		},
+
+		removeAllFilesToBeDeleted(state) {
+			state.filesToBeDeleted = [];
+		},
+
+		setShiftSelectedFiles(state, file) {
+			if (!state.selectedFile) {
+				state.selectedFile = file;
+				return;
+			}
+
+			let anchorIdx;
+			for (let i = 0; i < state.files.length ; i++) {
+				if (state.files[i] === state.selectedFile) anchorIdx = i;
+			}
+
+			let shiftIdx;
+			for (let i = 0; i < state.files.length ; i++) {
+				if (state.files[i] === file) shiftIdx = i;
+			}
+
+			if (anchorIdx > shiftIdx) [anchorIdx, shiftIdx] = [shiftIdx, anchorIdx];
+
+			state.shiftSelectedFiles = state.files.slice(anchorIdx, shiftIdx + 1);
+		},
+
 		sortFiles(state, { heading, order }) {
+			const files = [...state.files];
+
 			if (order === "asc") {
 				if (heading === "LastModified") {
-					state.files.sort((a, b) => new Date(a.LastModified) - new Date(b.LastModified));
+					files.sort((a, b) => new Date(a.LastModified) - new Date(b.LastModified));
 				} else if (heading === "Key") {
-					state.files.sort((a, b) => a.Key.localeCompare(b.Key));
+					files.sort((a, b) => a.Key.localeCompare(b.Key));
 				} else {
-					state.files.sort((a, b) => a[heading] - b[heading]);
+					files.sort((a, b) => a[heading] - b[heading]);
 				}
 			} else {
 				if (heading === "LastModified") {
-					state.files.sort((a, b) => new Date(b.LastModified) - new Date(a.LastModified));
+					files.sort((a, b) => new Date(b.LastModified) - new Date(a.LastModified));
 				} else if (heading === "Key") {
-					state.files.sort((a, b) => b.Key.localeCompare(a.Key));
+					files.sort((a, b) => b.Key.localeCompare(a.Key));
 				} else {
-					state.files.sort((a, b) => b[heading] - a[heading]);
+					files.sort((a, b) => b[heading] - a[heading]);
 				}
 			}
+
+			state.files = [...files.filter((file) => file.type === "folder"), ...files.filter((file) => file.type === "file")];
 		}
 	},
 	actions: {
@@ -116,7 +161,7 @@ export default {
 			});
 		},
 
-		async delete({dispatch, rootState}, { path, file, folder }) {
+		async delete({ commit, dispatch, rootState }, { path, file, folder }) {
 			await rootState.s3.deleteObject({
 				Bucket: rootState.stargateBucket,
 				Key: path + file.Key
@@ -128,13 +173,12 @@ export default {
 			});
 
 			if (!folder) {
-				dispatch('updatePreventRefresh', false);
-				dispatch("list");
+				await dispatch("list");
+				commit("removeFileToBeDeleted", file);
 			}
-
 		},
 
-		async deleteFolder({dispatch, rootState}, { file, path }) {
+		async deleteFolder({ commit, dispatch, rootState }, { file, path }) {
 			async function recurse(filePath) {
 				const {Contents, CommonPrefixes} = await rootState.s3.listObjects({
 					Bucket: rootState.stargateBucket,
@@ -163,11 +207,28 @@ export default {
 
 			await recurse(path.length > 0 ? path + file.Key : file.Key + "/");
 
+			commit("removeFileToBeDeleted", file);
 			await dispatch("list");
 			dispatch('updatePreventRefresh', false);
 		},
 
+		async deleteSelected({ rootState, dispatch, commit }) {
+			const filesToDelete = [rootState.files.selectedFile, ...rootState.files.shiftSelectedFiles];
+
+			commit("setPreventRefresh", true);
+			commit("setFilesToBeDeleted", filesToDelete);
+
+			await Promise.all(filesToDelete.map(async (file) => {
+				if (file.type === "file") await dispatch("delete", { file, path: rootState.files.path });
+				else await dispatch("deleteFolder", { file, path: rootState.files.path }
+				);
+			}));
+
+			commit("setPreventRefresh", false);
+		},
+
 		sortAllFiles({ commit }, { heading, order }) {
+			commit("setSelectedFile", null);
 			if (heading === "name") commit("sortFiles", { heading: "Key", order });
 			else if (heading === "size") commit("sortFiles", { heading: "Size", order });
 			else if (heading === "date") commit("sortFiles", { heading: "LastModified", order });
@@ -177,5 +238,20 @@ export default {
 			commit('setPreventRefresh', flag);
 		},
 
+		updateSelectedFile({ commit }, file) {
+			commit('setSelectedFile', file);
+		},
+
+		addToShiftSelectedFiles({ commit }, file) {
+			commit('setShiftSelectedFiles', file);
+		},
+
+		addFileToBeDeleted({ commit }, file) {
+			commit("setFilesToBeDeleted", [file]);
+		},
+
+		removeFileFromToBeDeleted({ commit }, file) {
+			commit("removeFileToBeDeleted", file);
+		}
 	}
 };

@@ -347,6 +347,10 @@ export default {
 			if (this.$store.state.openedDropdown) {
 				this.$store.dispatch("openDropdown", null);
 			}
+
+			if (this.$store.state.files.selectedFile) {
+				this.$store.dispatch("files/updateSelectedFile", null);
+			}
 		},
 	}
 };
