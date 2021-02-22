@@ -39,6 +39,11 @@ export default {
 			state.filesToBeDeleted = [];
 		},
 
+		removeAllSelectedFiles(state) {
+			state.selectedFile = null;
+			state.shiftSelectedFiles = [];
+		},
+
 		setShiftSelectedFiles(state, file) {
 			if (!state.selectedFile) {
 				state.selectedFile = file;
@@ -252,6 +257,10 @@ export default {
 
 		removeFileFromToBeDeleted({ commit }, file) {
 			commit("removeFileToBeDeleted", file);
+		},
+
+		clearAllSelectedFiles({ commit }) {
+			commit("removeAllSelectedFiles");
 		}
 	}
 };
