@@ -384,10 +384,6 @@ import axios from "axios";
 import Hero from "../components/Hero.vue";
 import MainFooter from "../components/MainFooter.vue";
 
-let s3;
-
-const Bucket = "web";
-
 export default {
 	name: "Home",
 	data: () => ({
