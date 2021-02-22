@@ -147,7 +147,7 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr v-bind:class="{ 'plan-row': true, 'plan-selected': id == planId }" v-for="(plan, id) in plans">
+							<tr v-bind:class="{ 'plan-row': true, 'plan-selected': id == planId }" v-for="(plan, id) in plans" v-bind:key="id">
 								<td class="text-right"><img src="@/assets/checkmark.svg" alt="Checkmark" width="14"></td>
 								<td class="plan-name w-25">{{plan.name}}</td>
 								<td>{{plan.storageBytesQuota | prettyBytes}}</td>
