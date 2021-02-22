@@ -116,5 +116,5 @@ dist
 .pnp.*
 
 storj
-config.json
+config*.json
 .gateway
