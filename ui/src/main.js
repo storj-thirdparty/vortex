@@ -31,10 +31,28 @@ const routes = [{
 	path: "/app",
 	component: Dashboard,
 	children: [
-		{ path: "", redirect: "browser" },
-		{ path: "browser", component: FileBrowser },
-		{ path: "apps", component: Apps },
-		{ path: "plan", component: Usage },
+		/*{
+			path: "",
+			redirect: "browser"
+		},*/
+		{
+			path: "browser",
+			component: FileBrowser,
+			children: [
+				{
+					path: "*",
+					component: FileBrowser
+				}
+			]
+		},
+		{
+			path: "apps",
+			component: Apps
+		},
+		{
+			path: "plan",
+			component: Usage
+		}
 	]
 },
 {
