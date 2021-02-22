@@ -204,7 +204,7 @@ export default {
 	computed: {
 		createFolderEnabled() {
 			return this.createFolderInput.trim().length > 0 &&
-				this.createFolderInput.indexOf("/") === -1 && [...this.createFolderInput].filter((char) => char === '.').length !== this.createFolderInput.length &&
+				this.createFolderInput.indexOf("/") === -1 && [...this.createFolderInput].filter((char) => char === ".").length !== this.createFolderInput.length &&
 				this.files.filter(file => file.Key === this.createFolderInput.trim()).length === 0;
 		},
 		path() {
@@ -232,14 +232,14 @@ export default {
 	},
 
 	created() {
-		this.$store.dispatch('files/updatePreventRefresh', false);
+		this.$store.dispatch("files/updatePreventRefresh", false);
 	},
 
 	beforeMount() {
-		window.addEventListener("beforeunload", this.preventNav)
+		window.addEventListener("beforeunload", this.preventNav);
 		this.$once("hook:beforeDestroy", () => {
 			window.removeEventListener("beforeunload", this.preventNav);
-		})
+		});
 	},
 
 	beforeRouteLeave(to, from, next) {

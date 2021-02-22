@@ -202,7 +202,7 @@ export default {
 	},
 	methods: {
 		async share(event) {
-			console.log("I've been clicked!")
+			console.log("I've been clicked!");
 			event.stopPropagation();
 			this.$emit("share");
 
@@ -244,7 +244,7 @@ export default {
 		finalDelete(event) {
 			event.stopPropagation();
 			this.$store.dispatch("openDropdown", null);
-			this.$store.dispatch('files/updatePreventRefresh', true);
+			this.$store.dispatch("files/updatePreventRefresh", true);
 			this.loadingSpinner = true;
 
 			if(this.file.type === "file") {

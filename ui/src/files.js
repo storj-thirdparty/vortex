@@ -5,7 +5,7 @@ const listCache = new Map();
 export default {
 	namespaced: true,
 	state: {
-		path: '',
+		path: "",
 		files: [],
 		uploading: [],
 		preventRefresh: false,
@@ -78,10 +78,6 @@ export default {
 				});
 			}
 
-			if (rootState.s3 === null) {
-				return;
-			}
-
 			const response = await rootState.s3.listObjects({
 				Bucket: rootState.stargateBucket,
 				Delimiter: "/",
@@ -108,8 +104,8 @@ export default {
 					Key: file.Key.slice(path.length),
 					type: "file"
 				}))
-				.filter(file => file.Key.length > 0)
-				.filter(file => file.Key !== ".vortex_placeholder")
+					.filter(file => file.Key.length > 0)
+					.filter(file => file.Key !== ".vortex_placeholder")
 			];
 
 			listCache.set(path, files);
@@ -162,7 +158,7 @@ export default {
 					...params
 				});
 
-				upload.on('httpUploadProgress', progress => {
+				upload.on("httpUploadProgress", progress => {
 					commit("setProgress", {
 						Key: params.Key,
 						progress: Math.round(progress.loaded / progress.total * 100)
@@ -221,7 +217,7 @@ export default {
 			});
 
 			if (!folder) {
-				dispatch('updatePreventRefresh', false);
+				dispatch("updatePreventRefresh", false);
 				dispatch("list");
 			}
 
@@ -263,8 +259,8 @@ export default {
 				]);
 
 				for (const {
-						Prefix
-					} of CommonPrefixes) {
+					Prefix
+				} of CommonPrefixes) {
 					await recurse(Prefix);
 				}
 			}
@@ -272,7 +268,7 @@ export default {
 			await recurse(path.length > 0 ? path + file.Key : file.Key + "/");
 
 			await dispatch("list");
-			dispatch('updatePreventRefresh', false);
+			dispatch("updatePreventRefresh", false);
 		},
 
 		sortAllFiles({
@@ -298,7 +294,7 @@ export default {
 		updatePreventRefresh({
 			commit
 		}, flag) {
-			commit('setPreventRefresh', flag);
+			commit("setPreventRefresh", flag);
 		},
 
 	}
