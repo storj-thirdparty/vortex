@@ -102,7 +102,7 @@
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="access-key" id="lbl-access-key">Access Key</label>
+									<label class="label" for="access-key" id="lbl-access-key">AWS Access ID</label>
 									<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
 									<button v-on:click="copy($store.state.stargateAccessKey, 'accessKeyCopyText')" class="copy">{{accessKeyCopyText}}</button>
 								</div>
@@ -110,7 +110,7 @@
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="secret-key" id="lbl-secret-key">Secret Key</label>
+									<label class="label" for="secret-key" id="lbl-secret-key">AWS Access Key</label>
 									<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
 									<button v-on:click="copy($store.state.stargateSecretKey, 'secretKeyCopyText')" class="copy">{{secretKeyCopyText}}</button>
 								</div>
