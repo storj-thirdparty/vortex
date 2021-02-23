@@ -67,6 +67,8 @@ export default {
 			state,
 			rootState
 		}, path) {
+			console.log({path});
+
 			if (typeof path !== "string") {
 				path = state.path;
 			}
