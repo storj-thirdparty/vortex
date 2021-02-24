@@ -305,10 +305,6 @@ export default {
 		}
 	},
 
-	created() {
-		this.$store.dispatch("files/updatePreventRefresh", false);
-	},
-
 	beforeMount() {
 		window.addEventListener("beforeunload", this.preventNav);
 		this.$once("hook:beforeDestroy", () => {
@@ -341,7 +337,7 @@ export default {
 			return this.$store.state.openedDropdown === "FileBrowser";
 		},
 		areThereFilesToDelete() {
-			console.log('areThereFilesToDelete', this.$store.state.files.selectedFile)
+			console.log("areThereFilesToDelete", this.$store.state.files.selectedFile);
 			return !!this.$store.state.files.selectedFile;
 		},
 		preventNav(event) {
@@ -388,7 +384,7 @@ export default {
 			});
 		},
 
-		 async go(path) {
+		async go(path) {
 			await this.$store.dispatch("openDropdown", null);
 			await this.list(this.path + path);
 		},

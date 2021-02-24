@@ -219,7 +219,7 @@ export default {
 		},
 		fileClick(event) {
 			event.stopPropagation();
-			this.$emit('go', this.file.Key + '/');
+			this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
 			return this.$store.state.files.selectedFile === this.file ||
@@ -281,7 +281,7 @@ export default {
 		async finalDelete(event) {
 			event.stopPropagation();
 			this.$store.dispatch("openDropdown", null);
-			this.$store.dispatch('files/updatePreventRefresh', true);
+			this.$store.dispatch("files/updatePreventRefresh", true);
 			this.$store.dispatch("files/addFileToBeDeleted", this.file);
 
 			if(this.file.type === "file") {

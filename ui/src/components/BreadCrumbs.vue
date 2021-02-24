@@ -31,13 +31,13 @@ export default {
 		}
 	},
 	methods: {
-        link(idx) {
-            const crumbs = this.crumbs;
+		link(idx) {
+			const crumbs = this.crumbs;
 			let path = "";
 			if (idx > 0) path = crumbs.slice(1, idx + 1).join("/") + "/";
 
-            return '/app/browser/' + path;
-        },
+			return "/app/browser/" + path;
+		},
 		displayDivider(idx) {
 			const length = this.crumbs.length;
 			return (idx !== 0 || length > 1) && (idx !== length - 1);

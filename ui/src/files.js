@@ -336,11 +336,11 @@ export default {
 		},
 
 		updateSelectedFile({ commit }, file) {
-			commit('setSelectedFile', file);
+			commit("setSelectedFile", file);
 		},
 
 		addToShiftSelectedFiles({ commit }, file) {
-			commit('setShiftSelectedFiles', file);
+			commit("setShiftSelectedFiles", file);
 		},
 
 		addFileToBeDeleted({ commit }, file) {
