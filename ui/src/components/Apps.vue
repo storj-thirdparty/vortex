@@ -190,10 +190,6 @@ export default {
 	}),
 	methods: {
 		async copy(text, field) {
-			await navigator.permissions.query({
-				name: "clipboard-write"
-			});
-
 			await navigator.clipboard.writeText(text);
 
 			this[field] = "Copied!";
