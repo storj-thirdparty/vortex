@@ -191,9 +191,25 @@ export default {
 			const files = e.dataTransfer ? e.dataTransfer.files : e.target.files;
 
 			await Promise.all([...files].map(async file => {
+				// Handle duplicate file names
+				const fileNames = state.files.map((file) => file.Key);
+				let count = 0;
+				let fileName = file.name;
+
+				while (fileNames.includes(fileName)) {
+					count += 1;
+
+					if (count > 1) {
+						fileName = fileName.replace(/([^.]*)(\d+)(.*)/, `$1${count}$3`);
+					} else {
+						fileName = fileName.replace(/([^.]*)(.*)/, `$1 (${count})$2`);
+					}
+				}
+				//
+
 				const params = {
 					Bucket: rootState.stargateBucket,
-					Key: state.path + file.name,
+					Key: state.path + fileName,
 					Body: file
 				};
 
