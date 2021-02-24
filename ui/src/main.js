@@ -141,8 +141,11 @@ const store = new Vuex.Store({
 	},
 	actions: {
 		openDropdown({
-			commit
+			commit, dispatch
 		}, id) {
+			if (id !== "FileBrowser") {
+				dispatch("files/clearAllSelectedFiles", { root: true });
+			}
 			commit("setOpenedDropdown", id);
 		},
 
