@@ -14,11 +14,13 @@ services:
   redis:
     image: redis:latest
   server:
+    image: storjstrategy/vortex:server-latest
     build: server
     links:
       - "postgres:postgres"
       - "redis:redis"
   ui:
+    image: storjstrategy/vortex:ui-latest
     build: ui
     ports:
         - "127.0.0.1:3000:80"

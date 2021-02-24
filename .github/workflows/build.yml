@@ -23,13 +23,7 @@ jobs:
         uses: actions/checkout@v2
       - name: Login to Docker
         run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
-      - name: Build server image
-        working-directory: ./server
-        run: docker build -t storjstrategy/vortex:server-latest .
+      - name: Build
+        run: docker-compose build
       - name: Build ui image
-        working-directory: ./ui
-        run: docker build -t storjstrategy/vortex:ui-latest .
-      - name: Push server image to Docker Hub
-        run: docker push storjstrategy/vortex:server-latest
-      - name: Push ui image to Docker Hub
-        run: docker push storjstrategy/vortex:server-latest
+        run: docker-compose push
