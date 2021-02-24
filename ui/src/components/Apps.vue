@@ -95,7 +95,7 @@
 							<div class="row mb-4">
 								<div class="col text-left">
 									<label class="label" for="stargate-endpoint" id="lbl-stargate-endpoint">S3 Compatible Endpoint</label>
-									<input type="password" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
+									<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
 									<button v-on:click="copy($store.state.stargateEndpoint, 'endpointCopyText')" class="copy">{{endpointCopyText}}</button>
 								</div>
 							</div>
@@ -120,7 +120,7 @@
 							<div class="row mb-5">
 								<div class="col text-left">
 									<label class="label" for="bucket" id="lbl-bucket">Bucket</label>
-									<input type="password" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
+									<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
 									<button v-on:click="copy($store.state.stargateBucket, 'bucketCopyText')" class="copy">{{bucketCopyText}}</button>
 								</div>
 							</div>
