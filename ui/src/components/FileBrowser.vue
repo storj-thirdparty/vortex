@@ -147,7 +147,11 @@
 							</tr>
 
 							<tr v-if="path.length > 0">
-								<td><a href="javascript:null" v-on:click="back">..</a></td>
+								<td>
+									<router-link to="../">
+										<a href="javascript:null" v-on:click="back">..</a>
+									</router-link>
+								</td>
 							</tr>
 
 							<tr v-if="createFolderInputShow === true">
@@ -213,6 +217,14 @@ export default {
 		},
 		filesUploading() {
 			return this.$store.state.files.uploading;
+		},
+		routePath() {
+			return this.$route.params.pathMatch;
+		}
+	},
+	watch: {
+		async routePath() {
+			await this.goToRoutePath();
 		}
 	},
 	updated() {
@@ -294,9 +306,16 @@ export default {
 			});
 		},
 
-		async go(path) {
+		 async go(path) {
 			await this.$store.dispatch("openDropdown", null);
 			await this.list(this.path + path);
+		},
+
+		async goToRoutePath() {
+			if(typeof this.routePath === "string") {
+				await this.$store.dispatch("openDropdown", null);
+				await this.list(this.routePath);
+			}
 		},
 
 		async back() {
@@ -310,6 +329,7 @@ export default {
 		},
 
 		async createFolder() {
+			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
 			this.createFolderInput = "";
@@ -352,6 +372,9 @@ export default {
 				if (heading === "date") this.dateHover = false;
 			}
 		},
+	},
+	async created() {
+		await this.list(this.routePath);
 	},
 	components: {
 		FileEntry,

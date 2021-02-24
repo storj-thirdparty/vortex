@@ -38,7 +38,7 @@
 			</div>
 		</div>
 
-		<router-view></router-view>
+		<router-view v-if="isLoggedIn"></router-view>
 
 	</div>
 
@@ -90,7 +90,6 @@ export default {
 		}
 
 		this.$store.dispatch("getUsage");
-		this.$store.dispatch("files/list");
 	}
 };
 </script>
