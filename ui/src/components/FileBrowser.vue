@@ -337,7 +337,6 @@ export default {
 			return this.$store.state.openedDropdown === "FileBrowser";
 		},
 		areThereFilesToDelete() {
-			console.log("areThereFilesToDelete", this.$store.state.files.selectedFile);
 			return !!this.$store.state.files.selectedFile;
 		},
 		preventNav(event) {

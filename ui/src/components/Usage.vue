@@ -152,7 +152,7 @@
 								<td class="plan-name w-25">{{plan.name}}</td>
 								<td>{{plan.storageBytesQuota | prettyBytes}}</td>
 								<td>{{plan.downloadBytesQuota | prettyBytes}}</td>
-								<td>1,000</td>
+								<td>{{plan.storageFilesQuota.toLocaleString()}}</td>
 								<td></td>
 							</tr>
 						</tbody>
