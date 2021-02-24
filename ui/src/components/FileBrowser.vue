@@ -457,7 +457,7 @@ export default {
 					path: `/app/browser/${this.path}`
 				});
 			} catch(err) {
-				await this.list('');
+				await this.list("");
 			}
 		}
 	},
