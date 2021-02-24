@@ -41,7 +41,7 @@
 		"eslint-plugin-vue": "^7.6.0",
 		"nodemon": "^2.0.6",
 		"vue-template-compiler": "^2.6.11",
-		"xo": "^0.35.0"
+		"xo": "^0.38.1"
 	},
 	"browserslist": [
 		"> 1%",
