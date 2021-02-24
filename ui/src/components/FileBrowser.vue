@@ -337,7 +337,6 @@ export default {
 			return this.$store.state.openedDropdown === "FileBrowser";
 		},
 		areThereFilesToDelete() {
-			console.log("areThereFilesToDelete", this.$store.state.files.selectedFile);
 			return !!this.$store.state.files.selectedFile;
 		},
 		preventNav(event) {
@@ -452,7 +451,15 @@ export default {
 		},
 	},
 	async created() {
-		await this.list(this.routePath);
+		if(!this.routePath) {
+			try {
+				await this.$router.push({
+					path: `/app/browser/${this.path}`
+				});
+			} catch(err) {
+				await this.list('');
+			}
+		}
 	},
 	components: {
 		FileEntry,
