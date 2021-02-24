@@ -329,6 +329,7 @@ export default {
 		},
 
 		async createFolder() {
+			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
 			this.createFolderInput = "";
