@@ -200,7 +200,7 @@ export default {
 					count += 1;
 
 					if (count > 1) {
-						fileName = fileName.replace(/([^.]*)(\d+)(.*)/, `$1${count}$3`);
+						fileName = fileName.replace(/\((\d+)\)(.*)/, `(${count})$2`);
 					} else {
 						fileName = fileName.replace(/([^.]*)(.*)/, `$1 (${count})$2`);
 					}
