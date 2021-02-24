@@ -95,14 +95,14 @@
 							<div class="row mb-4">
 								<div class="col text-left">
 									<label class="label" for="stargate-endpoint" id="lbl-stargate-endpoint">S3 Compatible Endpoint</label>
-									<input type="text" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
+									<input type="password" id="stargate-endpoint" class="form-control" autocomplete="off" v-model="this.$store.state.stargateEndpoint" disabled>
 									<button v-on:click="copy($store.state.stargateEndpoint, 'endpointCopyText')" class="copy">{{endpointCopyText}}</button>
 								</div>
 							</div>
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="access-key" id="lbl-access-key">Access Key</label>
+									<label class="label" for="access-key" id="lbl-access-key">AWS Access ID</label>
 									<input type="text" id="access-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateAccessKey" disabled>
 									<button v-on:click="copy($store.state.stargateAccessKey, 'accessKeyCopyText')" class="copy">{{accessKeyCopyText}}</button>
 								</div>
@@ -110,7 +110,8 @@
 
 							<div class="row mb-4">
 								<div class="col text-left">
-									<label class="label" for="secret-key" id="lbl-secret-key">Secret Key</label>
+
+									<label class="label" for="secret-key" id="lbl-secret-key">AWS Access Key</label>
 									<input type="text" id="secret-key" class="form-control" autocomplete="off" v-model="this.$store.state.stargateSecretKey" disabled>
 									<button v-on:click="copy($store.state.stargateSecretKey, 'secretKeyCopyText')" class="copy">{{secretKeyCopyText}}</button>
 								</div>
@@ -119,7 +120,7 @@
 							<div class="row mb-5">
 								<div class="col text-left">
 									<label class="label" for="bucket" id="lbl-bucket">Bucket</label>
-									<input type="text" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
+									<input type="password" id="bucket" class="form-control" autocomplete="off" v-model="this.$store.state.stargateBucket" disabled>
 									<button v-on:click="copy($store.state.stargateBucket, 'bucketCopyText')" class="copy">{{bucketCopyText}}</button>
 								</div>
 							</div>
@@ -190,10 +191,6 @@ export default {
 	}),
 	methods: {
 		async copy(text, field) {
-			await navigator.permissions.query({
-				name: "clipboard-write"
-			});
-
 			await navigator.clipboard.writeText(text);
 
 			this[field] = "Copied!";
