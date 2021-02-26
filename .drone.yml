@@ -6,8 +6,9 @@ steps:
   image: plugins/docker
   settings:
     context: server
+    tags: server-latest
 - name: build ui  
   image: plugins/docker
   settings:
     context: ui
-   
+    tags: ui-latest
