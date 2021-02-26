@@ -6,13 +6,11 @@ steps:
   image: plugins/docker
   settings:
     context: server
-    tags: server
     auto_tag: true
     dockerfile: server/Dockerfile
 - name: build ui  
   image: plugins/docker
   settings:
     context: ui
-    tags: ui
     auto_tag: true
     dockerfile: ui/Dockerfile
