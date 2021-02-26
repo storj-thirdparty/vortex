@@ -9,6 +9,7 @@ steps:
     tags:
       - 'server-latest'
     dockerfile: server/Dockerfile
+    repo: storjstrategy/vortex
     dry_run: true
 - name: build ui  
   image: plugins/docker
@@ -17,4 +18,5 @@ steps:
     tags:
       - 'ui-latest'
     dockerfile: ui/Dockerfile
+    repo: storjstrategy/vortex
     dry_run: true
