@@ -13,3 +13,4 @@ steps:
   settings:
     context: ui
     tags: ui-latest
+    dockerfile: ui/Dockerfile
