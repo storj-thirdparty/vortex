@@ -9,6 +9,7 @@ steps:
     tags:
       - 'server-latest'
     dockerfile: server/Dockerfile
+    dry_run: true
 - name: build ui  
   image: plugins/docker
   settings:
@@ -16,3 +17,4 @@ steps:
     tags:
       - 'ui-latest'
     dockerfile: ui/Dockerfile
+    dry_run: true
