@@ -170,6 +170,7 @@ describe('Passive login route', () => {
       activated: expect.any(Boolean),
       features: expect.any(String),
       planId: expect.any(String),
+      plans: expect.any(Object)
      });
   });
 });
@@ -245,9 +246,13 @@ describe('Admin users route', () => {
     expect(response.body).toEqual({ error: 'Unauthorized' });
   });
 
-  it('Should return an unathorized error if no token is provided', async () => {
-    const response = await axios.post(`${SERVER_URL}/api/activate`);
-    expect(response.body).toEqual({ error: 'Unauthorized' });
+  it('Should return all users', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/admin/users`, { token: 'testadmintoken' });
+    expect(response.body).objectContaining({
+      users: expect.any(Object),
+      results: expect.any(Object),
+      plans: expect.any(Object)
+     });
   });
 });
 
@@ -261,6 +266,19 @@ describe('Admin json ID route', () => {
     const response = await axios.post(`${SERVER_URL}/api/admin/json/${1}`);
     expect(response.body).toEqual({ error: 'Unauthorized' });
   });
+
+  it('Should return successful summary', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/admin/json/${1}`, { token: 'testadmintoken' });
+    expect(response.body).objectContaining({
+      id: expect.any(String),
+      email: expect.any(String),
+      createTime: expect.any(String),
+      activated: expect.any(Bool),
+      lastLoginTime: expect.any(String),
+      planId: expect.any(String),
+      events: expect.any(Object)
+     })
+  })
 });
 
 describe('Admin setplan route', () => {
@@ -273,12 +291,22 @@ describe('Admin setplan route', () => {
     const response = await axios.post(`${SERVER_URL}/api/admin/setplan`);
     expect(response.body).toEqual({ error: 'Unauthorized' });
   });
+
+  it('Should return an empty body signifying success', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/admin/setplan`, { userId: 'test', planId:  'free-1g' });
+    expect(response.body).toEqual('');
+  });
 });
 
 describe('Events upload route', () => {
   it('Should return a 200 status code', async () => {
     const response = await axios.post(`${SERVER_URL}/api/events/upload`);
     expect(response.status).toEqual(200);
+  });
+
+  it('Should return an empty body signifying success', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/events/upload`, { files: 'test.txt', bytes: 1000, userId: '1' });
+    expect(response.status).toEqual('');
   });
 });
 
@@ -287,11 +315,21 @@ describe('Events download route', () => {
     const response = await axios.post(`${SERVER_URL}/api/events/download`);
     expect(response.status).toEqual(200);
   });
+
+  it('Should return an empty body signifying success', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/events/download`, { files: 'test.txt', bytes: 1000, userId: '1' });
+    expect(response.status).toEqual('');
+  });
 });
 
 describe('Events delete route', () => {
   it('Should return a 200 status code', async () => {
     const response = await axios.post(`${SERVER_URL}/api/events/delete`);
     expect(response.status).toEqual(200);
+  });
+
+  it('Should return an empty body signifying success', async () => {
+    const response = await axios.post(`${SERVER_URL}/api/events/delete`, { files: 'test.txt', bytes: 1000, userId: '1' });
+    expect(response.status).toEqual('');
   });
 });
