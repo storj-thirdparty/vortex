@@ -8,8 +8,6 @@ RUN yarn install
 
 COPY . .
 
-RUN npm run lint
-
 RUN npm run build
 
 FROM nginx:stable-alpine as production-stage
