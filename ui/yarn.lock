@@ -12763,10 +12763,10 @@ postgres-interval@^1.1.0:
   dependencies:
     xtend "^4.0.0"
 
-postmark@^2.6.0:
-  version "2.7.1"
-  resolved "https://registry.yarnpkg.com/postmark/-/postmark-2.7.1.tgz#752ea78b90a50059fcd14da7a78a7d70105d15c2"
-  integrity sha512-mevTZY8mZ2+DqBQweoUVsjlcsY2wu/WotDKplsFMiOy4mG7euOzmD4pqkWFymMVjeKbU52NZWEkO2Et1X0tdFw==
+postmark@^2.7.2:
+  version "2.7.2"
+  resolved "https://registry.yarnpkg.com/postmark/-/postmark-2.7.2.tgz#741c8d1f5be0aa26cd0709882be6b175b2bbd3c7"
+  integrity sha512-BsHLedDIncwYfp/Y6X3VEXOKICsDPZiogQpeQz+33bVeKK6w9MsbZlMonCvAVJYOdI4YU0ZrsVj1S1xTbC17lg==
   dependencies:
     axios "^0.21.1"
 

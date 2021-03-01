@@ -33,7 +33,7 @@
 		"npm": "^7.6.0",
 		"pg": "^8.5.1",
 		"pg-hstore": "^2.3.3",
-		"postmark": "^2.6.0",
+		"postmark": "^2.7.2",
 		"pretty-bytes": "^5.4.1",
 		"sequelize": "^6.3.5",
 		"vue": "^2.6.11",
