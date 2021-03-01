@@ -1,4 +1,4 @@
-FROM node:current-alpine
+FROM node:current-buster
 
 WORKDIR /usr/src/app
 

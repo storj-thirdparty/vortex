@@ -1,4 +1,4 @@
-FROM node:current-alpine as build-stage
+FROM node:current-buster as build-stage
 
 WORKDIR /app
 
