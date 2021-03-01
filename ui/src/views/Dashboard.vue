@@ -53,7 +53,8 @@ import AppFooter from "../components/AppFooter.vue";
 export default {
 	methods: {
 		tabStyles(tab) {
-			const currentTab = this.$router.history.current.path;
+			const currentTab = this.$router.history.current.path.match(/\/[^\/]*\/[^\/]*/)[0];
+
 			if (currentTab === tab) {
 				return {
 					active: true,
