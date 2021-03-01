@@ -17,12 +17,12 @@ module.exports = async function(ctx, next) {
 		throw new ApiError("Not a valid email address.");
 	}
 
-	if (!password) {
-		throw new ApiError("Not a valid password.");
-	}
-
 	if (email.length > 100) {
 		throw new ApiError("Email too long.");
+	}
+
+	if (!password) {
+		throw new ApiError("Not a valid password.");
 	}
 
 	if (password.length < 8) {
