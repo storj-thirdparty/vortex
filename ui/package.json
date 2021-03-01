@@ -42,7 +42,7 @@
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-router": "4.5.0",
-		"@vue/cli-service": "4.5.0",
+		"@vue/cli-service": "4.4.6",
 		"eslint": "7.20.0",
 		"eslint-plugin-vue": "7.6.0",
 		"nodemon": "2.0.6",
