@@ -460,6 +460,8 @@ export default {
 			} catch(err) {
 				await this.list("");
 			}
+		} else {
+			await this.list(this.routePath);
 		}
 	},
 	components: {
