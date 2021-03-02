@@ -2,7 +2,8 @@ const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
 const SERVER_URL = 'http://localhost:3000';
-const { v4: UUID } = require('uuid');
+const crypto = require("crypto");
+const generateId = () => crypto.randomBytes(16).toString("hex");
 
 describe('Vue app route', () => {
   it('Should return a 200 status code', async () => {
@@ -28,33 +29,33 @@ describe('Sign up route', () => {
   });
 
   it('Should not signup with wrong email format', async () => {
-    const response = await axios.post(`${SERVER_URL}/api/signup`, { email: UUID() });
+    const response = await axios.post(`${SERVER_URL}/api/signup`, { email: generateId() });
     expect(response.data).toEqual({ error: 'Not a valid email address.' });
   });
 
   it('Should not signup without a password', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const response = await axios.post(`${SERVER_URL}/api/signup`, { email });
     console.log(response)
     expect(response.data).toEqual({ error: 'Not a valid password.' });
   });
 
   it('Should not signup without terms and condition', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
     const response = await axios.post(`${SERVER_URL}/api/signup`, { email, password });
     expect(response.data).toEqual({ error: 'Please accept the terms and conditions.' });
   });
 
   it('Should not signup with terms and condition being false', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
     const response = await axios.post(`${SERVER_URL}/api/signup`, { email, password, termsAndConditions: false });
     expect(response.data).toEqual({ error: 'Please accept the terms and conditions.' });
   });
 
   it('Should signup successfully', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
     const response = await axios.post(`${SERVER_URL}/api/signup`, { email, password, termsAndConditions: true });
     expect(response.data).toEqual(
@@ -73,7 +74,7 @@ describe('Sign up route', () => {
   });
 
   it('Should not create a new account if user already exists', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
 
     // create account
@@ -97,20 +98,20 @@ describe('Login route', () => {
   });
 
   it('Should not login without a password', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const response = await axios.post(`${SERVER_URL}/api/login`, { email });
     expect(response.data).toEqual({ error: 'Please enter a password.' });
   });
 
   it('Should not login without a valid account', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
     const response = await axios.post(`${SERVER_URL}/api/login`, { email, password });
     expect(response.data).toEqual({ error: 'Bad username/password.' });
   });
 
   it('Should login successfully', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
     const expected =
 
@@ -152,7 +153,7 @@ describe('Passive login route', () => {
   });
 
   it('Should passively login successfully', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
 
     // sign up
@@ -200,7 +201,7 @@ describe('Usage route', () => {
   });
 
   it('Should return a 200 status code', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
 
     // sign up
@@ -217,7 +218,7 @@ describe('Usage route', () => {
   // write a test for an error when there is no session
 
   it('Should return all usage quota successfully', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
 
     // sign up
@@ -252,7 +253,7 @@ describe('logout route', () => {
   });
 
   it('Should perform a successful deletion', async () => {
-    const email = `${UUID()}@test.com`;
+    const email = `${generateId()}@test.com`;
     const password = '12345678';
 
     // sign up
