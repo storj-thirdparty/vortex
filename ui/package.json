@@ -23,7 +23,8 @@
 		"pretty-bytes": "5.4.1",
 		"vue": "2.6.12",
 		"vue-router": "^3.2.0",
-		"vuex": "3.6.0"
+		"vuex": "3.6.0",
+		"browser":"git://github.com/storj/browser.git#a4f55f8a682f7cf868cc853d8cdc218de4ce0219"
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-router": "4.5.0",
