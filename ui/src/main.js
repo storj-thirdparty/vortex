@@ -7,12 +7,13 @@ import App from "./App.vue";
 import Home from "./views/Home.vue";
 import Admin from "./views/Admin.vue";
 import Dashboard from "./views/Dashboard.vue";
-import FileBrowser from "./components/FileBrowser.vue";
 import Apps from "./components/Apps.vue";
 import Usage from "./components/Usage.vue";
 import NotFound from "./components/NotFound.vue";
 
-import files from "./files.js";
+import {FileBrowser, files} from "browser";
+
+console.log("imported filebrowser", {FileBrowser, files});
 
 Vue.use(Router);
 Vue.use(Vuex);
@@ -168,11 +169,20 @@ const store = new Vuex.Store({
 				commit("setUserError", data.error);
 			} else {
 				commit("setUser", data);
+
+				commit("files/init", {
+					accessKey: data.stargateAccessKey,
+					secretKey: data.stargateSecretKey,
+					bucket: data.stargateBucket,
+					endpoint: data.stargateEndpoint,
+					browserRoot: "/app/browser/"
+				});
 			}
 		},
 
 		async login({
-			commit
+			commit,
+			dispatch
 		}, {
 			email,
 			password
@@ -188,6 +198,14 @@ const store = new Vuex.Store({
 				commit("setUserError", data.error);
 			} else {
 				commit("setUser", data);
+
+				commit("files/init", {
+					accessKey: data.stargateAccessKey,
+					secretKey: data.stargateSecretKey,
+					bucket: data.stargateBucket,
+					endpoint: data.stargateEndpoint,
+					browserRoot: "/app/browser/"
+				});
 			}
 		},
 
@@ -200,6 +218,14 @@ const store = new Vuex.Store({
 
 			if (!data.error) {
 				commit("setUser", data);
+
+				commit("files/init", {
+					accessKey: data.stargateAccessKey,
+					secretKey: data.stargateSecretKey,
+					bucket: data.stargateBucket,
+					endpoint: data.stargateEndpoint,
+					browserRoot: "/app/browser/"
+				});
 			}
 		},
 
