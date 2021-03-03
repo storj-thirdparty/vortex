@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  postgres:
+    image: postgres:latest
+    environment:
+        - POSTGRES_PASSWORD=password
+        - POSTGRES_DB=vortex
+  redis:
+    image: redis:latest
+  server:
+    image: storjstrategy/vortex:server-latest
+    build: server
+    links:
+      - "postgres:postgres"
+      - "redis:redis"
+  ui:
+    image: storjstrategy/vortex:ui-latest
+    build: ui
+    ports:
+        - "127.0.0.1:3000:80"
+    links:
+      - server
+  test:
+    build: test
+    links:
+      - server

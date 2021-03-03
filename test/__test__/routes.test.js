@@ -1,7 +1,8 @@
 const axios = require('axios');
 axios.defaults.adapter = require('axios/lib/adapters/http');
 
-const SERVER_URL = 'http://localhost:3000';
+const SERVER_URL = 'http://server';
+
 const crypto = require("crypto");
 const generateId = () => crypto.randomBytes(16).toString("hex");
 
