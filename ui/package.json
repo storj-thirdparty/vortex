@@ -14,7 +14,7 @@
 		"@vue/cli": "4.5.8",
 		"aws-sdk": "2.852.0",
 		"axios": "0.21.1",
-		"browser": "git://github.com/storj/browser.git#2649cc23cf5c4c357ea3bc155372b07f20da3f3d",
+		"browser": "git://github.com/storj/browser.git#d284f600b4639975f4188cc144a4ebeb1c654739",
 		"human-readable-numbers": "0.9.5",
 		"jest": "26.6.3",
 		"moment": "2.29.1",
