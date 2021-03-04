@@ -228,9 +228,9 @@ tbody {
 					</table>
 				</div>
 
-				<div class="d-flex justify-content-center">
-					<span v-if="fetchingFilesSpinner" class="spinner-border">
-					</span>
+				<div v-if="fetchingFilesSpinner" class="d-flex justify-content-center">
+					<div class="spinner-border">
+					</div>
 				</div>
 
 				<div v-if="!files.length || (files.length === 1 && files[0].Key === '.vortex_placeholder')" class="upload-help">
