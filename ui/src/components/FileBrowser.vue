@@ -219,14 +219,18 @@ tbody {
 								<td span="3">
 									<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
 								</td>
-							</tr>
 
+								<td span="3" v-if="creatingFolderSpinner">
+									<div class="spinner-border" role="status"></div>
+								</td>
+							</tr>
 
 							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 						</tbody>
 					</table>
 				</div>
+
 
 				<div v-if="!files.length || (files.length === 1 && files[0].Key === '.vortex_placeholder')" class="upload-help">
 					<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -259,6 +263,7 @@ export default {
 		headingSorted: null,
 		orderBy: "desc",
 		deleteConfirmation: false,
+		creatingFolderSpinner: false,
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -400,11 +405,14 @@ export default {
 		},
 
 		async createFolder() {
+			this.creatingFolderSpinner = true;
+
 			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
+			this.creatingFolderSpinner = false;
 		},
 
 		sortTable(heading) {
