@@ -222,7 +222,7 @@ tbody {
 							</tr>
 
 
-							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
+							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key" v-on:hideFolderCreation="hideFolderCreation"></file-entry>
 							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 						</tbody>
 					</table>
@@ -315,6 +315,9 @@ export default {
 	},
 
 	methods: {
+		hideFolderCreation() {
+			this.createFolderInputShow = false;
+		},
 		deleteSelectedDropdown(event) {
 			event.stopPropagation();
 			this.$store.dispatch("openDropdown", "FileBrowser");
@@ -390,6 +393,7 @@ export default {
 		},
 
 		async back() {
+			this.createFolderInputShow = false;
 			await this.$store.dispatch("openDropdown", null);
 			await this.$store.dispatch("files/back");
 		},
