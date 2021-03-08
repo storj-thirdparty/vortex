@@ -54,7 +54,7 @@ export default {
 	methods: {
 		tabStyles(tab) {
 			const currentTab = this.$router.history.current.path;
-			if (currentTab === tab) {
+			if (currentTab.startsWith(tab)) {
 				return {
 					active: true,
 				};
