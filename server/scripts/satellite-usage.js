@@ -54,36 +54,40 @@ const config = require("../config.json");
 	});
 
 	for(const bucket of bucketUsages.bucketUsages) {
-		if(bucket.bucketName.startsWith(config.bucketPrefix)) {
-			console.log(bucket);
-			const userId = bucket.bucketName.slice(config.bucketPrefix.length);
+		try {
+			if(bucket.bucketName.startsWith(config.bucketPrefix)) {
+				console.log(bucket);
+				const userId = bucket.bucketName.slice(config.bucketPrefix.length);
 
-			const uploadEvent = Event.build({
-				type: "audit-upload",
-				params: {
-					files: bucket.objectCount,
-					bytes: bucket.storage * 1e+9
-				},
-				userId: userId,
-				date: date
-			});
+				const uploadEvent = Event.build({
+					type: "audit-upload",
+					params: {
+						files: bucket.objectCount,
+						bytes: bucket.storage * 1e+9
+					},
+					userId: userId,
+					date: date
+				});
 
-			await uploadEvent.save();
+				await uploadEvent.save();
 
-			const downloadEvent = Event.build({
-				type: "audit-download",
-				params: {
-					files: bucket.objectCount,
-					bytes: bucket.egress * 1e+9
-				},
-				userId: userId,
-				date: date
-			});
+				const downloadEvent = Event.build({
+					type: "audit-download",
+					params: {
+						files: bucket.objectCount,
+						bytes: bucket.egress * 1e+9
+					},
+					userId: userId,
+					date: date
+				});
 
-			await downloadEvent.save();
+				await downloadEvent.save();
 
-		} else {
-			console.log("found", bucket.bucketName, "with bad prefix");
+			} else {
+				console.log("found", bucket.bucketName, "with bad prefix");
+			}
+		} catch(err) {
+			console.log(err);
 		}
 	}
 })();
