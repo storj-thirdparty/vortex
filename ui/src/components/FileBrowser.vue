@@ -454,7 +454,7 @@ export default {
 				await this.list("");
 			}
 		} else {
-			this.list(this.routePath)
+			await this.list(this.routePath);
 		}
 	},
 	components: {
