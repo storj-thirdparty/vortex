@@ -11,7 +11,19 @@
 
 <template>
   <div>
-    <h1>Sorry, this page does not exist.</h1>
-    <router-link to="/"><div class="home">Go home.</div></router-link>
+    <h1>{{title}}</h1>
+    <router-link to="/app/browser/"><div class="home">Go home.</div></router-link>
   </div>
 </template>
+
+<script>
+export default {
+  name: "NotFound",
+  props: ["context"],
+  computed: {
+    title() {
+      return `Sorry, this ${this.context || 'page'} does not exist.`
+    },
+  }
+}
+</script>

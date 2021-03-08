@@ -220,17 +220,27 @@ tbody {
 									<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
 								</td>
 
+								<td span="3">
+									<button class="btn btn-light" v-on:click="cancelFolderCreation">Cancel</button>
+								</td>
+							</tr>
+
+
 								<td span="3" v-if="creatingFolderSpinner">
 									<div class="spinner-border" role="status"></div>
 								</td>
 							</tr>
 
-							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
+							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key" v-on:hideFolderCreation="hideFolderCreation"></file-entry>
 							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
 						</tbody>
 					</table>
 				</div>
 
+				<div v-if="fetchingFilesSpinner" class="d-flex justify-content-center">
+					<div class="spinner-border">
+					</div>
+				</div>
 
 				<div v-if="!files.length || (files.length === 1 && files[0].Key === '.vortex_placeholder')" class="upload-help">
 					<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -264,6 +274,7 @@ export default {
 		orderBy: "desc",
 		deleteConfirmation: false,
 		creatingFolderSpinner: false,
+		fetchingFilesSpinner: false
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -320,6 +331,9 @@ export default {
 	},
 
 	methods: {
+		hideFolderCreation() {
+			this.createFolderInputShow = false;
+		},
 		deleteSelectedDropdown(event) {
 			event.stopPropagation();
 			this.$store.dispatch("openDropdown", "FileBrowser");
@@ -395,6 +409,7 @@ export default {
 		},
 
 		async back() {
+			this.createFolderInputShow = false;
 			await this.$store.dispatch("openDropdown", null);
 			await this.$store.dispatch("files/back");
 		},
@@ -413,6 +428,11 @@ export default {
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
 			this.creatingFolderSpinner = false;
+		},
+
+		cancelFolderCreation() {
+			this.createFolderInput = "";
+			this.createFolderInputShow = false;
 		},
 
 		sortTable(heading) {
@@ -453,6 +473,8 @@ export default {
 		},
 	},
 	async created() {
+		this.fetchingFilesSpinner = true;
+
 		if(!this.routePath) {
 			try {
 				await this.$router.push({
@@ -462,8 +484,10 @@ export default {
 				await this.list("");
 			}
 		} else {
-			this.list(this.routePath)
+			await this.list(this.routePath);
 		}
+
+		this.fetchingFilesSpinner = false;
 	},
 	components: {
 		FileEntry,
