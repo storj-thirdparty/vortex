@@ -300,20 +300,7 @@ export default {
 			await this.goToRoutePath();
 		}
 	},
-	updated() {
-		if (!this.s3) {
-			const s3Config = {
-				accessKeyId: this.$store.state.stargateAccessKey,
-				secretAccessKey: this.$store.state.stargateSecretKey,
-				endpoint: this.$store.state.stargateEndpoint,
-				s3ForcePathStyle: true,
-				signatureVersion: "v4"
-			};
-
-			this.s3 = new AWS.S3(s3Config);
-		}
-	},
-
+	
 	beforeMount() {
 		window.addEventListener("beforeunload", this.preventNav);
 		this.$once("hook:beforeDestroy", () => {
