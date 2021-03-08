@@ -242,7 +242,7 @@ tbody {
 					</div>
 				</div>
 
-				<div v-if="!files.length || (files.length === 1 && files[0].Key === '.vortex_placeholder')" class="upload-help">
+				<div v-if="dragAndDropDisplay" class="upload-help">
 					<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M16.8616 1.02072L16.8554 1.01398L5.40027 13.3834L7.94585 16.1322L16.2 7.2192V26.2817H19.8V7.64972L27.6554 16.1321L30.201 13.3833L17.8069 0L16.8616 1.02072Z" fill="#93A1AF" />
 						<path d="M36 32.1127H0V36H36V32.1127Z" fill="#93A1AF" />
@@ -274,7 +274,8 @@ export default {
 		orderBy: "desc",
 		deleteConfirmation: false,
 		creatingFolderSpinner: false,
-		fetchingFilesSpinner: false
+		fetchingFilesSpinner: false,
+		dragAndDropDisplay: false,
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -312,6 +313,8 @@ export default {
 
 			this.s3 = new AWS.S3(s3Config);
 		}
+
+		this.dragAndDrop();
 	},
 
 	beforeMount() {
@@ -471,7 +474,16 @@ export default {
 				if (heading === "date") this.dateHover = false;
 			}
 		},
+
+		dragAndDrop() {
+			if (!this.files.length || (this.files.length === 1 && this.files[0].Key === '.vortex_placeholder')) {
+				this.dragAndDropDisplay = true;
+			} else {
+				this.dragAndDropDisplay = false;
+			}
+		},
 	},
+
 	async created() {
 		this.fetchingFilesSpinner = true;
 
