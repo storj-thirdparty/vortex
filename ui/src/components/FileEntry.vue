@@ -220,7 +220,8 @@ export default {
 		},
 		fileClick(event) {
 			event.stopPropagation();
-			this.$emit("go", this.file.Key + "/");
+			this.$emit("hideFolderCreation");
+			// this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
 			return this.$store.state.files.selectedFile === this.file ||

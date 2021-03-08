@@ -56,6 +56,12 @@ const routes = [{
 	]
 },
 {
+	path: "/404",
+	name: "404",
+	component: NotFound,
+	props: true,
+},
+{
 	path: "*",
 	component: NotFound,
 }
@@ -64,7 +70,7 @@ const routes = [{
 // 3. Create the router instance and pass the `routes` option
 // You can pass in additional options here, but let's
 // keep it simple for now.
-const router = new Router({
+export const router = new Router({
 	routes, // Short for `routes: routes`,
 	mode: "history"
 });
