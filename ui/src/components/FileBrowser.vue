@@ -219,6 +219,9 @@ tbody {
 								<td span="3">
 									<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
 								</td>
+								<td span="3">
+									<button class="btn btn-light" v-on:click="cancelFolderCreation">Cancel</button>
+								</td>
 							</tr>
 
 
@@ -403,6 +406,11 @@ export default {
 			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
+			this.createFolderInput = "";
+			this.createFolderInputShow = false;
+		},
+
+		cancelFolderCreation() {
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
 		},
