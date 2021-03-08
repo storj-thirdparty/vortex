@@ -2,15 +2,21 @@ kind: pipeline
 name: default
 
 steps:
-  - name: test
-    image: compose:latest
-    volumes:
-    - name: docker_sock
-      path: /var/run/docker.sock
-    commands:
-    - -f /drone/src/docker-compose-dev.yml up -abort-on-container-exit
-
-volumes:
-  - name: docker_sock
-    host:
-      path: /var/run/docker.sock
+- name: build server
+  image: plugins/docker
+  settings:
+    context: server
+    tags:
+      - 'server-latest'
+    dockerfile: server/Dockerfile
+    repo: storjstrategy/vortex
+    dry_run: true
+- name: build ui  
+  image: plugins/docker
+  settings:
+    context: ui
+    tags:
+      - 'ui-latest'
+    dockerfile: ui/Dockerfile
+    repo: storjstrategy/vortex
+    dry_run: true

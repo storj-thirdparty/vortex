@@ -218,16 +218,11 @@ tbody {
 								</td>
 								<td span="3">
 									<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
-								</td>
-
-								<td span="3">
+									<span class="mx-1"></span>
 									<button class="btn btn-light" v-on:click="cancelFolderCreation">Cancel</button>
 								</td>
-							</tr>
-
-
-								<td span="3" v-if="creatingFolderSpinner">
-									<div class="spinner-border" role="status"></div>
+								<td span="3">
+									<div v-if="creatingFolderSpinner" class="spinner-border" role="status"></div>
 								</td>
 							</tr>
 
@@ -301,19 +296,8 @@ export default {
 			await this.goToRoutePath();
 		}
 	},
+
 	updated() {
-		if (!this.s3) {
-			const s3Config = {
-				accessKeyId: this.$store.state.stargateAccessKey,
-				secretAccessKey: this.$store.state.stargateSecretKey,
-				endpoint: this.$store.state.stargateEndpoint,
-				s3ForcePathStyle: true,
-				signatureVersion: "v4"
-			};
-
-			this.s3 = new AWS.S3(s3Config);
-		}
-
 		this.dragAndDrop();
 	},
 

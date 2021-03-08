@@ -2,6 +2,7 @@ import Vue from "vue";
 import Router from "vue-router";
 import Vuex from "vuex";
 import axios from "axios";
+import S3 from "aws-sdk/clients/s3";
 
 import App from "./App.vue";
 import Home from "./views/Home.vue";
@@ -132,7 +133,7 @@ const store = new Vuex.Store({
 			state.features = features;
 			state.plans = plans;
 
-			state.s3 = new AWS.S3({
+			state.s3 = new S3({
 				accessKeyId: stargateAccessKey,
 				secretAccessKey: stargateSecretKey,
 				endpoint: stargateEndpoint,

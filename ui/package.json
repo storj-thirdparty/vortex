@@ -30,9 +30,7 @@
 		"@vue/cli-service": "4.4.6",
 		"eslint-plugin-vue": "7.7.0",
 		"eslint": "7.21.0",
-		"nodemon": "2.0.7",
-		"vue-template-compiler": "2.6.12",
-		"xo": "0.38.2"
+		"vue-template-compiler": "2.6.12"
 	},
 	"browserslist": [
 		"> 1%",
