@@ -219,11 +219,17 @@ tbody {
 								<td span="3">
 									<button v-on:click="createFolder" v-bind:disabled="!createFolderEnabled" class="btn btn-primary">Save Folder</button>
 								</td>
+
 								<td span="3">
 									<button class="btn btn-light" v-on:click="cancelFolderCreation">Cancel</button>
 								</td>
 							</tr>
 
+
+								<td span="3" v-if="creatingFolderSpinner">
+									<div class="spinner-border" role="status"></div>
+								</td>
+							</tr>
 
 							<file-entry v-for="file in files.filter(f => f.type === 'folder')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:go="go" v-bind:key="file.Key" v-on:hideFolderCreation="hideFolderCreation"></file-entry>
 							<file-entry v-for="file in files.filter(f => f.type === 'file')" v-bind:path="path" v-bind:file="file" v-on:download="download(file)" v-on:delete="del(file)" v-on:go="go" v-bind:key="file.Key"></file-entry>
@@ -267,7 +273,8 @@ export default {
 		headingSorted: null,
 		orderBy: "desc",
 		deleteConfirmation: false,
-		fetchingFilesSpinner: false,
+		creatingFolderSpinner: false,
+		fetchingFilesSpinner: false
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -413,11 +420,14 @@ export default {
 		},
 
 		async createFolder() {
+			this.creatingFolderSpinner = true;
+
 			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch("files/createFolder", this.createFolderInput.trim());
 
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
+			this.creatingFolderSpinner = false;
 		},
 
 		cancelFolderCreation() {
