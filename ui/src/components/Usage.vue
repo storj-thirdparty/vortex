@@ -51,13 +51,16 @@
 	color: #0068d0;
 	min-width: 164px;
 }
+.usage-mute {
+	color: #aaa;
+}
 </style>
 <template>
 	<div class="card card-top-flat border-0 p-4 p-lg-5">
 		<div class="bars" v-if="usage != null">
 			<div class="row mb-4">
 				<div class="col">
-					<h5 class="mb-4">Usage</h5>
+					<h5 class="mb-4">Usage <span class="usage-mute">(updates daily)</span></h5>
 					<hr />
 				</div>
 			</div>
