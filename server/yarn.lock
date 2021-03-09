@@ -1281,13 +1281,13 @@ denque@^1.1.0:
   version "1.5.0"
   resolved "https://registry.npmjs.org/denque/-/denque-1.5.0.tgz"
 
-depd@^1.1.2, depd@~1.1.2:
-  version "1.1.2"
-  resolved "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz"
-
-depd@~2.0.0:
+depd@^2.0.0, depd@~2.0.0:
   version "2.0.0"
   resolved "https://registry.npmjs.org/depd/-/depd-2.0.0.tgz"
+
+depd@~1.1.2:
+  version "1.1.2"
+  resolved "https://registry.npmjs.org/depd/-/depd-1.1.2.tgz"
 
 des.js@^1.0.0:
   version "1.0.1"
@@ -2824,9 +2824,9 @@ koa-static@5.0.0:
     debug "^3.1.0"
     koa-send "^5.0.0"
 
-koa@2.13.0:
-  version "2.13.0"
-  resolved "https://registry.npmjs.org/koa/-/koa-2.13.0.tgz"
+koa@2.13.1:
+  version "2.13.1"
+  resolved "https://registry.yarnpkg.com/koa/-/koa-2.13.1.tgz#6275172875b27bcfe1d454356a5b6b9f5a9b1051"
   dependencies:
     accepts "^1.3.5"
     cache-content-type "^1.0.0"
@@ -2835,7 +2835,7 @@ koa@2.13.0:
     cookies "~0.8.0"
     debug "~3.1.0"
     delegates "^1.0.0"
-    depd "^1.1.2"
+    depd "^2.0.0"
     destroy "^1.0.4"
     encodeurl "^1.0.2"
     escape-html "^1.0.3"
