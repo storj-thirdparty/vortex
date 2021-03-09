@@ -34,6 +34,6 @@ export default {
 	components: {
 		HomeHero,
 		DuplicatiHero
-	},
+	}
 };
 </script>

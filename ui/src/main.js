@@ -20,52 +20,53 @@ Vue.use(Vuex);
 
 Vue.config.productionTip = false;
 
-const routes = [{
-	path: "/",
-	component: Home,
-},
-{
-	path: "/admin",
-	component: Admin,
-},
-{
-	path: "/app",
-	component: Dashboard,
-	children: [
-		/*{
+const routes = [
+	{
+		path: "/",
+		component: Home
+	},
+	{
+		path: "/admin",
+		component: Admin
+	},
+	{
+		path: "/app",
+		component: Dashboard,
+		children: [
+			/*{
 			path: "",
 			redirect: "browser"
 		},*/
-		{
-			path: "browser",
-			component: FileBrowser,
-			children: [
-				{
-					path: "*",
-					component: FileBrowser
-				}
-			]
-		},
-		{
-			path: "apps",
-			component: Apps
-		},
-		{
-			path: "plan",
-			component: Usage
-		}
-	]
-},
-{
-	path: "/404",
-	name: "404",
-	component: NotFound,
-	props: true,
-},
-{
-	path: "*",
-	component: NotFound,
-}
+			{
+				path: "browser",
+				component: FileBrowser,
+				children: [
+					{
+						path: "*",
+						component: FileBrowser
+					}
+				]
+			},
+			{
+				path: "apps",
+				component: Apps
+			},
+			{
+				path: "plan",
+				component: Usage
+			}
+		]
+	},
+	{
+		path: "/404",
+		name: "404",
+		component: NotFound,
+		props: true
+	},
+	{
+		path: "*",
+		component: NotFound
+	}
 ];
 
 // 3. Create the router instance and pass the `routes` option
@@ -90,7 +91,7 @@ const store = new Vuex.Store({
 		features: {},
 		plans: null,
 		usage: null,
-		openedDropdown: null,
+		openedDropdown: null
 	},
 	getters: {
 		isLoggedIn(state) {
@@ -110,7 +111,8 @@ const store = new Vuex.Store({
 		},
 
 		setUser(
-			state, {
+			state,
+			{
 				email,
 				stargateAccessKey,
 				stargateSecretKey,
@@ -119,7 +121,7 @@ const store = new Vuex.Store({
 				activated,
 				planId,
 				features,
-				plans,
+				plans
 			}
 		) {
 			state.email = email;
@@ -138,37 +140,27 @@ const store = new Vuex.Store({
 				secretAccessKey: stargateSecretKey,
 				endpoint: stargateEndpoint,
 				s3ForcePathStyle: true,
-				signatureVersion: "v4",
+				signatureVersion: "v4"
 			});
 		},
 
 		setUsage(state, usage) {
 			state.usage = usage;
-		},
+		}
 	},
 	actions: {
-		openDropdown({
-			commit, dispatch
-		}, id) {
+		openDropdown({ commit, dispatch }, id) {
 			if (id !== "FileBrowser") {
 				dispatch("files/clearAllSelectedFiles", { root: true });
 			}
 			commit("setOpenedDropdown", id);
 		},
 
-		async signUp({
-			commit
-		}, {
-			email,
-			password,
-			termsAndConditions
-		}) {
-			const {
-				data
-			} = await axios.post("/api/signup", {
+		async signUp({ commit }, { email, password, termsAndConditions }) {
+			const { data } = await axios.post("/api/signup", {
 				email,
 				password,
-				termsAndConditions,
+				termsAndConditions
 			});
 
 			if (data.error) {
@@ -178,17 +170,10 @@ const store = new Vuex.Store({
 			}
 		},
 
-		async login({
-			commit
-		}, {
-			email,
-			password
-		}) {
-			const {
-				data
-			} = await axios.post("/api/login", {
+		async login({ commit }, { email, password }) {
+			const { data } = await axios.post("/api/login", {
 				email,
-				password,
+				password
 			});
 
 			if (data.error) {
@@ -198,21 +183,15 @@ const store = new Vuex.Store({
 			}
 		},
 
-		async passiveLogin({
-			commit
-		}) {
-			const {
-				data
-			} = await axios.post("/api/passive-login");
+		async passiveLogin({ commit }) {
+			const { data } = await axios.post("/api/passive-login");
 
 			if (!data.error) {
 				commit("setUser", data);
 			}
 		},
 
-		async logout({
-			commit
-		}) {
+		async logout({ commit }) {
 			await axios.post("/api/logout");
 
 			commit("setUser", {
@@ -221,20 +200,16 @@ const store = new Vuex.Store({
 				stargateSecretKey: null,
 				stargateBucket: null,
 				stargateEndpoint: null,
-				activated: null,
+				activated: null
 			});
 		},
 
-		async getUsage({
-			commit
-		}) {
-			const {
-				data
-			} = await axios.post("/api/usage");
+		async getUsage({ commit }) {
+			const { data } = await axios.post("/api/usage");
 
 			commit("setUsage", data);
-		},
-	},
+		}
+	}
 });
 
 new Vue({
@@ -242,5 +217,5 @@ new Vue({
 		return h(App);
 	},
 	router,
-	store,
+	store
 }).$mount("#app");

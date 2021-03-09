@@ -1,181 +1,188 @@
 body {
-  font-family: 'Inter', sans-serif;
+	font-family: "Inter", sans-serif;
 }
-h1, h2, h3, h4, h5, h6 {
-  font-family: Inter;
-  font-weight: bold;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: Inter;
+	font-weight: bold;
 }
-
 
 /* HERO VUE  */
 
 .filezilla-logo {
-  width: 72px;
+	width: 72px;
 }
 .tardigrade-logo {
-  top: 9px;
-  left: 293px;
+	top: 9px;
+	left: 293px;
 }
 .description {
-  line-height: 1.5;
+	line-height: 1.5;
 }
-
 
 /* Home VUE */
 
 .email {
-  width: 100%;
-  height: 48px;
-  border: 1px solid rgba(56, 75, 101, 0.4);
-  box-sizing: border-box;
-  border-radius: 6px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  color: rgba(27, 37, 51, 0.8);
-  padding: 10px 15px;
-  margin-bottom: 16px;
+	width: 100%;
+	height: 48px;
+	border: 1px solid rgba(56, 75, 101, 0.4);
+	box-sizing: border-box;
+	border-radius: 6px;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(27, 37, 51, 0.8);
+	padding: 10px 15px;
+	margin-bottom: 16px;
 }
 
-::-webkit-input-placeholder { /* WebKit, Blink, Edge */
-  color:    #AFB7C1;
+::-webkit-input-placeholder {
+	/* WebKit, Blink, Edge */
+	color: #afb7c1;
 }
-:-moz-placeholder { /* Mozilla Firefox 4 to 18 */
-   color:    #AFB7C1;
-   opacity:  1;
+:-moz-placeholder {
+	/* Mozilla Firefox 4 to 18 */
+	color: #afb7c1;
+	opacity: 1;
 }
-::-moz-placeholder { /* Mozilla Firefox 19+ */
-   color:    #AFB7C1;
-   opacity:  1;
+::-moz-placeholder {
+	/* Mozilla Firefox 19+ */
+	color: #afb7c1;
+	opacity: 1;
 }
-:-ms-input-placeholder { /* Internet Explorer 10-11 */
-   color:    #AFB7C1;
+:-ms-input-placeholder {
+	/* Internet Explorer 10-11 */
+	color: #afb7c1;
 }
-::-ms-input-placeholder { /* Microsoft Edge */
-   color:    #AFB7C1;
+::-ms-input-placeholder {
+	/* Microsoft Edge */
+	color: #afb7c1;
 }
-::placeholder { /* Most modern browsers support this now. */
-   color:    #AFB7C1;
+::placeholder {
+	/* Most modern browsers support this now. */
+	color: #afb7c1;
 }
 
 .button {
-  width: 100%;
-  padding: 14px 0;
-  background: #0068DC;
-  border-radius: 6px;
-  font-weight: bold;
-  font-size: 16px;
-  line-height: 19px;
-  text-align: center;
-  text-decoration: none;
-  color: #FFFFFF;
-  margin-bottom: 16px;
-  transition: all 100ms ease-in-out;
+	width: 100%;
+	padding: 14px 0;
+	background: #0068dc;
+	border-radius: 6px;
+	font-weight: bold;
+	font-size: 16px;
+	line-height: 19px;
+	text-align: center;
+	text-decoration: none;
+	color: #ffffff;
+	margin-bottom: 16px;
+	transition: all 100ms ease-in-out;
 }
 .button:hover {
-  background: #0059d0;
+	background: #0059d0;
 }
 
 .custom-select {
-  width: 100%;
-  height: 48px;
-  border: 1px solid rgba(56, 75, 101, 0.4);
-  box-sizing: border-box;
-  border-radius: 6px;
-  font-family: Inter;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 16px;
-  color: rgba(27, 37, 51, 0.8);
-  padding: 10px 15px;
-  margin-bottom: 16px;
+	width: 100%;
+	height: 48px;
+	border: 1px solid rgba(56, 75, 101, 0.4);
+	box-sizing: border-box;
+	border-radius: 6px;
+	font-family: Inter;
+	font-style: normal;
+	font-weight: normal;
+	font-size: 16px;
+	color: rgba(27, 37, 51, 0.8);
+	padding: 10px 15px;
+	margin-bottom: 16px;
 }
 
 h5 {
-  font-weight: bold;
+	font-weight: bold;
 }
 
 .card {
-  box-shadow: 0 0 30px #e5e5e5;
+	box-shadow: 0 0 30px #e5e5e5;
 }
-
 
 /* KEYS vue */
 
 .title {
-  font-weight: bold;
-  font-size: 29px;
-  line-height: 43px;
-  text-align: center;
-  color: #252525;
+	font-weight: bold;
+	font-size: 29px;
+	line-height: 43px;
+	text-align: center;
+	color: #252525;
 }
 
 .video {
-  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
-  border: 1px solid #adb4be;
-  border-radius: 6px;
+	box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.15);
+	border: 1px solid #adb4be;
+	border-radius: 6px;
 }
 
 input {
-  height: 48px;
-  font-size: 16px;
-  padding: 10px 15px;
-  border: 1px solid #adb4be;
-  color: #474e59;
-  border-radius: 6px;
-  background: #fafafa !important;
-  cursor: text;
+	height: 48px;
+	font-size: 16px;
+	padding: 10px 15px;
+	border: 1px solid #adb4be;
+	color: #474e59;
+	border-radius: 6px;
+	background: #fafafa !important;
+	cursor: text;
 }
 
 .label {
-  font-weight: bold;
-  font-size: 16px;
-  color: #354049;
+	font-weight: bold;
+	font-size: 16px;
+	color: #354049;
 }
 
 .copy {
-  background: #FFFFFF;
-  border: 1px solid #0068DC;
-  border-radius: 4px;
-  font-weight: bold;
-  font-size: 14px;
-  text-align: center;
-  color: #0068DC;
-  cursor: pointer;
-  position: absolute;
-  bottom: 8px;
-  right: 26px;
-  padding: 4px 14px;
-  line-height: 1.6;
-  transition: all 100ms ease-in-out;
+	background: #ffffff;
+	border: 1px solid #0068dc;
+	border-radius: 4px;
+	font-weight: bold;
+	font-size: 14px;
+	text-align: center;
+	color: #0068dc;
+	cursor: pointer;
+	position: absolute;
+	bottom: 8px;
+	right: 26px;
+	padding: 4px 14px;
+	line-height: 1.6;
+	transition: all 100ms ease-in-out;
 }
 .copy:hover {
-  background: #0068DC;
-  color: #fff;
+	background: #0068dc;
+	color: #fff;
 }
-
 
 /* GET FILEZILLA */
 
 .get-filezilla {
-  background: #F7F8FB;
-  border-radius: 8px;
-  padding: 20px;
-  margin-top: 30px;
+	background: #f7f8fb;
+	border-radius: 8px;
+	padding: 20px;
+	margin-top: 30px;
 }
 h5 {
-  font-family: Inter, sans-serif;
-  font-weight: bold;
-  color: #1B2533;
+	font-family: Inter, sans-serif;
+	font-weight: bold;
+	color: #1b2533;
 }
 p {
-  font-family: Inter;
-  font-size: 16px;
-  color: #1B2533;
+	font-family: Inter;
+	font-size: 16px;
+	color: #1b2533;
 }
 a {
-  font-weight: bold;
-  color: #0068DC;
-  text-decoration: underline;
+	font-weight: bold;
+	color: #0068dc;
+	text-decoration: underline;
 }

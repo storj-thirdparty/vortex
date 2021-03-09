@@ -11,5 +11,8 @@ const getStargateCredentials = require("../lib/getStargateCredentials.js");
 		...(await getStargateCredentials(access))
 	};
 
-	fs.writeFileSync(`${__dirname}/../config.json`, JSON.stringify(config, null, "\t"));
+	fs.writeFileSync(
+		`${__dirname}/../config.json`,
+		JSON.stringify(config, null, "\t")
+	);
 })();

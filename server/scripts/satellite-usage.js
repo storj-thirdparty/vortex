@@ -10,21 +10,21 @@ const config = require("../config.json");
 	const {
 		data: {
 			data: {
-				project: {
-					bucketUsages
-				}
+				project: { bucketUsages }
 			}
 		}
-	} = await axios.post(`${config.masterAccount.satelliteEndpoint}/api/v0/graphql`, {
-		"operationName": null,
-		"variables": {
-			"projectId": config.masterAccount.projectId,
-			"before": date,
-			"limit": 250,
-			"search": "",
-			"page": 1
-		},
-		"query": `query ($projectId: String!, $before: DateTime!, $limit: Int!, $search: String!, $page: Int!) {
+	} = await axios.post(
+		`${config.masterAccount.satelliteEndpoint}/api/v0/graphql`,
+		{
+			operationName: null,
+			variables: {
+				projectId: config.masterAccount.projectId,
+				before: date,
+				limit: 250,
+				search: "",
+				page: 1
+			},
+			query: `query ($projectId: String!, $before: DateTime!, $limit: Int!, $search: String!, $page: Int!) {
 			  project(id: $projectId) {
 			    bucketUsages(before: $before, cursor: {limit: $limit, search: $search, page: $page}) {
 			      bucketUsages {
@@ -46,24 +46,28 @@ const config = require("../config.json");
 			    }
 			    __typename  }
 			}`
-	}, {
-		headers: {
-			"Content-Type": "application/json",
-			Cookie: `_tokenKey=${token}`
+		},
+		{
+			headers: {
+				"Content-Type": "application/json",
+				Cookie: `_tokenKey=${token}`
+			}
 		}
-	});
+	);
 
-	for(const bucket of bucketUsages.bucketUsages) {
+	for (const bucket of bucketUsages.bucketUsages) {
 		try {
-			if(bucket.bucketName.startsWith(config.bucketPrefix)) {
+			if (bucket.bucketName.startsWith(config.bucketPrefix)) {
 				console.log(bucket);
-				const userId = bucket.bucketName.slice(config.bucketPrefix.length);
+				const userId = bucket.bucketName.slice(
+					config.bucketPrefix.length
+				);
 
 				const uploadEvent = Event.build({
 					type: "audit-upload",
 					params: {
 						files: bucket.objectCount,
-						bytes: bucket.storage * 1e+9
+						bytes: bucket.storage * 1e9
 					},
 					userId: userId,
 					date: date
@@ -75,18 +79,17 @@ const config = require("../config.json");
 					type: "audit-download",
 					params: {
 						files: bucket.objectCount,
-						bytes: bucket.egress * 1e+9
+						bytes: bucket.egress * 1e9
 					},
 					userId: userId,
 					date: date
 				});
 
 				await downloadEvent.save();
-
 			} else {
 				console.log("found", bucket.bucketName, "with bad prefix");
 			}
-		} catch(err) {
+		} catch (err) {
 			console.log(err);
 		}
 	}

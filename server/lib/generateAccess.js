@@ -5,9 +5,12 @@ require("./wasm_exec.js");
 
 const go = new Go();
 
-const wasmInit = WebAssembly.instantiate(fs.readFileSync(`${__dirname}/access.wasm`), go.importObject);
+const wasmInit = WebAssembly.instantiate(
+	fs.readFileSync(`${__dirname}/access.wasm`),
+	go.importObject
+);
 
-wasmInit.then(result => {
+wasmInit.then((result) => {
 	go.run(result.instance);
 });
 
@@ -33,9 +36,11 @@ module.exports = async function (buckets = []) {
 		permission.value
 	];
 
-	console.log({apiKeyPermissionParams: apiKeyPermissionParameters});
+	console.log({ apiKeyPermissionParams: apiKeyPermissionParameters });
 
-	const restricted = await global.setAPIKeyPermission(...apiKeyPermissionParameters);
+	const restricted = await global.setAPIKeyPermission(
+		...apiKeyPermissionParameters
+	);
 
 	if (restricted.error) {
 		throw new Error(restricted.error);
@@ -48,7 +53,7 @@ module.exports = async function (buckets = []) {
 		config.masterAccount.projectId
 	];
 
-	console.log({accessGrantParams: accessGrantParameters});
+	console.log({ accessGrantParams: accessGrantParameters });
 
 	const access = await global.generateAccessGrant(...accessGrantParameters);
 

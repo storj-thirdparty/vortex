@@ -4,8 +4,8 @@ const config = require("../config.json");
 const plans = require("../plans.json");
 const getBucketName = require("../lib/getBucketName.js");
 
-module.exports = async ctx => {
-	if(typeof ctx.session.userId === "undefined") {
+module.exports = async (ctx) => {
+	if (typeof ctx.session.userId === "undefined") {
 		throw new ApiError("No login with session.");
 	}
 

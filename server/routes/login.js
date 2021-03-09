@@ -5,8 +5,8 @@ const config = require("../config.json");
 const plans = require("../plans.json");
 const getBucketName = require("../lib/getBucketName.js");
 
-module.exports = async function(ctx) {
-	const {email, password} = ctx.request.body;
+module.exports = async function (ctx) {
+	const { email, password } = ctx.request.body;
 
 	if (typeof email !== "string" || email.length === 0) {
 		throw new ApiError("Please enter an email.");
@@ -20,7 +20,10 @@ module.exports = async function(ctx) {
 		where: { email }
 	});
 
-	const result = await bcrypt.compare(password, user !== null ? user.password : "");
+	const result = await bcrypt.compare(
+		password,
+		user !== null ? user.password : ""
+	);
 
 	if (result !== true) {
 		throw new ApiError("Bad username/password.");

@@ -3,18 +3,17 @@ const moment = require("moment");
 const Event = require("../models/Event.js");
 
 async function getBytesUploaded(userId) {
-	const [ auditEvent ] = await Event.findAll({
+	const [auditEvent] = await Event.findAll({
 		where: {
 			userId,
-			type: "audit-upload",
+			type: "audit-upload"
 		},
-		order: [
-			[ "date", "DESC" ]
-		],
+		order: [["date", "DESC"]],
 		limit: 1
 	});
 
-	const auditBytes = typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
+	const auditBytes =
+		typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
 
 	const uploadEvents = await Event.findAll({
 		where: {
@@ -25,7 +24,6 @@ async function getBytesUploaded(userId) {
 			}
 		}
 	});
-
 
 	const uploadBytes = uploadEvents.reduce((n, e) => n + e.params.bytes, 0);
 
@@ -45,18 +43,17 @@ async function getBytesUploaded(userId) {
 }
 
 async function getBytesDownloaded(userId) {
-	const [ auditEvent ] = await Event.findAll({
+	const [auditEvent] = await Event.findAll({
 		where: {
 			userId,
-			type: "audit-download",
+			type: "audit-download"
 		},
-		order: [
-			[ "date", "DESC" ]
-		],
+		order: [["date", "DESC"]],
 		limit: 1
 	});
 
-	const auditBytes = typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
+	const auditBytes =
+		typeof auditEvent === "object" ? auditEvent.params.bytes : 0;
 
 	const downloadEvents = await Event.findAll({
 		where: {
@@ -68,7 +65,10 @@ async function getBytesDownloaded(userId) {
 		}
 	});
 
-	const downloadBytes = downloadEvents.reduce((n, e) => n + e.params.bytes, 0);
+	const downloadBytes = downloadEvents.reduce(
+		(n, e) => n + e.params.bytes,
+		0
+	);
 
 	const deleteEvents = await Event.findAll({
 		where: {
@@ -86,18 +86,17 @@ async function getBytesDownloaded(userId) {
 }
 
 async function getFilesUploaded(userId) {
-	const [ auditEvent ] = await Event.findAll({
+	const [auditEvent] = await Event.findAll({
 		where: {
 			userId,
-			type: "audit-upload",
+			type: "audit-upload"
 		},
-		order: [
-			[ "date", "DESC" ]
-		],
+		order: [["date", "DESC"]],
 		limit: 1
 	});
 
-	const auditFiles = typeof auditEvent === "object" ? auditEvent.params.files : 0;
+	const auditFiles =
+		typeof auditEvent === "object" ? auditEvent.params.files : 0;
 
 	const uploadEvents = await Event.findAll({
 		where: {
@@ -126,8 +125,8 @@ async function getFilesUploaded(userId) {
 	return Math.max(auditFiles + uploadFiles - deleteFiles, 0);
 }
 
-module.exports = async userId => ({
+module.exports = async (userId) => ({
 	bytesUploaded: await getBytesUploaded(userId),
 	filesUploaded: await getFilesUploaded(userId),
-	bytesDownloaded: await getBytesDownloaded(userId),
+	bytesDownloaded: await getBytesDownloaded(userId)
 });

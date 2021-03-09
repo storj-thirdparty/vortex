@@ -46,7 +46,7 @@ const eventsDelete = require("./routes/events-delete.js");
 
 		try {
 			ctx.session = await session.get(ctx.cookies.get("session"));
-		} catch(err) {
+		} catch (err) {
 			ctx.cookies.set("session", await session.create());
 		}
 
@@ -56,9 +56,9 @@ const eventsDelete = require("./routes/events-delete.js");
 	});
 
 	async function adminCheckToken(ctx, next) {
-		const {token} = ctx.request.body;
+		const { token } = ctx.request.body;
 
-		if(config.adminTokens.indexOf(token) !== -1) {
+		if (config.adminTokens.indexOf(token) !== -1) {
 			await next();
 		} else {
 			ctx.throw("Unauthorized");
@@ -84,10 +84,7 @@ const eventsDelete = require("./routes/events-delete.js");
 	router.post("/api/events/download", eventsDownload);
 	router.post("/api/events/delete", eventsDelete);
 
-	app
-		.use(bodyParser())
-		.use(router.routes())
-		.use(router.allowedMethods());
+	app.use(bodyParser()).use(router.routes()).use(router.allowedMethods());
 
 	await sequelize.sync();
 

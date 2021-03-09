@@ -14,7 +14,9 @@ const s3Config = {
 
 	const s3 = new AWS.S3(s3Config);
 
-	await s3.createBucket({
-		Bucket: "test2"
-	}).promise();
+	await s3
+		.createBucket({
+			Bucket: "test2"
+		})
+		.promise();
 })();

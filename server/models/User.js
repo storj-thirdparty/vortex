@@ -3,22 +3,25 @@ const sequelize = require("../lib/sequelize");
 
 class User extends Model {}
 
-User.init({
-	email: {
-		type: DataTypes.STRING,
-		unique: true,
+User.init(
+	{
+		email: {
+			type: DataTypes.STRING,
+			unique: true
+		},
+		password: DataTypes.STRING,
+		createTime: DataTypes.DATE,
+		lastLoginTime: DataTypes.DATE,
+		lastEmailTime: DataTypes.DATE,
+		stargateAccessKey: DataTypes.STRING,
+		stargateSecretKey: DataTypes.STRING,
+		activated: DataTypes.BOOLEAN,
+		planId: DataTypes.STRING
 	},
-	password: DataTypes.STRING,
-	createTime: DataTypes.DATE,
-	lastLoginTime: DataTypes.DATE,
-	lastEmailTime: DataTypes.DATE,
-	stargateAccessKey: DataTypes.STRING,
-	stargateSecretKey: DataTypes.STRING,
-	activated: DataTypes.BOOLEAN,
-	planId: DataTypes.STRING
-}, {
-	sequelize,
-	modelName: "User"
-});
+	{
+		sequelize,
+		modelName: "User"
+	}
+);
 
 module.exports = User;
