@@ -26,7 +26,7 @@
 		"vuex": "3.6.2"
 	},
 	"devDependencies": {
-		"@vue/cli-plugin-router": "4.5.0",
+		"@vue/cli-plugin-router": "4.5.11",
 		"@vue/cli-service": "4.4.6",
 		"eslint": "7.21.0",
 		"eslint-plugin-vue": "7.7.0",
