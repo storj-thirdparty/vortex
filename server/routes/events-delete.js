@@ -1,6 +1,6 @@
 const Event = require("../models/Event.js");
 
-module.exports = async ctx => {
+module.exports = async (ctx) => {
 	const e = Event.build({
 		type: "delete",
 		params: {

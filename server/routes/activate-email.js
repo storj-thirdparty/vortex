@@ -5,15 +5,15 @@ const ApiError = require("../lib/ApiError.js");
 module.exports = async function (token) {
 	const id = await redis.get(`activation:${token}`);
 
-	console.log({id});
+	console.log({ id });
 
 	await redis.del(`activation:${token}`);
 
 	const user = await User.findOne({
-		where: {id}
+		where: { id }
 	});
 
-	console.log({user});
+	console.log({ user });
 
 	if (user === null) {
 		throw new ApiError("Token not valid.");

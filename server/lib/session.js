@@ -7,7 +7,8 @@ module.exports = {
 	async create() {
 		const id = crypto.randomBytes(32).toString("base64");
 
-		await redis.multi()
+		await redis
+			.multi()
 			.hset(`session:${id}`, "_created", Date.now())
 			.expire(`session:${id}`, expire)
 			.exec();

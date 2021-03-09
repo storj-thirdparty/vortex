@@ -1,40 +1,23 @@
 module.exports = {
-	"env": {
-		"browser": true,
-		"es6": true
+	env: {
+		browser: true,
+		es6: true
 	},
-	"extends": [
-		"eslint:recommended",
-		"plugin:vue/essential"
-	],
-	"globals": {
-		"Atomics": "readonly",
-		"SharedArrayBuffer": "readonly",
-		"AWS": "readonly"
+	extends: ["eslint:recommended", "plugin:vue/essential"],
+	globals: {
+		Atomics: "readonly",
+		SharedArrayBuffer: "readonly",
+		AWS: "readonly"
 	},
-	"parserOptions": {
-		"ecmaVersion": 2018,
-		"sourceType": "module"
+	parserOptions: {
+		ecmaVersion: 2018,
+		sourceType: "module"
 	},
-	"plugins": [
-		"vue"
-	],
-	"rules": {
-		"indent": [
-			"error",
-			"tab"
-		],
-		"linebreak-style": [
-			"error",
-			"unix"
-		],
-		"quotes": [
-			"error",
-			"double"
-		],
-		"semi": [
-			"error",
-			"always"
-		]
+	plugins: ["vue"],
+	rules: {
+		indent: ["error", "tab"],
+		"linebreak-style": ["error", "unix"],
+		quotes: ["error", "double"],
+		semi: ["error", "always"]
 	}
 };

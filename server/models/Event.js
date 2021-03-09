@@ -5,14 +5,17 @@ const User = require("./User.js");
 
 class Event extends Model {}
 
-Event.init({
-	type: DataTypes.STRING,
-	params: DataTypes.JSONB,
-	date: DataTypes.DATE
-}, {
-	sequelize,
-	modelName: "Event"
-});
+Event.init(
+	{
+		type: DataTypes.STRING,
+		params: DataTypes.JSONB,
+		date: DataTypes.DATE
+	},
+	{
+		sequelize,
+		modelName: "Event"
+	}
+);
 
 User.hasMany(Event, {
 	foreignKey: "userId"

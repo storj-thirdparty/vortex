@@ -1,6 +1,6 @@
 const User = require("../models/User.js");
 
-module.exports = async ctx => {
+module.exports = async (ctx) => {
 	const user = await User.findOne({
 		where: {
 			id: ctx.request.body.userId

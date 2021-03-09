@@ -9,6 +9,6 @@ const s3Config = {
 	signatureVersion: "v4"
 };
 
-console.log({s3Config});
+console.log({ s3Config });
 
 module.exports = new AWS.S3(s3Config);

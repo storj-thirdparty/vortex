@@ -8,8 +8,8 @@ const sendActivationEmail = require("../lib/sendActivationEmail.js");
 const getBucketName = require("../lib/getBucketName.js");
 const config = require("../config.json");
 
-module.exports = async function(ctx, next) {
-	const {email, password, termsAndConditions} = ctx.request.body;
+module.exports = async function (ctx, next) {
+	const { email, password, termsAndConditions } = ctx.request.body;
 
 	const re = /\S+@\S+\.\S+/;
 
@@ -48,7 +48,7 @@ module.exports = async function(ctx, next) {
 
 	try {
 		await newUser.save();
-	} catch(err) {
+	} catch (err) {
 		throw new ApiError("Email already exists.");
 	}
 
@@ -59,24 +59,24 @@ module.exports = async function(ctx, next) {
 	};
 
 	try {
-		console.log({newUser, bucketParams: bucketParameters});
+		console.log({ newUser, bucketParams: bucketParameters });
 
 		await masterAccount.createBucket(bucketParameters).promise();
 
 		const access = await generateAccess([bucket]);
-		console.log({access});
+		console.log({ access });
 
-		const {accessKey, secretKey} = await getStargateCredentials(access);
+		const { accessKey, secretKey } = await getStargateCredentials(access);
 
 		newUser.stargateAccessKey = accessKey;
 		newUser.stargateSecretKey = secretKey;
-	} catch(err) {
+	} catch (err) {
 		console.log("Connection to stargate failed", err);
 
 		throw new ApiError("Connection to Stargate failed.");
 	}
 
-	if(config.features.emailActivation === true) {
+	if (config.features.emailActivation === true) {
 		await sendActivationEmail(newUser);
 	}
 

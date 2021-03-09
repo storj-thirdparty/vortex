@@ -35,7 +35,6 @@ a {
 .email {
 	background: url("~@/assets/tar-ico-email.svg") no-repeat 16px 16px;
 	padding-left: 48px;
-
 }
 
 .password {
@@ -46,34 +45,34 @@ a {
 
 ::-webkit-input-placeholder {
 	/* WebKit, Blink, Edge */
-	color: #AFB7C1;
+	color: #afb7c1;
 }
 
 :-moz-placeholder {
 	/* Mozilla Firefox 4 to 18 */
-	color: #AFB7C1;
+	color: #afb7c1;
 	opacity: 1;
 }
 
 ::-moz-placeholder {
 	/* Mozilla Firefox 19+ */
-	color: #AFB7C1;
+	color: #afb7c1;
 	opacity: 1;
 }
 
 :-ms-input-placeholder {
 	/* Internet Explorer 10-11 */
-	color: #AFB7C1;
+	color: #afb7c1;
 }
 
 ::-ms-input-placeholder {
 	/* Microsoft Edge */
-	color: #AFB7C1;
+	color: #afb7c1;
 }
 
 ::placeholder {
 	/* Most modern browsers support this now. */
-	color: #AFB7C1;
+	color: #afb7c1;
 }
 
 .video {
@@ -94,14 +93,14 @@ input {
 
 .button {
 	padding: 14px 0;
-	background-color: #0068DC;
+	background-color: #0068dc;
 	border-radius: 6px;
 	font-weight: bold;
 	font-size: 16px;
 	line-height: 19px;
 	text-align: center;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 	margin-bottom: 16px;
 	transition: all 100ms ease-in-out;
 }
@@ -114,7 +113,7 @@ input {
 	line-height: 19px;
 	text-align: center;
 	text-decoration: none;
-	color: #FFFFFF;
+	color: #ffffff;
 	margin-bottom: 16px;
 	transition: all 100ms ease-in-out;
 }
@@ -124,11 +123,11 @@ input {
 }
 
 .btn-primary {
-	background: #0068DC;
+	background: #0068dc;
 }
 
 .btn-light {
-	background: #E6E9EF;
+	background: #e6e9ef;
 }
 
 .custom-select {
@@ -166,8 +165,8 @@ input {
 }
 
 .keys .copy {
-	background: #0059D0;
-	border: 1px solid #0059D0;
+	background: #0059d0;
+	border: 1px solid #0059d0;
 	border-radius: 4px;
 	font-weight: bold;
 	font-size: 14px;
@@ -183,7 +182,7 @@ input {
 }
 
 .keys .copy:hover {
-	background: #2582FF;
+	background: #2582ff;
 	color: #fff;
 }
 
@@ -201,8 +200,9 @@ input {
 	cursor: text;
 }
 
-.form-control:disabled, .form-control[readonly] {
-  background-color: #F7F8FB;
+.form-control:disabled,
+.form-control[readonly] {
+	background-color: #f7f8fb;
 }
 
 .keys .alert-warning {
@@ -225,9 +225,9 @@ input {
 }
 
 .nav-tabs .nav-link {
-	background: #EFF1F5;
+	background: #eff1f5;
 	color: #000;
-	border-color: #DDE1E6;
+	border-color: #dde1e6;
 	padding: 12px;
 	border-bottom: 2px solid #dde1e6;
 	min-height: 100%;
@@ -251,131 +251,252 @@ input {
 	border-top-left-radius: 0;
 	border-top-right-radius: 0;
 }
-
 </style>
 
 <template>
-<div>
 	<div>
-
-		<div class="container">
-			<div class="row">
-				<div class="col-sm-12 col-md-6 col-lg-5 pt-5 mt-0 mt-lg-5">
-					<Hero></Hero>
-				</div>
-
-				<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
-					<div class="card border-0 p-4 p-lg-5 mb-5">
-
-						<div v-if="error" class="alert alert-danger" role="alert">
-							{{error}}
-						</div>
-
-						<div v-if="showLogin === false">
-							<h5 class="mb-4">Get Started</h5>
-
-							<label for="emailAddress">Email Address</label>
-							<input v-model="email" required type="email" class="form-control input email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
-
-							<label for="password">Password</label>
-							<input v-model="password" required type="password" class="form-control input password" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
-
-							<div class="custom-control custom-checkbox mb-3">
-								<input v-model="termsAndConditions" required type="checkbox" class="custom-control-input" id="termsCheck">
-								<label class="custom-control-label" for="termsCheck">Accept the <a href="https://tardigrade.io/terms-of-service/" target="_blank">Terms &amp; Conditions</a></label>
-							</div>
-
-							<button v-on:click="signUp" class="btn btn-primary button btn-block">Try Storj</button>
-
-							<hr>
-
-
-							<button v-on:click="showLogin = true" class="button-no-bg btn btn-success btn-block">Login to Storj</button>
-						</div>
-
-						<div v-if="showLogin === true">
-							<h5 class="mb-4">Login</h5>
-
-							<label for="emailAddress">Email Address</label>
-							<input v-model="email" type="email" class="form-control input email" placeholder="example@email.com" v-on:keyup.enter="signUp" id="emailAddress">
-
-							<label for="password">Password</label>
-							<input v-model="password" type="password" class="form-control input password" placeholder="••••••••••••" v-on:keyup.enter="signUp" id="password">
-
-							<button v-on:click="login" class="btn btn-primary button signup-btn btn-block">Login</button>
-
-							<p>Don't have an account? <a v-on:click="showLogin = false" href="#">Sign Up</a></p>
-						</div>
-
-					</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="how">
+		<div>
 			<div class="container">
-				<div class="row py-5">
-
-					<div class="col-sm-12 col-md-5 pb-5">
-						<div class="video embed-responsive embed-responsive-16by9 mb-5">
-							<iframe class="embed-responsive-item" src="https://www.youtube.com/embed/RtyBjWmbePQ" frameborder="0" allowfullscreen></iframe>
-						</div>
-						<h2 class="mb-4">How It Works</h2>
-						<p>This app is powered by the Tardigrade decentralized cloud service, the world’s first decentralized cloud object storage service. The Tardigrade cloud storage platform utilizes spare disk drive space and bandwidth shared by
-							its community members worldwide. <br /><br />Tardigrade splits files into encrypted pieces, then distributes them on a global network, and recompiles each piece on download. This means your data isn’t being stored in a
-							vulnerable data center; it’s securely stored all over the world.</p>
+				<div class="row">
+					<div class="col-sm-12 col-md-6 col-lg-5 pt-5 mt-0 mt-lg-5">
+						<Hero></Hero>
 					</div>
 
-					<div class="col-sm-12 col-md-6 offset-md-1">
-						<div class="row mb-5">
-							<div class="col-1">
-								<img src="@/assets/tar-ico-secure.svg" alt="100% Secure" height="32" width="32">
+					<div class="col-sm-12 col-md-6 col-lg-6 offset-lg-1">
+						<div class="card border-0 p-4 p-lg-5 mb-5">
+							<div
+								v-if="error"
+								class="alert alert-danger"
+								role="alert"
+							>
+								{{ error }}
 							</div>
-							<div class="col-11 px-4">
-								<h5 class="mb-3">100% Secure</h5>
-								<p>Store your data with confidence, knowing Storj uses end-to-end encryption and decentralization to offer unparalled security.</p>
-							</div>
-						</div>
 
-						<div class="row mb-5">
-							<div class="col-1">
-								<img src="@/assets/tar-ico-durable.svg" alt="Remarkably Durable" height="32" width="32">
-							</div>
-							<div class="col-11 px-4">
-								<h5 class="mb-3">Remarkably Durable</h5>
-								<p>Don't worry about downtime and outages. Files on Storj are split into pieces and distributed on a global network, which is why we've never lost a file.</p>
-							</div>
-						</div>
+							<div v-if="showLogin === false">
+								<h5 class="mb-4">Get Started</h5>
 
-						<div class="row mb-5">
-							<div class="col-1">
-								<img src="@/assets/tar-ico-money.svg" alt="Predictable Pricing" height="32" width="32">
-							</div>
-							<div class="col-11 px-4">
-								<h5 class="mb-3">Predictable Pricing</h5>
-								<p>Storj is a fraction of the cost of other storage solutions, and pricing is predictable so you don't run into surprises when looking at your bill.</p>
-							</div>
-						</div>
+								<label for="emailAddress">Email Address</label>
+								<input
+									v-model="email"
+									required
+									type="email"
+									class="form-control input email"
+									placeholder="example@email.com"
+									v-on:keyup.enter="signUp"
+									id="emailAddress"
+								/>
 
-						<div class="row mb-5">
-							<div class="col-1">
-								<img src="@/assets/tar-ico-global.svg" alt="Globally Distributed" height="32" width="32">
+								<label for="password">Password</label>
+								<input
+									v-model="password"
+									required
+									type="password"
+									class="form-control input password"
+									placeholder="••••••••••••"
+									v-on:keyup.enter="signUp"
+									id="password"
+								/>
+
+								<div
+									class="custom-control custom-checkbox mb-3"
+								>
+									<input
+										v-model="termsAndConditions"
+										required
+										type="checkbox"
+										class="custom-control-input"
+										id="termsCheck"
+									/>
+									<label
+										class="custom-control-label"
+										for="termsCheck"
+										>Accept the
+										<a
+											href="https://tardigrade.io/terms-of-service/"
+											target="_blank"
+											>Terms &amp; Conditions</a
+										></label
+									>
+								</div>
+
+								<button
+									v-on:click="signUp"
+									class="btn btn-primary button btn-block"
+								>
+									Try Storj
+								</button>
+
+								<hr />
+
+								<button
+									v-on:click="showLogin = true"
+									class="button-no-bg btn btn-success btn-block"
+								>
+									Login to Storj
+								</button>
 							</div>
-							<div class="col-11 px-4">
-								<h5 class="mb-3">Globally Distributed</h5>
-								<p>Most storage services run on data centers. Storj never puts your file in one place, so downtime and breaches are a thing of the past.</p>
+
+							<div v-if="showLogin === true">
+								<h5 class="mb-4">Login</h5>
+
+								<label for="emailAddress">Email Address</label>
+								<input
+									v-model="email"
+									type="email"
+									class="form-control input email"
+									placeholder="example@email.com"
+									v-on:keyup.enter="signUp"
+									id="emailAddress"
+								/>
+
+								<label for="password">Password</label>
+								<input
+									v-model="password"
+									type="password"
+									class="form-control input password"
+									placeholder="••••••••••••"
+									v-on:keyup.enter="signUp"
+									id="password"
+								/>
+
+								<button
+									v-on:click="login"
+									class="btn btn-primary button signup-btn btn-block"
+								>
+									Login
+								</button>
+
+								<p>
+									Don't have an account?
+									<a v-on:click="showLogin = false" href="#"
+										>Sign Up</a
+									>
+								</p>
 							</div>
 						</div>
 					</div>
-
 				</div>
 			</div>
+
+			<div class="how">
+				<div class="container">
+					<div class="row py-5">
+						<div class="col-sm-12 col-md-5 pb-5">
+							<div
+								class="video embed-responsive embed-responsive-16by9 mb-5"
+							>
+								<iframe
+									class="embed-responsive-item"
+									src="https://www.youtube.com/embed/RtyBjWmbePQ"
+									frameborder="0"
+									allowfullscreen
+								></iframe>
+							</div>
+							<h2 class="mb-4">How It Works</h2>
+							<p>
+								This app is powered by the Tardigrade
+								decentralized cloud service, the world’s first
+								decentralized cloud object storage service. The
+								Tardigrade cloud storage platform utilizes spare
+								disk drive space and bandwidth shared by its
+								community members worldwide.
+								<br /><br />Tardigrade splits files into
+								encrypted pieces, then distributes them on a
+								global network, and recompiles each piece on
+								download. This means your data isn’t being
+								stored in a vulnerable data center; it’s
+								securely stored all over the world.
+							</p>
+						</div>
+
+						<div class="col-sm-12 col-md-6 offset-md-1">
+							<div class="row mb-5">
+								<div class="col-1">
+									<img
+										src="@/assets/tar-ico-secure.svg"
+										alt="100% Secure"
+										height="32"
+										width="32"
+									/>
+								</div>
+								<div class="col-11 px-4">
+									<h5 class="mb-3">100% Secure</h5>
+									<p>
+										Store your data with confidence, knowing
+										Storj uses end-to-end encryption and
+										decentralization to offer unparalled
+										security.
+									</p>
+								</div>
+							</div>
+
+							<div class="row mb-5">
+								<div class="col-1">
+									<img
+										src="@/assets/tar-ico-durable.svg"
+										alt="Remarkably Durable"
+										height="32"
+										width="32"
+									/>
+								</div>
+								<div class="col-11 px-4">
+									<h5 class="mb-3">Remarkably Durable</h5>
+									<p>
+										Don't worry about downtime and outages.
+										Files on Storj are split into pieces and
+										distributed on a global network, which
+										is why we've never lost a file.
+									</p>
+								</div>
+							</div>
+
+							<div class="row mb-5">
+								<div class="col-1">
+									<img
+										src="@/assets/tar-ico-money.svg"
+										alt="Predictable Pricing"
+										height="32"
+										width="32"
+									/>
+								</div>
+								<div class="col-11 px-4">
+									<h5 class="mb-3">Predictable Pricing</h5>
+									<p>
+										Storj is a fraction of the cost of other
+										storage solutions, and pricing is
+										predictable so you don't run into
+										surprises when looking at your bill.
+									</p>
+								</div>
+							</div>
+
+							<div class="row mb-5">
+								<div class="col-1">
+									<img
+										src="@/assets/tar-ico-global.svg"
+										alt="Globally Distributed"
+										height="32"
+										width="32"
+									/>
+								</div>
+								<div class="col-11 px-4">
+									<h5 class="mb-3">Globally Distributed</h5>
+									<p>
+										Most storage services run on data
+										centers. Storj never puts your file in
+										one place, so downtime and breaches are
+										a thing of the past.
+									</p>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+
+			<main-footer></main-footer>
 		</div>
-
-		<main-footer></main-footer>
-
 	</div>
-</div>
 </template>
 
 <script>
@@ -409,7 +530,7 @@ export default {
 				email: this.email,
 				password: this.password
 			});
-		},
+		}
 	},
 	computed: {
 		error() {
@@ -421,14 +542,14 @@ export default {
 	},
 	watch: {
 		isLoggedIn(loggedIn) {
-			if(loggedIn === true) {
-				this.$router.push({path:this.destination});
+			if (loggedIn === true) {
+				this.$router.push({ path: this.destination });
 			}
 		}
 	},
 	components: {
 		Hero,
-		MainFooter,
+		MainFooter
 	},
 	async created() {
 		if (this.$route.query.app) this.destination = "/app/apps";
