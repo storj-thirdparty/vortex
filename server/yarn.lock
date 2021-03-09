@@ -3717,9 +3717,9 @@ postgres-interval@^1.1.0:
   dependencies:
     xtend "^4.0.0"
 
-postmark@2.7.2:
-  version "2.7.2"
-  resolved "https://registry.npmjs.org/postmark/-/postmark-2.7.2.tgz"
+postmark@2.7.3:
+  version "2.7.3"
+  resolved "https://registry.yarnpkg.com/postmark/-/postmark-2.7.3.tgz#e699dd52794cbca8a0d22b9bdcf472fe4e5f9dbc"
   dependencies:
     axios "^0.21.1"
 
