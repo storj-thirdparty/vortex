@@ -1792,7 +1792,7 @@
   optionalDependencies:
     vue-loader-v16 "npm:vue-loader@^16.1.0"
 
-"@vue/cli-shared-utils@^4.5.11", "@vue/cli-shared-utils@^4.5.8":
+"@vue/cli-shared-utils@^4.4.6", "@vue/cli-shared-utils@^4.5.11":
   version "4.5.11"
   resolved "https://registry.npmjs.org/@vue/cli-shared-utils/-/cli-shared-utils-4.5.11.tgz"
   dependencies:
@@ -1809,17 +1809,17 @@
     semver "^6.1.0"
     strip-ansi "^6.0.0"
 
-"@vue/cli-ui-addon-webpack@^4.5.8":
+"@vue/cli-ui-addon-webpack@^4.5.11":
   version "4.5.11"
-  resolved "https://registry.npmjs.org/@vue/cli-ui-addon-webpack/-/cli-ui-addon-webpack-4.5.11.tgz"
+  resolved "https://registry.yarnpkg.com/@vue/cli-ui-addon-webpack/-/cli-ui-addon-webpack-4.5.11.tgz#04ce11317ace3bce0b0ad768436cd801da13fec5"
 
-"@vue/cli-ui-addon-widgets@^4.5.8":
+"@vue/cli-ui-addon-widgets@^4.5.11":
   version "4.5.11"
-  resolved "https://registry.npmjs.org/@vue/cli-ui-addon-widgets/-/cli-ui-addon-widgets-4.5.11.tgz"
+  resolved "https://registry.yarnpkg.com/@vue/cli-ui-addon-widgets/-/cli-ui-addon-widgets-4.5.11.tgz#9cb8d1ff913319f057a6026ee33ddf88a08bfe45"
 
-"@vue/cli-ui@^4.5.8":
+"@vue/cli-ui@^4.5.11":
   version "4.5.11"
-  resolved "https://registry.npmjs.org/@vue/cli-ui/-/cli-ui-4.5.11.tgz"
+  resolved "https://registry.yarnpkg.com/@vue/cli-ui/-/cli-ui-4.5.11.tgz#383b7e112abd26deddbc475ced0fe26e8a569124"
   dependencies:
     "@akryum/winattr" "^3.0.0"
     "@vue/cli-shared-utils" "^4.5.11"
@@ -1851,16 +1851,16 @@
     vue-cli-plugin-apollo "^0.21.3"
     watch "^1.0.2"
 
-"@vue/cli@4.5.8":
-  version "4.5.8"
-  resolved "https://registry.npmjs.org/@vue/cli/-/cli-4.5.8.tgz"
+"@vue/cli@4.5.11":
+  version "4.5.11"
+  resolved "https://registry.yarnpkg.com/@vue/cli/-/cli-4.5.11.tgz#ab46e00559d4b8cae6a7b74f4140f250225893e8"
   dependencies:
     "@types/ejs" "^2.7.0"
     "@types/inquirer" "^6.5.0"
-    "@vue/cli-shared-utils" "^4.5.8"
-    "@vue/cli-ui" "^4.5.8"
-    "@vue/cli-ui-addon-webpack" "^4.5.8"
-    "@vue/cli-ui-addon-widgets" "^4.5.8"
+    "@vue/cli-shared-utils" "^4.5.11"
+    "@vue/cli-ui" "^4.5.11"
+    "@vue/cli-ui-addon-webpack" "^4.5.11"
+    "@vue/cli-ui-addon-widgets" "^4.5.11"
     boxen "^4.1.0"
     cmd-shim "^3.0.3"
     commander "^2.20.0"
