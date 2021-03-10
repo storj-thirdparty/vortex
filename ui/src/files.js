@@ -367,7 +367,7 @@ export default {
 			dispatch("updatePreventRefresh", false);
 		},
 
-		async deleteSelected({ rootState, dispatch, commit }) {
+		async deleteSelected({ rootState, state, dispatch, commit }) {
 			const filesToDelete = [
 				state.selectedFile,
 				...state.selectedFiles,
