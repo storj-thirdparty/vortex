@@ -58,7 +58,6 @@ a.docs-link-active {
 							</div>
 						</div>
 					</div>
-
 					<div class="row m-5">
 						<div class="col-xs-12 col-sm-6 col-md-3 mb-5">
 							<img src="@/assets/duplicati.png" width="40" class="mb-3" alt="Duplicati">
@@ -153,7 +152,7 @@ a.docs-link-active {
 									<label
 										class="label"
 										for="access-key"
-										id="lbl-access-key"
+										id="lbl-aws-access-id"
 										>AWS Access ID</label
 									>
 									<input
@@ -185,7 +184,7 @@ a.docs-link-active {
 									<label
 										class="label"
 										for="secret-key"
-										id="lbl-secret-key"
+										id="lbl-aws-access-key"
 										>AWS Access Key</label
 									>
 									<input
@@ -317,12 +316,12 @@ a.docs-link-active {
 										>Bucket</a
 									>
 									to your given <b>Bucket Name</b>,
-									<a href="#lbl-access-key" class="link"
-										>Access Key</a
+									<a href="#lbl-aws-access-id" class="link"
+										>AWS Access ID</a
 									>
 									to <b>AWS Access ID</b>, and
-									<a href="#lbl-secret-key" class="link"
-										>Secret Key</a
+									<a href="#lbl-aws-access-key" class="link"
+										>AWS Access Key</a
 									>
 									to <b>AWS Access Key</b>. You can enter
 									anything you would like for
@@ -440,11 +439,8 @@ export default {
 	methods: {
 		async copy(text, field) {
 			await navigator.clipboard.writeText(text);
-
 			this[field] = "Copied!";
-
 			await new Promise((r) => setTimeout(r, 1000));
-
 			this[field] = "Copy";
 		}
 	}
