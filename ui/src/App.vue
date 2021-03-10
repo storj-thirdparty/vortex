@@ -307,7 +307,7 @@
 			<div class="row py-3">
 				<div class="col">
 					<nav class="navbar navbar-expand-sm second-nav p-0">
-						<a class="navbar-brand" href="/"
+						<a class="navbar-brand" href="javascript:null"
 							><img
 								class="logo"
 								alt="Storj logo"
