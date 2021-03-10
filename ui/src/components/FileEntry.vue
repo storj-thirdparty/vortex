@@ -413,9 +413,7 @@ export default {
 
 	methods: {
 		loadingSpinner() {
-			return !!this.$store.state.files.filesToBeDeleted.find(
-				(file) => file === this.file
-			);
+			return !!this.$store.state.files.deleting.find((file) => file === this.file);
 		},
 		fileClick(event) {
 			event.stopPropagation();
@@ -423,12 +421,11 @@ export default {
 			// this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
-			return (
-				this.$store.state.files.selectedFile === this.file ||
-				this.$store.state.files.shiftSelectedFiles.find(
-					(file) => file === this.file
-				)
-			);
+			return this.$store.state.files.selectedFile === this.file ||
+ 			this.$store.state.files.selectedFiles
+ 			.find((file) => file === this.file) ||
+ 			this.$store.state.files.shiftSelectedFiles
+ 			.find((file) => file === this.file);
 		},
 		selectFile(event) {
 			event.stopPropagation();
@@ -438,13 +435,12 @@ export default {
 			}
 
 			if (event.shiftKey) {
-				this.$store.dispatch(
-					"files/addToShiftSelectedFiles",
-					this.file
-				);
-			} else {
-				this.$store.dispatch("files/updateSelectedFile", this.file);
-			}
+ 				this.$store.dispatch("files/addToShiftSelectedFiles", this.file);
+ 			} else if (event.metaKey || event.ctrlKey) {
+ 				this.$store.dispatch("files/updateSelectedFile", { file: this.file, command: true });
+ 			} else {
+ 				this.$store.dispatch("files/updateSelectedFile", { file: this.file, command: false });
+ 			}
 		},
 		async share(event) {
 			console.log("I've been clicked!");
