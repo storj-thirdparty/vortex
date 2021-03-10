@@ -2,23 +2,19 @@
 .file-browser {
 	min-height: 500px;
 }
-
 tbody {
 	user-select: none;
 }
-
 .table-heading {
 	color: #768394;
 	border-top: 0;
 	border-bottom: 1px solid #dee2e6;
 	padding-left: 0;
 }
-
 .path {
 	font-size: 18px;
 	font-weight: 700;
 }
-
 .upload-help {
 	font-size: 1.75rem;
 	text-align: center;
@@ -29,20 +25,16 @@ tbody {
 	padding: 80px 20px;
 	background: #fafafb;
 }
-
 .metric {
 	color: #444;
 }
-
 .div-responsive {
 	min-height: 400px;
 }
-
 .dropdown-arrow {
 	cursor: pointer;
 	color: #768394;
 }
-
 .table-heading {
 	cursor: pointer;
 }
@@ -526,44 +518,23 @@ tbody {
 						<div class="spinner-border"></div>
 					</div>
 
-					<div
-						v-if="
-							!files.length ||
-							(files.length === 1 &&
-								files[0].Key === '.vortex_placeholder')
-						"
-						class="upload-help"
-					>
-						<svg
-							width="36"
-							height="36"
-							viewBox="0 0 36 36"
-							fill="none"
-							xmlns="http://www.w3.org/2000/svg"
-						>
-							<path
-								d="M16.8616 1.02072L16.8554 1.01398L5.40027 13.3834L7.94585 16.1322L16.2 7.2192V26.2817H19.8V7.64972L27.6554 16.1321L30.201 13.3833L17.8069 0L16.8616 1.02072Z"
-								fill="#93A1AF"
-							/>
-							<path
-								d="M36 32.1127H0V36H36V32.1127Z"
-								fill="#93A1AF"
-							/>
-						</svg>
-						<h4 class="mt-4">Drop Files Here to Upload</h4>
-					</div>
+				<div v-if="dragAndDropDisplay" class="upload-help">
+					<svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<path d="M16.8616 1.02072L16.8554 1.01398L5.40027 13.3834L7.94585 16.1322L16.2 7.2192V26.2817H19.8V7.64972L27.6554 16.1321L30.201 13.3833L17.8069 0L16.8616 1.02072Z" fill="#93A1AF" />
+						<path d="M36 32.1127H0V36H36V32.1127Z" fill="#93A1AF" />
+					</svg>
+					<h4 class="mt-4">Drop Files Here to Upload</h4>
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
 </template>
 
 <script>
 import axios from "axios";
-
 import FileEntry from "./FileEntry.vue";
 import BreadCrumbs from "./BreadCrumbs.vue";
-
 export default {
 	data: () => ({
 		s3: null,
@@ -576,7 +547,8 @@ export default {
 		orderBy: "desc",
 		deleteConfirmation: false,
 		creatingFolderSpinner: false,
-		fetchingFilesSpinner: false
+		fetchingFilesSpinner: false,
+		dragAndDropDisplay: false,
 	}),
 	computed: {
 		createFolderEnabled() {
@@ -608,14 +580,15 @@ export default {
 			await this.goToRoutePath();
 		}
 	},
-
+	updated() {
+		this.dragAndDrop();
+	},
 	beforeMount() {
 		window.addEventListener("beforeunload", this.preventNav);
 		this.$once("hook:beforeDestroy", () => {
 			window.removeEventListener("beforeunload", this.preventNav);
 		});
 	},
-
 	beforeRouteLeave(to, from, next) {
 		if (this.$store.state.files.preventRefresh) {
 			if (
@@ -628,7 +601,6 @@ export default {
 		}
 		next();
 	},
-
 	methods: {
 		hideFolderCreation() {
 			this.createFolderInputShow = false;
@@ -665,13 +637,11 @@ export default {
 			await this.$store.dispatch("files/upload", e);
 			e.target.value = "";
 		},
-
 		async download(file) {
 			const url = this.s3.getSignedUrl("getObject", {
 				Bucket: this.$store.state.stargateBucket,
 				Key: this.path + file.Key
 			});
-
 			const downloadURL = function (data, fileName) {
 				var a;
 				a = document.createElement("a");
@@ -682,68 +652,55 @@ export default {
 				a.click();
 				a.remove();
 			};
-
 			downloadURL(url, file.Key);
-
 			await axios.post("/api/events/download", {
 				bytes: file.Size,
 				files: 1
 			});
 		},
-
 		async list(path) {
 			await this.$store.dispatch("files/list", path, {
 				root: true
 			});
 		},
-
 		async go(path) {
 			await this.$store.dispatch("openDropdown", null);
 			await this.list(this.path + path);
 		},
-
 		async goToRoutePath() {
 			if (typeof this.routePath === "string") {
 				await this.$store.dispatch("openDropdown", null);
 				await this.list(this.routePath);
 			}
 		},
-
 		async back() {
 			this.createFolderInputShow = false;
 			await this.$store.dispatch("openDropdown", null);
 			await this.$store.dispatch("files/back");
 		},
-
 		async buttonUpload() {
 			const fileInputElement = this.$refs.fileInput;
 			fileInputElement.click();
 		},
-
 		async createFolder() {
 			this.creatingFolderSpinner = true;
-
 			if (!this.createFolderEnabled) return;
 			await this.$store.dispatch(
 				"files/createFolder",
 				this.createFolderInput.trim()
 			);
-
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
 			this.creatingFolderSpinner = false;
 		},
-
 		cancelFolderCreation() {
 			this.createFolderInput = "";
 			this.createFolderInputShow = false;
 		},
-
 		sortTable(heading) {
 			["name", "size", "date"].forEach((category) => {
 				if (category !== heading) this[category + "Hover"] = false;
 			});
-
 			if (this.headingSorted === heading) {
 				this.orderBy = this.orderBy === "desc" ? "asc" : "desc";
 				this.$store.dispatch("files/sortAllFiles", {
@@ -759,7 +716,6 @@ export default {
 				});
 			}
 		},
-
 		mouseOverHandler(heading) {
 			if (this.headingSorted !== heading) {
 				if (heading === "name") this.nameHover = true;
@@ -767,18 +723,23 @@ export default {
 				if (heading === "date") this.dateHover = true;
 			}
 		},
-
 		mouseLeaveHandler(heading) {
 			if (this.headingSorted !== heading) {
 				if (heading === "name") this.nameHover = false;
 				if (heading === "size") this.sizeHover = false;
 				if (heading === "date") this.dateHover = false;
 			}
-		}
+		},
+		dragAndDrop() {
+			if (!this.files.length || (this.files.length === 1 && this.files[0].Key === '.vortex_placeholder')) {
+				this.dragAndDropDisplay = true;
+			} else {
+				this.dragAndDropDisplay = false;
+			}
+		},
 	},
 	async created() {
 		this.fetchingFilesSpinner = true;
-
 		if (!this.routePath) {
 			try {
 				await this.$router.push({
@@ -790,7 +751,6 @@ export default {
 		} else {
 			await this.list(this.routePath);
 		}
-
 		this.fetchingFilesSpinner = false;
 	},
 	components: {
