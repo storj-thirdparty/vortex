@@ -369,8 +369,8 @@ export default {
 				this.$store.dispatch("openDropdown", null);
 			}
 
-			if (this.$store.state.files.selectedFile) {
-				this.$store.dispatch("files/removeAllSelectedFiles", { file: null, command: false });
+			if (this.$store.state.files.selectedAnchorFile || this.$store.state.files.unselectedAnchorFile) {
+				this.$store.dispatch("files/clearAllSelectedFiles", { file: null, command: false });
 			}
 		}
 	}
