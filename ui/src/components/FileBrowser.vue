@@ -620,7 +620,7 @@ export default {
 			return this.$store.state.openedDropdown === "FileBrowser";
 		},
 		areThereFilesToDelete() {
-			return !!this.$store.state.files.selectedFile;
+			return !!this.$store.state.files.selectedAnchorFile || !!this.$store.state.files.unselectedAnchorFile;
 		},
 		preventNav(event) {
 			if (!this.$store.state.files.preventRefresh) return;
