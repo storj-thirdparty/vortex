@@ -11,9 +11,17 @@ export default {
 		uploading: [],
 		deleting: [],
 		preventRefresh: false,
-		selectedFile: null,
+		selectedAnchorFile: null,
+		unselectedAnchorFile: null,
 		selectedFiles: [],
 		shiftSelectedFiles: []
+
+		/* Documentation for selectedAnchorFile, unselectedAnchorFile, selectedFiles, shiftSelectedFiles
+
+		- selectedAnchorFile === the anchor file from which [shift + click] selects files from
+		- unselectedAnchorFile === this is a temporary holding-place for the selectedAnchorFile should the user unselect the selectedAnchorFile but then perform a [shift + click] right after, which would mean that we need to have an anchor from which to select all files from
+		- selectedFiles === all files that are selected that do not include the selectedAnchorFile, unselectedAnchorFile, and shiftSelectedFiles. This is the holding place for all of the files that used to be a selectedAnchorFile and shiftSelectedFile because the user chose to select other files noncontiguously
+		- shiftSelectedFiles === all of the current files that the user has selected with [shift + click] */
 	},
 	mutations: {
 		updateFiles(state, { path, files }) {
@@ -26,9 +34,13 @@ export default {
 		},
 
 		setSelectedFile(state, { file, command }) {
+			/* this function is responsible for selecting and unselecting a file on file click or [CMD + click] AKA command. */
+
 			const files = [...state.selectedFiles, ...state.shiftSelectedFiles];
 
 			if (command && files.includes(file)) {
+				/* if it's [CMD + click] and the file selected is a file that has already been selected in selectedFiles and shiftSelectedFiles, then unselect it by filtering it out. */
+
 				state.selectedFiles = state.selectedFiles.filter(
 					(fileSelected) => fileSelected !== file
 				);
@@ -36,14 +48,19 @@ export default {
 				state.shiftSelectedFiles = state.shiftSelectedFiles.filter(
 					(fileSelected) => fileSelected !== file
 				);
-			} else if (command && state.selectedFile) {
-				const filesSelected = [
-					...state.selectedFiles,
-					...[state.selectedFile].filter(
-						(fileSelected) =>
-							!state.selectedFiles.includes(fileSelected)
-					)
-				];
+			} else if (command && file === state.selectedAnchorFile) {
+				/* if it's [CMD + click] and the file selected is the actual selectedAnchorFile, then unselect the file but store it under unselectedAnchorFile in case the user decides to do a [shift + click] right after this action. */
+
+				state.unselectedAnchorFile = file;
+				state.selectedAnchorFile = null;
+			} else if (command && state.selectedAnchorFile) {
+				/* if it's [CMD + click] and there is already a selectedAnchorFile, then add the selectedAnchorFile into the array of selectedFiles, set selectedAnchorFile to the file that was clicked and set unselectedAnchorFile to null. */
+
+				const filesSelected = [...state.selectedFiles];
+
+				if (!filesSelected.includes(state.selectedAnchorFile)) {
+					filesSelected.push(state.selectedAnchorFile);
+				}
 
 				state.selectedFiles = [
 					...filesSelected,
@@ -52,9 +69,22 @@ export default {
 					)
 				];
 
-				state.selectedFile = file;
+				state.selectedAnchorFile = file;
+				state.unselectedAnchorFile = null;
+			} else if (command) {
+				/* if it's [CMD + click] and it has not met any of the above conditions, then set selectedAnchorFile to file and set unselectedAnchorfile to null. */
+
+				state.selectedAnchorFile = file;
+				state.unselectedAnchorFile = null;
+
+				state.selectedFiles = [
+					...state.selectedFiles,
+					...state.shiftSelectedFiles
+				];
 			} else {
-				state.selectedFile = file;
+				/* if it's just a file click without any modifier, then set selectedAnchorFile to the file that was clicked, set shiftSelectedFiles and selectedFiles to an empty array. */
+
+				state.selectedAnchorFile = file;
 				state.shiftSelectedFiles = [];
 				state.selectedFiles = [];
 			}
@@ -75,19 +105,30 @@ export default {
 		},
 
 		removeAllSelectedFiles(state) {
-			state.selectedFile = null;
+			state.selectedAnchorFile = null;
+			state.unselectedAnchorFile = null;
 			state.shiftSelectedFiles = [];
+			state.selectedFiles = [];
 		},
 
 		setShiftSelectedFiles(state, file) {
-			if (!state.selectedFile) {
-				state.selectedFile = file;
+			/* this function is responsible for selecting all files from selectedAnchorFile to the file that was selected with [shift + click] */
+
+			if (state.unselectedAnchorFile) {
+				/* if there is an unselectedAnchorFile, meaning that in the previous action the user unselected the anchor file but is now chosing to do a [shift + click] on another file, then reset the selectedAnchorFile, the achor file, to unselectedAnchorFile. */
+
+				state.selectedAnchorFile = state.unselectedAnchorFile;
+				state.unselectedAnchorFile = null;
+			}
+
+			if (!state.selectedAnchorFile) {
+				state.selectedAnchorFile = file;
 				return;
 			}
 
 			let anchorIdx;
 			for (let i = 0; i < state.files.length; i++) {
-				if (state.files[i] === state.selectedFile) anchorIdx = i;
+				if (state.files[i] === state.selectedAnchorFile) anchorIdx = i;
 			}
 
 			let shiftIdx;
@@ -103,7 +144,7 @@ export default {
 				.filter(
 					(file) =>
 						!state.selectedFiles.includes(file) &&
-						file !== state.selectedFile
+						file !== state.selectedAnchorFile
 				);
 		},
 
@@ -369,7 +410,7 @@ export default {
 
 		async deleteSelected({ rootState, state, dispatch, commit }) {
 			const filesToDelete = [
-				state.selectedFile,
+				state.selectedAnchorFile,
 				...state.selectedFiles,
 				...state.shiftSelectedFiles
 			];
