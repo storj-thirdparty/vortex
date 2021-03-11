@@ -27,7 +27,7 @@
 	},
 	"devDependencies": {
 		"@vue/cli-plugin-router": "4.5.0",
-		"@vue/cli-service": "4.4.6",
+		"@vue/cli-service": "4.5.11",
 		"eslint": "7.21.0",
 		"eslint-plugin-vue": "7.7.0",
 		"prettier": "2.2.1",
