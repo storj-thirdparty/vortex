@@ -370,7 +370,7 @@ export default {
 			}
 
 			if (this.$store.state.files.selectedFile) {
-				this.$store.dispatch("files/updateSelectedFile", { file: null, command: false });
+				this.$store.dispatch("files/removeAllSelectedFiles", { file: null, command: false });
 			}
 		}
 	}

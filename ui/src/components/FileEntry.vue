@@ -6,10 +6,10 @@
 	vertical-align: middle;
 }
 
-.table-hover tbody tr:hover {
+/* .table-hover tbody tr:hover {
 	background-color: #f4f5f7;
 	cursor: pointer;
-}
+} */
 
 .selected-row {
 	background-color: #f4f5f7;
@@ -421,7 +421,7 @@ export default {
 			// this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
-			return this.$store.state.files.selectedFile === this.file ||
+			return this.$store.state.files.selectedAnchorFile === this.file ||
  			this.$store.state.files.selectedFiles
  			.find((file) => file === this.file) ||
  			this.$store.state.files.shiftSelectedFiles
