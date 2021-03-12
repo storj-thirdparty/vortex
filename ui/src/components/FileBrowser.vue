@@ -585,18 +585,6 @@ export default {
 			window.removeEventListener("beforeunload", this.preventNav);
 		});
 	},
-	beforeRouteLeave(to, from, next) {
-		if (this.$store.state.files.preventRefresh) {
-			if (
-				window.confirm(
-					"Navigating to another page will stop files from being uploaded. Would you like to wait for the files to finish uploading?"
-				)
-			) {
-				return;
-			}
-		}
-		next();
-	},
 	methods: {
 		toggleFolderCreationInput() {
 			this.$store.dispatch("updateCreateFolderInputShow", !this.$store.state.createFolderInputShow);
@@ -630,8 +618,10 @@ export default {
 				: file.Key;
 		},
 		async upload(e) {
+			this.$store.dispatch("files/updatePreventRefresh", true);
 			await this.$store.dispatch("files/upload", e);
 			e.target.value = "";
+			this.$store.dispatch("files/updatePreventRefresh", false);
 		},
 		async download(file) {
 			const url = this.s3.getSignedUrl("getObject", {
