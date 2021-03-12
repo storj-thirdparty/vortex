@@ -92,9 +92,7 @@ tbody {
 						<div class="col-sm-12 col-md-4 col-xl-2 mb-3">
 							<button
 								class="btn btn-light btn-block"
-								v-on:click="
-									createFolderInputShow = !createFolderInputShow
-								"
+								v-on:click="toggleFolderCreationInput"
 								style="margin-right: 15px"
 							>
 								<svg
@@ -447,7 +445,7 @@ tbody {
 									</td>
 								</tr>
 
-								<tr v-if="createFolderInputShow === true">
+								<tr v-if="this.$store.state.createFolderInputShow === true">
 									<td span="3">
 										<input
 											class="form-control"
@@ -494,7 +492,6 @@ tbody {
 									v-on:download="download(file)"
 									v-on:go="go"
 									v-bind:key="file.Key"
-									v-on:hideFolderCreation="hideFolderCreation"
 								></file-entry>
 								<file-entry
 									v-for="file in files.filter(
@@ -539,7 +536,6 @@ export default {
 	data: () => ({
 		s3: null,
 		createFolderInput: "",
-		createFolderInputShow: false,
 		nameHover: false,
 		sizeHover: false,
 		dateHover: false,
@@ -602,8 +598,8 @@ export default {
 		next();
 	},
 	methods: {
-		hideFolderCreation() {
-			this.createFolderInputShow = false;
+		toggleFolderCreationInput() {
+			this.$store.dispatch("updateCreateFolderInputShow", !this.$store.state.createFolderInputShow);
 		},
 		deleteSelectedDropdown(event) {
 			event.stopPropagation();
@@ -674,7 +670,7 @@ export default {
 			}
 		},
 		async back() {
-			this.createFolderInputShow = false;
+			this.$store.dispatch("updateCreateFolderInputShow", false);
 			await this.$store.dispatch("openDropdown", null);
 			await this.$store.dispatch("files/back");
 		},
@@ -690,12 +686,12 @@ export default {
 				this.createFolderInput.trim()
 			);
 			this.createFolderInput = "";
-			this.createFolderInputShow = false;
+			this.$store.dispatch("updateCreateFolderInputShow", false);
 			this.creatingFolderSpinner = false;
 		},
 		cancelFolderCreation() {
 			this.createFolderInput = "";
-			this.createFolderInputShow = false;
+			this.$store.dispatch("updateCreateFolderInputShow", false);
 		},
 		sortTable(heading) {
 			["name", "size", "date"].forEach((category) => {

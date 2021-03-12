@@ -91,7 +91,8 @@ const store = new Vuex.Store({
 		features: {},
 		plans: null,
 		usage: null,
-		openedDropdown: null
+		openedDropdown: null,
+		createFolderInputShow: false
 	},
 	getters: {
 		isLoggedIn(state) {
@@ -102,6 +103,9 @@ const store = new Vuex.Store({
 		files
 	},
 	mutations: {
+		setCreateFolderInputShow(state, value) {
+			state.createFolderInputShow = value;
+		},
 		setOpenedDropdown(state, id) {
 			state.openedDropdown = id;
 		},
@@ -208,6 +212,10 @@ const store = new Vuex.Store({
 			const { data } = await axios.post("/api/usage");
 
 			commit("setUsage", data);
+		},
+
+		updateCreateFolderInputShow({ commit }, value) {
+			commit("setCreateFolderInputShow", value);
 		}
 	}
 });

@@ -417,7 +417,7 @@ export default {
 		},
 		fileClick(event) {
 			event.stopPropagation();
-			this.$emit("hideFolderCreation");
+			this.$store.dispatch("updateCreateFolderInputShow", false);
 			// this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
