@@ -42,13 +42,13 @@ export default {
 					? ["Home", ...path.slice(0, path.length - 1)]
 					: ["Home"];
 			return path;
-		}
+		},
 	},
 	methods: {
 		link(idx) {
-			const crumbs = this.crumbs;
+			const crumbsArr = this.crumbs;
 			let path = "";
-			if (idx > 0) path = crumbs.slice(1, idx + 1).join("/") + "/";
+			if (idx > 0) path = crumbsArr.slice(1, idx + 1).join("/") + "/";
 
 			return "/app/browser/" + path;
 		},
