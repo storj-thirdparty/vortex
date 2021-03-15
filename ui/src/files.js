@@ -1,5 +1,4 @@
 import axios from "axios";
-import { router } from "./main";
 
 const listCache = new Map();
 
@@ -218,11 +217,13 @@ export default {
 				})
 				.promise();
 
+			/*
 			// handle paths that don't exist
 			if (response.Prefix !== "" && response.Contents.length === 0) {
 				router.push({ name: "404", params: { context: "folder" } });
 				return;
 			}
+			*/
 
 			const { Contents, CommonPrefixes } = response;
 
