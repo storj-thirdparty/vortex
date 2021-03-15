@@ -4122,14 +4122,14 @@ sequelize-pool@^6.0.0:
   version "6.1.0"
   resolved "https://registry.npmjs.org/sequelize-pool/-/sequelize-pool-6.1.0.tgz"
 
-sequelize@6.3.5:
-  version "6.3.5"
-  resolved "https://registry.npmjs.org/sequelize/-/sequelize-6.3.5.tgz"
+sequelize@6.5.1:
+  version "6.5.1"
+  resolved "https://registry.yarnpkg.com/sequelize/-/sequelize-6.5.1.tgz#bb08c001515afe159f9efe8c1d59b7a07c43a608"
   dependencies:
     debug "^4.1.1"
     dottie "^2.0.0"
     inflection "1.12.0"
-    lodash "^4.17.15"
+    lodash "^4.17.20"
     moment "^2.26.0"
     moment-timezone "^0.5.31"
     retry-as-promised "^3.2.0"
