@@ -589,9 +589,9 @@ atob@^2.1.2:
   version "2.1.2"
   resolved "https://registry.npmjs.org/atob/-/atob-2.1.2.tgz"
 
-aws-sdk@2.858.0:
-  version "2.858.0"
-  resolved "https://registry.npmjs.org/aws-sdk/-/aws-sdk-2.858.0.tgz"
+aws-sdk@2.868.0:
+  version "2.868.0"
+  resolved "https://registry.yarnpkg.com/aws-sdk/-/aws-sdk-2.868.0.tgz#2c31f5d788e4487ac29f51498e46cc91b0d1de6a"
   dependencies:
     buffer "4.9.2"
     events "1.1.1"
