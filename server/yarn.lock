@@ -2380,12 +2380,12 @@ interpret@^1.2.0:
   version "1.4.0"
   resolved "https://registry.npmjs.org/interpret/-/interpret-1.4.0.tgz"
 
-ioredis@4.23.0:
-  version "4.23.0"
-  resolved "https://registry.npmjs.org/ioredis/-/ioredis-4.23.0.tgz"
+ioredis@4.24.5:
+  version "4.24.5"
+  resolved "https://registry.yarnpkg.com/ioredis/-/ioredis-4.24.5.tgz#32f56ccb04d2e9ff00aa935caf348fd4e19867b0"
   dependencies:
     cluster-key-slot "^1.1.0"
-    debug "^4.1.1"
+    debug "^4.3.1"
     denque "^1.1.0"
     lodash.defaults "^4.2.0"
     lodash.flatten "^4.4.0"
@@ -2393,7 +2393,7 @@ ioredis@4.23.0:
     redis-commands "1.7.0"
     redis-errors "^1.2.0"
     redis-parser "^3.0.0"
-    standard-as-callback "^2.0.1"
+    standard-as-callback "^2.1.0"
 
 irregular-plurals@^3.2.0:
   version "3.2.0"
@@ -4294,9 +4294,9 @@ sprintf-js@~1.0.2:
   version "1.0.3"
   resolved "https://registry.npmjs.org/sprintf-js/-/sprintf-js-1.0.3.tgz"
 
-standard-as-callback@^2.0.1:
-  version "2.0.1"
-  resolved "https://registry.npmjs.org/standard-as-callback/-/standard-as-callback-2.0.1.tgz"
+standard-as-callback@^2.1.0:
+  version "2.1.0"
+  resolved "https://registry.yarnpkg.com/standard-as-callback/-/standard-as-callback-2.1.0.tgz#8953fc05359868a77b5b9739a665c5977bb7df45"
 
 static-extend@^0.1.1:
   version "0.1.2"

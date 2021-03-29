@@ -14,7 +14,7 @@
 		"bcrypt": "5.0.1",
 		"body-parser": "1.19.0",
 		"human-readable-numbers": "0.9.5",
-		"ioredis": "4.23.0",
+		"ioredis": "4.24.5",
 		"koa": "2.13.1",
 		"koa-bodyparser": "4.3.0",
 		"koa-cookie": "1.0.0",
