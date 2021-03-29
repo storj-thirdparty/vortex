@@ -15,7 +15,7 @@
 	},
 	"dependencies": {
 		"@vue/cli": "4.5.8",
-		"aws-sdk": "2.858.0",
+		"aws-sdk": "2.874.0",
 		"axios": "0.21.1",
 		"human-readable-numbers": "0.9.5",
 		"jest": "26.6.3",
