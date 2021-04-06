@@ -3,9 +3,11 @@
 name: deploy
 
 on:
-
-  # Allows you to run this workflow manually from the Actions tab
+  push:
+    branches:
+      - main
   workflow_dispatch:
+
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
@@ -16,7 +18,7 @@ jobs:
       - name: Check out the repo
         uses: actions/checkout@v2
       - name: Login to Docker
-        run: docker login -u ${{ secrets.DOCKER_USERNAME }} -p ${{ secrets.DOCKER_PASSWORD }}
+        run: echo ${{ secrets.DOCKER_PASSWORD }} | docker login -u ${{ secrets.DOCKER_USERNAME }} --password-stdin
       - name: Build
         run: docker-compose build --parallel
       - name: Build ui image
