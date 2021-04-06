@@ -417,7 +417,7 @@ export default {
 		},
 		fileClick(event) {
 			event.stopPropagation();
-			this.$emit("hideFolderCreation");
+			this.$store.dispatch("updateCreateFolderInputShow", false);
 			// this.$emit("go", this.file.Key + "/");
 		},
 		isFileSelected() {
@@ -443,7 +443,6 @@ export default {
  			}
 		},
 		async share(event) {
-			console.log("I've been clicked!");
 			event.stopPropagation();
 			this.$emit("share");
 
