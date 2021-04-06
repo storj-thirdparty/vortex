@@ -19,8 +19,6 @@
 		"koa-bodyparser": "4.3.0",
 		"koa-cookie": "1.0.0",
 		"koa-static": "5.0.0",
-		"levelup": "4.4.0",
-		"minio": "7.0.18",
 		"moment": "2.29.1",
 		"pg": "8.5.1",
 		"pg-hstore": "2.3.3",
