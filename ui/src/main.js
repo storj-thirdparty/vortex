@@ -4,16 +4,17 @@ import Vuex from "vuex";
 import axios from "axios";
 import S3 from "aws-sdk/clients/s3";
 
+import { FileBrowser } from "browser";
+
 import App from "./App.vue";
 import Home from "./views/Home.vue";
 import Admin from "./views/Admin.vue";
 import Dashboard from "./views/Dashboard.vue";
-import FileBrowser from "./components/FileBrowser.vue";
 import Apps from "./components/Apps.vue";
 import Usage from "./components/Usage.vue";
 import NotFound from "./components/NotFound.vue";
 
-import files from "./files.js";
+import { files } from 'browser';
 
 Vue.use(Router);
 Vue.use(Vuex);
@@ -188,7 +189,18 @@ const store = new Vuex.Store({
 		},
 
 		async passiveLogin({ commit }) {
+			console.log('passive login');
 			const { data } = await axios.post("/api/passive-login");
+
+			console.log('passive login', data);
+		
+			commit('files/init', {
+				endpoint: data.stargateEndpoint,
+				accessKey: data.stargateAccessKey,
+				secretKey: data.stargateSecretKey,
+				bucket: data.stargateBucket,
+				browserRoot: "/app/browser/"
+			});
 
 			if (!data.error) {
 				commit("setUser", data);

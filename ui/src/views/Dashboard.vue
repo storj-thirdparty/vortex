@@ -86,7 +86,7 @@
 				</div>
 			</div>
 
-			<router-view v-if="isLoggedIn"></router-view>
+			<router-view></router-view>
 		</div>
 
 		<app-footer></app-footer>
@@ -118,22 +118,14 @@ export default {
 	watch: {
 		isLoggedIn(loggedIn) {
 			if (loggedIn === false) {
-				this.$router.push({
-					path: "/"
-				});
+				//this.$router.push({
+				////	path: "/"
+				//});
 			}
 		}
 	},
 	async created() {
 		await this.$store.dispatch("passiveLogin");
-
-		if (this.isLoggedIn === false) {
-			this.$router.push({
-				path: "/"
-			});
-
-			return;
-		}
 
 		this.$store.dispatch("getUsage");
 	}
