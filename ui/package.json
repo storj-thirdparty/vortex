@@ -14,7 +14,7 @@
 		"test": "jest test/**.js"
 	},
 	"dependencies": {
-		"@vue/cli": "4.5.8",
+		"@vue/cli": "4.5.12",
 		"aws-sdk": "2.880.0",
 		"axios": "0.21.1",
 		"human-readable-numbers": "0.9.5",
