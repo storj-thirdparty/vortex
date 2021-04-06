@@ -435,12 +435,10 @@ tbody {
 
 								<tr v-if="path.length > 0">
 									<td>
-										<router-link to="../">
-											<a
-												href="javascript:null"
-												v-on:click="back"
-												>..</a
-											>
+										<router-link v-bind:to="upperDirectory">
+											<span v-on:click="back">
+											..
+											</span>
 										</router-link>
 									</td>
 								</tr>
@@ -532,6 +530,7 @@ tbody {
 import axios from "axios";
 import FileEntry from "./FileEntry.vue";
 import BreadCrumbs from "./BreadCrumbs.vue";
+
 export default {
 	data: () => ({
 		s3: null,
@@ -547,6 +546,12 @@ export default {
 		dragAndDropDisplay: false,
 	}),
 	computed: {
+		upperDirectory() {
+			const pathArr = this.path.split("/");
+			pathArr.splice(-2, 1);
+			const path = pathArr.length > 1 ? pathArr.join('/'): "";
+			return "/app/browser/" + path;
+		},
 		createFolderEnabled() {
 			return (
 				this.createFolderInput.trim().length > 0 &&
@@ -662,7 +667,6 @@ export default {
 		async back() {
 			this.$store.dispatch("updateCreateFolderInputShow", false);
 			await this.$store.dispatch("openDropdown", null);
-			await this.$store.dispatch("files/back");
 		},
 		async buttonUpload() {
 			const fileInputElement = this.$refs.fileInput;
