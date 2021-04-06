@@ -1656,11 +1656,11 @@
   version "4.5.11"
   resolved "https://registry.npmjs.org/@vue/cli-overlay/-/cli-overlay-4.5.11.tgz"
 
-"@vue/cli-plugin-router@4.5.0", "@vue/cli-plugin-router@^4.4.6":
-  version "4.5.0"
-  resolved "https://registry.npmjs.org/@vue/cli-plugin-router/-/cli-plugin-router-4.5.0.tgz"
+"@vue/cli-plugin-router@4.5.12", "@vue/cli-plugin-router@^4.4.6":
+  version "4.5.12"
+  resolved "https://registry.yarnpkg.com/@vue/cli-plugin-router/-/cli-plugin-router-4.5.12.tgz#977c4b2b694cc03e9ef816112a5d58923493d0ac"
   dependencies:
-    "@vue/cli-shared-utils" "^4.5.0"
+    "@vue/cli-shared-utils" "^4.5.12"
 
 "@vue/cli-plugin-vuex@^4.4.6":
   version "4.5.11"
@@ -1723,9 +1723,9 @@
     webpack-dev-server "^3.11.0"
     webpack-merge "^4.2.2"
 
-"@vue/cli-shared-utils@^4.4.6", "@vue/cli-shared-utils@^4.5.0", "@vue/cli-shared-utils@^4.5.11", "@vue/cli-shared-utils@^4.5.8":
-  version "4.5.11"
-  resolved "https://registry.npmjs.org/@vue/cli-shared-utils/-/cli-shared-utils-4.5.11.tgz"
+"@vue/cli-shared-utils@^4.4.6", "@vue/cli-shared-utils@^4.5.11", "@vue/cli-shared-utils@^4.5.12", "@vue/cli-shared-utils@^4.5.8":
+  version "4.5.12"
+  resolved "https://registry.yarnpkg.com/@vue/cli-shared-utils/-/cli-shared-utils-4.5.12.tgz#0e0693d488336d284ffa658ff33b1ea22927d065"
   dependencies:
     "@hapi/joi" "^15.0.1"
     chalk "^2.4.2"
