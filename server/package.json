@@ -29,7 +29,7 @@
 		"sequelize": "6.3.5"
 	},
 	"devDependencies": {
-		"eslint": "^7.21.0",
+		"eslint": "^7.23.0",
 		"nodemon": "^2.0.6",
 		"prettier": "2.2.1",
 		"xo": "^0.38.2"
